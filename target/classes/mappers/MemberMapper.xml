@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.foring.member.mapper.MemberMapper">
+<!-- 	<select id="getTime" resultType="string"> -->
+<!-- 		SELECT SYSDATE  -->
+<!-- 		FROM dual -->
+<!-- 	</select> -->
+	
+	<insert id="join">
+		INSERT INTO tbl_member(username, email, userpw, usernick, termsstr)
+<!-- 		VALUES ('jch6630', '9712rhdclf!', '정찬호', 'jch6630@naver.com') -->
+		VALUES (#{username}, #{email}, #{userpw}, #{usernick}, #{termsstr})
+	</insert>
+	
+	<select id="joincheck" parameterType="String" resultType="Integer">
+		SELECT COUNT (*) FROM tbl_member WHERE usernick=#{usernick}
+	</select>
+
+<!-- 	<select id="login" resultType="kr.co.foring.member.domain.MemberDTO"> -->
+<!-- 		SELECT * FROM tbl_member WHERE usernick=#{usernick} AND userpw=#{userpw} -->
+<!-- 	</select> -->
+</mapper>

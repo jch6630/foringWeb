@@ -12,7 +12,7 @@
 	</appender>
 	
 	<!-- Application Loggers -->
-	<logger name="kr.co.springstudy">
+	<logger name="kr.co.foring">
 		<level value="info" />
 	</logger>
 	

@@ -1,10 +1,26 @@
 package kr.co.foring;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+
+import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import kr.co.foring.member.domain.MemberDTO;
+import kr.co.foring.member.service.IMemberService;
 import lombok.extern.log4j.Log4j;
 
 @Controller
@@ -12,183 +28,122 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 public class ForingController {
 
+	private static final Logger Logger = LoggerFactory.getLogger(ForingController.class);
+	
+	@Autowired
+    private JavaMailSender mailSender;
+	
+	@Autowired
+	private IMemberService service;
+	
 	@RequestMapping("/main")
-	public void basic() {
+	public void main() {
 		log.info("foring Web Start....................");
+		Logger.info("foring Web Start..........................");
 	}
-//
-//	@RequestMapping(value = "/basic", method = { RequestMethod.GET, RequestMethod.POST })
-//	public void basicGet() {
-//		Logger.info("basicGet1...........");
-//		log.info("basicGet2...........");
-//	}
-//
-//	@RequestMapping(value = "/basic1", method = RequestMethod.POST)
-//	public void basicPost() {
-//		Logger.info("basicPost3...........");
-//		log.info("basicPost4...........");
-//
-//	}
-//
-//	@RequestMapping(value = "/basic1", method = RequestMethod.GET)
-//	public void basicGet2() {
-//		Logger.info("basicGet7...........");
-//		log.info("basicGet8...........");
-//
-//	}
-//
-//	@GetMapping("/basicOnlyGet")
-//	public void basicGet3() {
-//		Logger.info("basic get only Get5...........");
-//		log.info("basic  get only Get6...........");
-//	}
-//
-//	@PostMapping("/basicOnlyGet")
-//	public void basicPost2() {
-//		Logger.info("basic get only Post5...........");
-//		log.info("basic  get only Post6...........");
-//	}
-//
-//	@GetMapping("/ex01")
-//	public String ex01(SampleDTO sDto, Model model) {
-//		log.info("log ====> " + sDto);
-//		Logger.info("logger ====> " + sDto);
-//
-//		model.addAttribute("exDto", sDto);
-//		return "ex01";
-//	}
-//
-//	@GetMapping("/ex02")
-//	public String ex02(@RequestParam("name") String superName, @RequestParam("age") int superAge) {
-//		log.info("superName : " + superName);
-//		log.info("superName : " + superAge);
-//		return "ex02";
-//	}
-//
-//	@GetMapping("/ex02List")
-//	public String ex02List(@RequestParam("ids") ArrayList<String> ids) {
-//		log.info("ids : " + ids);
-//		return "ex02List";
-//	}
-//	
-//	@GetMapping("/ex02Array")
-//	public String ex02Array(@RequestParam("ids") String[] ids) {
-//		log.info("Array ids : " + Arrays.toString(ids));
-//		return "ex02Array";
-//	}
-//	
-//	@GetMapping("/ex02Bean")
-//	public String ex02Bean(SampleDTOList list) {
-//		log.info("list dtos : " + list);
-//		return "ex02Bean";
-//	}
-//	
-////	@InitBinder
-////	public void initBinder(WebDataBinder binder) {
-////		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");
-////		binder.registerCustomEditor(java.util.Date.class,
-////		new CustomDateEditor(dateFormat, false));
-////	}
-//	
-//	@GetMapping("/ex03")
-//	public String ex03(TodoDTO todo) {
-//		log.info("todo : " + todo);
-//		return "ex03";
-//	}
-//	
-//	@RequestMapping("/sampleModel")
-//	public String sampleModel(Model model) {
-//		SampleDTO sampleDTO = new SampleDTO("홍길동", 10);
-//		log.info("sampleModel");
-//		
-//		model.addAttribute("sampleDto", sampleDTO);
-//		model.addAttribute("name", sampleDTO.getName());
-//		model.addAttribute("age", sampleDTO.getAge());
-//		return "/sample/sample";
-//	}
-//	
-//	@GetMapping("/ex04")
-//	public String ex04(SampleDTO sDto, @ModelAttribute("page") int page) {
-//		log.info("sDto : " + sDto);
-//		log.info("page : " + page);
-//		
-//		return "/sample/ex04";
-//	}
-//	
-//	@RequestMapping("/doE")
-//	public String doE(RedirectAttributes rttr) {
-//		log.info("doE 호출되지만 /doF로 리다이렉트..........");
-//		rttr.addFlashAttribute("msg", "리다이렉트된 메세지 입니다.");
-//		return "redirect:/sample/doF";
-//	}
-//	
-//	@RequestMapping("/doF")
-//	public String doF() {
-//		log.info("doF 호출 됨...........");
-//		return "/sample/redirectAttributeResult";
-//	}
-//	@RequestMapping("/ex05")
-//	public void ex05() {
-//		log.info("ex05..........");
-//	}
-//	
-//	@RequestMapping("/ex06")
-//	@ResponseBody
-//	public SampleDTO ex06() {
-//		log.info("/ex06.........");
-//		
-//		SampleDTO dto = new SampleDTO();
-//		dto.setName("홍길동");
-//		dto.setAge(30);
-//		
-//		return dto;
-//	}
-//	
-//	@RequestMapping("/ex06_1")
-//	public @ResponseBody Map<String, List<SampleDTO>> ex06_1(){
-//		log.info("/ex06_1...............");
-//		
-//		List<SampleDTO> list = new ArrayList<SampleDTO>();
-//		SampleDTO dto01 =new SampleDTO();
-//		dto01.setName("홍길동");
-//		dto01.setAge(30);
-//		list.add(dto01);
-//
-//		SampleDTO dto02 =new SampleDTO();
-//		dto02.setName("홍길동");
-//		dto02.setAge(30);
-//		list.add(dto02);
-//		
-//		Map<String, List<SampleDTO>> map = new HashMap<>();
-//		map.put("info", list);
-//		
-//		return map;
-//	}
-//	
-//	@RequestMapping("/ex07")
-//	public ResponseEntity<String> ex07(){
-//		log.info("/ex07.............");
-//		String msg ="{\"name\":\"홍길동\"}";
-//		
-//		HttpHeaders header = new HttpHeaders();
-//		header.add("Content-type", "application/json;charset=UTF-8");
-//		
-//		return new ResponseEntity<>(msg, header, HttpStatus.OK);
-//	}
-//	
-//	@RequestMapping(value = "/exFileUpload", method=RequestMethod.GET)
-//	public void exFileUpload() {
-//		log.info("/exFileUpload...........");
-//	}
-//	
-//	@RequestMapping(value = "/exUploadPost", method=RequestMethod.POST)
-//	public void exUploadPost(ArrayList<MultipartFile> files) throws Exception {
-//		log.info("/exUploadPost..............");
-//		
-//		files.forEach(file -> {
-//			log.info("-----------------------------------");
-//			log.info("fileName : " + file.getOriginalFilename());
-//			log.info("fileSize : " + file.getSize());
-//		});
-//	}
+
+	@RequestMapping("/join")
+	public void join() {
+		log.info("foring Web Join Start....................");
+		Logger.info("foring Web Join Start....................");
+	}
+	
+	@RequestMapping(value = "/join", method = RequestMethod.POST)
+	public String joinPost(MemberDTO mDto, HttpSession session, Model model) {
+		service.join(mDto);
+		log.info("mDto ====> " + mDto);
+		Logger.info("mDto ====> " + mDto);
+		String returnURL = "";
+		return returnURL;
+	}
+	
+	@RequestMapping("/checkJoinNick")
+	@ResponseBody
+    public Integer checkJoinNickPost(HttpServletResponse res, HttpServletRequest req, Model model) {
+		String usernick = req.getParameter("usernick");
+		Integer checkJoinNickPostResult = service.joincheck(usernick);
+        log.info("usernick ====> " + usernick);
+		log.info("memInfo ====> " + checkJoinNickPostResult);
+		Logger.info("memInfo ====> " + checkJoinNickPostResult);
+		
+        return checkJoinNickPostResult;
+    }
+
+	@RequestMapping(value="/mailCheck", method=RequestMethod.GET)
+    @ResponseBody
+    public String mailCheckGET(String email) throws Exception{
+        
+        /* 뷰(View)로부터 넘어온 데이터 확인 */
+		Logger.info("이메일 데이터 전송 확인");
+		Logger.info("email : " + email);
+                
+		/* 인증번호(난수) 생성 */
+//        Random random = new Random();
+        int checkNum = 111111;
+//        int checkNum = random.nextInt(888888) + 111111;
+        Logger.info("인증번호 : " + checkNum);
+        
+        /* 이메일 보내기 */
+        String setFrom = "jch6630@naver.com";
+        String toMail = email;
+        String title = "[Foring]회원가입 인증 이메일 입니다.";
+        String content = "Foring에 방문해주셔서 감사합니다." +
+			             "<br><br>" + 
+			             "인증 번호는 " + checkNum + "입니다." + 
+			             "<br>" + 
+			             "해당 인증번호를 인증번호 확인란에 기입하여 주세요.";
+        try {
+            
+            MimeMessage message = mailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
+            helper.setFrom(setFrom);
+            helper.setTo(toMail);
+            helper.setSubject(title);
+            helper.setText(content,true);
+            mailSender.send(message);
+            
+        }catch(Exception e) {
+            e.printStackTrace();
+        }
+        String num = Integer.toString(checkNum);
+        
+        return num;
+        
+    }
+	
+	@RequestMapping(value="/domainCheck", method=RequestMethod.GET)
+	@ResponseBody
+	public boolean domainCheckGET(String domain) throws Exception{
+		boolean domainCheck = false;
+		/* 뷰(View)로부터 넘어온 데이터 확인 */
+		Logger.info("이메일 데이터 전송 확인");
+		Logger.info("email : " + domain);
+		
+		try{   
+		     InetAddress ipaddress = InetAddress.getByName(domain);
+		     System.out.println("IP address: " + ipaddress.getHostAddress());
+		     domainCheck = true;
+		     } catch ( UnknownHostException e )    {    
+		       System.out.println("Could not find IP address for: " + domain);   
+		     }
+		
+		return domainCheck;
+		
+	}
+	
+	@RequestMapping("/login")
+	public void login() {
+		log.info("foring Web login Start....................");
+		Logger.info("foring Web login Start....................");
+	}
+	
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	public String loginPost(MemberDTO mDto, HttpSession session, Model model) {
+		service.join(mDto);
+		log.info("mDto ====> " + mDto);
+		Logger.info("mDto ====> " + mDto);
+		String returnURL = "";
+		return returnURL;
+	}
+	
 }

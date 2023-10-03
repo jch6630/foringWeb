@@ -19,21 +19,21 @@
 		<beans:property name="maxUploadSize" value="10485760"></beans:property>
 	</beans:bean>
 	
-	<beans:bean id="LoginInterceptor" class="kr.co.foring.interceptor.LoginInterceptor"/>
-	<beans:bean id="AuthInterceptor" class="kr.co.foring.interceptor.AuthInterceptor"/>
+<!-- 	<beans:bean id="LoginInterceptor" class="kr.co.foring.interceptor.LoginInterceptor"/> -->
+<!-- 	<beans:bean id="AuthInterceptor" class="kr.co.foring.interceptor.AuthInterceptor"/> -->
 	
-	<interceptors>
-		<interceptor>
-		 	<mapping path="/member/loginPost"/>
-		 	<beans:ref bean="LoginInterceptor"/>
-		</interceptor>
-		<interceptor>
-		 	<mapping path="/board/register"/>
-		 	<mapping path="/board/modify"/>
-		 	<mapping path="/board/remove"/>
-		 	<beans:ref bean="AuthInterceptor"/>
-		</interceptor>
-	</interceptors>
+<!-- 	<interceptors> -->
+<!-- 		<interceptor> -->
+<!-- 		 	<mapping path="/member/loginPost"/> -->
+<!-- 		 	<beans:ref bean="LoginInterceptor"/> -->
+<!-- 		</interceptor> -->
+<!-- 		<interceptor> -->
+<!-- 		 	<mapping path="/board/register"/> -->
+<!-- 		 	<mapping path="/board/modify"/> -->
+<!-- 		 	<mapping path="/board/remove"/> -->
+<!-- 		 	<beans:ref bean="AuthInterceptor"/> -->
+<!-- 		</interceptor> -->
+<!-- 	</interceptors> -->
 	
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
