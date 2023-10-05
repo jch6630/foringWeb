@@ -44,6 +44,10 @@
 			$(".loginbutton").on("click", function(e){
 				location.href = "/foring/main";
 			});
+			
+			$(".joinbutton").on("click", function(){
+				location.href = "/foring/join";
+			});
 		});
 	</script>
 	</head>

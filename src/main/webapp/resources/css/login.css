@@ -37,39 +37,71 @@
 .jointext>h1{
 	margin:0px;
 }
-/* ///////////////약관 동의란/////////////////// */
-.terms{
+/* ///////////////SNS 로그인 및 기능 버튼/////////////////// */
+#snsfuncbtn{
 /* 	background-color: yellow; */
 	height: 520px;
 	width: 30%;
 	position: absolute;
 	top: 210px;
-	left: 17.5%;
+	left: 52.5%;
 }
-.termstable{
-/* 	background-color: blue; */
-	height: 480px;
-	width: 99%;
+#emailsearch{
+	border: none;
+	background-color: #96aedc;
+	height: 80px;
+	width: 47%;
 	position: absolute;
-	top: 20px;
-	left: 0.5%;
-	font-size: 120%;
-	border-collapse: collapse;
+	top: 100px;
+	left: 2%;
+	font-size: 130%;
 }
-.termstable tr:nth-child(1){
-	border-bottom: 1px solid black;
+#pwchg{
+	border: none;
+	background-color: #96aedc;
+	height: 80px;
+	width: 47%;
+	position: absolute;
+	top: 100px;
+	left: 51%;
+	font-size: 130%;
 }
-.termstable tr:nth-child(4){
-	border-bottom: 1px dashed #96aedc;
+#joinbtn{
+	border: none;
+	background-color: #96aedc;
+	height: 80px;
+	width: 96%;
+	position: absolute;
+	top: 230px;
+	left: 2%;
+	font-size: 130%;
 }
-.termstable tr:nth-child(5){
-	font-size: 90%;
+#kakaologinbtn{
+	border: none;
+/* 	background-color: #96aedc; */
+	height: 90px;
+/* 	width: 29.15%; */
+	position: absolute;
+	top: 360px;
+	left: 10%;
 }
-.termstable tr:nth-child(6){
-	font-size: 90%;
+#naverloginbtn{
+	border: none;
+/* 	background-color: #96aedc; */
+	height: 90px;
+/* 	width: 29.15%; */
+	position: absolute;
+	top: 360px;
+	left: 42.5%;
 }
-.termstable tr td span{
-	color: red;
+#googleloginbtn{
+	border: none;
+/* 	background-color: #96aedc; */
+	height: 90px;
+/* 	width: 29.15%; */
+	position: absolute;
+	top: 360px;
+	left: 75%;
 }
 /* ////////////////////////////////////////// */
 /* /////////////////파티션//////////////////// */
@@ -83,8 +115,8 @@
 }
 /* ////////////////////////////////////////// */
 /* //////////////회원 정보 입력란/////////////// */
-#memberinfo{
-	background-color: green;
+#membersearch{
+	/* background-color: green; */
 /* 	height: 500px; */
 /* 	width: 30%; */
 /* 	position: absolute; */
@@ -96,232 +128,58 @@
 	top: 210px;
 	left: 17.5%;
 }
-#username{
-	border: none;
-	background-color: #96aedc;
-	height: 40px;
-	width: 96%;
-	position: absolute;
-	top: 10px;
-	left: 2%;
-}
-#usernameguide{
-	border: none;
-	height: 30px;
-	width: 96%;
-	position: absolute;
-	top: 50px;
-	left: 2%;
-}
 #email{
 	border: none;
 	background-color: #96aedc;
-	height: 40px;
-	width: 76%;
+	height: 80px;
+	width: 96%;
 	position: absolute;
-	top: 80px;
+	top: 100px;
 	left: 2%;
-}
-#emailnum{
-	border: none;
-	background-color: #858585;
-	height: 42px;
-	width: 19%;
-	position: absolute;
-	top: 80px;
-	left: 79.5%;
+	font-size: 130%;
 }
 #emailguide{
 	border: none;
-	height: 30px;
+	height: 50px;
 	width: 96%;
 	position: absolute;
-	top: 120px;
-	left: 2%;
-}
-#emailcheck{
-	border: none;
-	background-color: #96aedc;
-	height: 40px;
-	width: 66%;
-	position: absolute;
-	top: 150px;
-	left: 2%;
-}
-#emailnumcheck{
-	border: none;
-	background-color: #858585;
-	height: 42px;
-	width: 10%;
-	position: absolute;
-	top: 150px;
-	left: 68.55%;
-}
-#emailnumre{
-	border: none;
-	background-color: #858585;
-	height: 42px;
-	width: 19%;
-	position: absolute;
-	top: 150px;
-	left: 79.5%;
-}
-#emailcheckguide{
-	border: none;
-	height: 30px;
-	width: 96%;
-	position: absolute;
-	top: 190px;
-	left: 2%;
-}
-#usernick{
-	border: none;
-	background-color: #96aedc;
-	height: 40px;
-	width: 76%;
-	position: absolute;
-	top: 220px;
-	left: 2%;
-}
-#usernickcheck{
-	border: none;
-	background-color: #858585;
-	height: 42px;
-	width: 19%;
-	position: absolute;
-	top: 220px;
-	left: 79.7%;
-}
-#nickguide{
-	border: none;
-	height: 30px;
-	width: 96%;
-	position: absolute;
-	top: 260px;
+	top: 180px;
 	left: 2%;
 }
 #userpw{
 	border: none;
 	background-color: #96aedc;
-	height: 40px;
+	height: 80px;
 	width: 96%;
 	position: absolute;
-	top: 290px;
+	top: 230px;
 	left: 2%;
+	font-size: 130%;
 }
 #userpwguide{
 	border: none;
-	height: 30px;
+	height: 50px;
 	width: 96%;
 	position: absolute;
-	top: 330px;
+	top: 310px;
 	left: 2%;
 }
-#userpwcheck{
+#loginbtn{
 	border: none;
 	background-color: #96aedc;
-	height: 40px;
-	width: 96%;
-	position: absolute;
-	top: 360px;
-	left: 2%;
-}
-#userpwcheckguide{
-	border: none;
-	height: 30px;
-	width: 96%;
-	position: absolute;
-	top: 400px;
-	left: 2%;
-}
-#joinbtn{
-	border: none;
-	background-color: gray;
-	height: 50px;
+	height: 90px;
 	width: 29.15%;
 	position: absolute;
-	top: 650px;
+	top: 570px;
 	left: 18%;
 }
 #meminfoinput>input::placeholder{
 	color: white;
 }
-#joinbtn span{
+#loginbtn span{
 	font-size: 150%;
 	color: white;
 	font-weight: bold;
-}
-/* ////////////////////////////////////////// */
-/* ////////////////모달 창//////////////////// */
-.popupBtn{
-	display: table-cell;
-	float: right;
-	margin:auto;
-	margin-right: 5%;
-	background: none;
-	border: none;
-	outline: 1px solid blue;
-}
-.btnWrap{
-	color: blue;
-}
-#t2modal{
-	display: none;
-	height: 500px;
-	width: 30%;
-	background-color: white;
-	position: absolute;
-	top: 220px;
-	left: 52.5%;
-}
-#t3modal{
-	display: none;
-	height: 500px;
-	width: 30%;
-	background-color: white;
-	position: absolute;
-	top: 220px;
-	left: 52.5%;
-}
-#t4modal{
-	display: none;
-	height: 500px;
-	width: 30%;
-	background-color: white;
-	position: absolute;
-	top: 220px;
-	left: 52.5%;
-}
-#t5modal{
-	display: none;
-	height: 500px;
-	width: 30%;
-	background-color: white;
-	position: absolute;
-	top: 220px;
-	left: 52.5%;
-}
-.closeBtn{
-	font-size: 20px;
-	float: right;
-	background: none;
-	border: none;
-}
-#t2modal textarea{
-	height: 500px;
-	width: 98%;
-}
-#t3modal textarea{
-	height: 500px;
-	width: 98%;
-}
-#t4modal textarea{
-	height: 500px;
-	width: 98%;
-}
-#t5modal textarea{
-	height: 500px;
-	width: 98%;
 }
 /* ////////////////////////////////////////// */
 /* //////////////호버 이벤트/////////////////// */
