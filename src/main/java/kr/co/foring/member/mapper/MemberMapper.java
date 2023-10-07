@@ -6,5 +6,6 @@ public interface MemberMapper {
 	
 	public void join(MemberDTO memberDto);
 	public Integer joincheck(MemberDTO mDto);
+	public MemberDTO login(MemberDTO memberDto);
 	
 }

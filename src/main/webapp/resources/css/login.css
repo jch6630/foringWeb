@@ -1,23 +1,30 @@
 @charset "UTF-8";
-
-.joinback{
+ html, body {
+        width: 99.5%;
+        height: 99.4%;
+      }
+.back{
 	position: relative;
-}
-.joinbackimg{
-	height: 943px;
+	background-color: #3057b9;
 	width: 100%;
+    height: 100%;
+}
+.backimg{
+	max-height: 100%;
+	max-width: 100%;
 	position: absolute;
 	top: 0px;
 	left: 0px;
+	vertical-align: middle;
 }
-.joinforinglogo{
+.foringlogo{
 /* 	height: 600px; */
 	width: 12%;
 	position: absolute;
 	top:80px;
 	left: 45%;
 }
-.joinwhiteboard{
+.whiteboard{
 	background-color: white;
 	height: 600px;
 	width: 70%;
@@ -26,7 +33,7 @@
 	left: 15%;
 	opacity: 85%;
 }
-.jointext{
+.logintext{
 	height: 32px;
 	font-size:16px;
 	display: inline-block;
@@ -34,7 +41,7 @@
 	top: 10px;
 	left: 2%;
 }
-.jointext>h1{
+.logintext>h1{
 	margin:0px;
 }
 /* ///////////////SNS 로그인 및 기능 버튼/////////////////// */
@@ -77,6 +84,7 @@
 	font-size: 130%;
 }
 #kakaologinbtn{
+	border-radius: 70%;
 	border: none;
 /* 	background-color: #96aedc; */
 	height: 90px;
@@ -85,7 +93,12 @@
 	top: 360px;
 	left: 10%;
 }
+#kakaologinbtnimg{
+	max-width: 100%;
+    max-height: 100%;
+}
 #naverloginbtn{
+	border-radius: 70%;
 	border: none;
 /* 	background-color: #96aedc; */
 	height: 90px;
@@ -93,8 +106,14 @@
 	position: absolute;
 	top: 360px;
 	left: 42.5%;
+	overflow: hidden;
+}
+#naverloginbtnimg{
+	max-width: 100%;
+    max-height: 100%;
 }
 #googleloginbtn{
+	border-radius: 70%;
 	border: none;
 /* 	background-color: #96aedc; */
 	height: 90px;
@@ -102,6 +121,11 @@
 	position: absolute;
 	top: 360px;
 	left: 75%;
+	overflow: hidden;
+}
+#googleloginbtnimg{
+	max-width: 100%;
+    max-height: 100%;
 }
 /* ////////////////////////////////////////// */
 /* /////////////////파티션//////////////////// */
@@ -127,6 +151,16 @@
 	position: absolute;
 	top: 210px;
 	left: 17.5%;
+}
+#loginstatus{
+	border: none;
+	height: 50px;
+	width: 96%;
+	position: absolute;
+	top: 50px;
+	left: 2%;
+	display: none;
+	color: red;
 }
 #email{
 	border: none;

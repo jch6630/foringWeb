@@ -15,6 +15,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -139,10 +140,19 @@ public class ForingController {
 	
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String loginPost(MemberDTO mDto, HttpSession session, Model model) {
-		service.join(mDto);
+		String returnURL = "";
+		service.login(mDto);
 		log.info("mDto ====> " + mDto);
 		Logger.info("mDto ====> " + mDto);
-		String returnURL = "";
+		MemberDTO memInfo = service.login(mDto);
+		log.info("memInfo ====> " + memInfo);
+		Logger.info("memInfo ====> " + memInfo);
+		if (memInfo == null) {
+			model.addAttribute("memInfo", memInfo);
+			return "redirect:/foring/login";
+		} 
+		
+		model.addAttribute("memInfo", memInfo);
 		return returnURL;
 	}
 	

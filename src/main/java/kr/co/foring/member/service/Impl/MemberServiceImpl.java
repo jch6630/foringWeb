@@ -30,5 +30,10 @@ public class MemberServiceImpl implements IMemberService{
 		log.info("joincheck MemberServiceImpl ====>" + mapper.joincheck(mDto));
 		return mapper.joincheck(mDto);
 	}
+	
+	@Override
+	public MemberDTO login(MemberDTO mDto) {
+		return mapper.login(mDto);
+	}
 
 }

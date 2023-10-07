@@ -29,24 +29,36 @@
 // 				$("#"+e.target.id).removeClass("hoverEffect");
 			});
 			
-			/*//////////////////////////////////////유효성 검사//////////////////////////////// */
-			
-			
-			
 			/* ///////////////////////////////////////////////////////////////////////////// */
 			
 			/* 로그인 정보 전송 */
 			$("#loginbtn").on("click", function(e){
-				
-				alert(termsstr);
-				alert("ok");
+				if($("#email").val() != "" && $("#userpw").val() != "") {
+					
+				alert("${login.userid}님, 로그인되었습니다.")
 				
 				e.preventDefault();
 				
 				$("#meminfoinput").serialize();
 // 			    $("#meminfoinput").attr('method', 'POST');
-			    $("#meminfoinput").attr('action', '${ctx}/foring/main');
-				$("#meminfoinput").submit();
+			    $("#meminfoinput").attr('action', '${ctx}/foring/login');
+				$("#loginstatus").css("display", "block");
+				}
+				else{
+					if ($("#email").val() == "") {
+						$("#emailguide").html("※계정을 입력해주세요.").css("color", "red" );
+					}
+					else{
+						$("#emailguide").empty();
+					}
+					if ($("#userpw").val() == "") {
+						$("#userpwguide").html("※비밀번호를 입력주세요.").css("color", "red" );
+					}
+					else{
+						$("#userpwguide").empty();
+					}
+					
+				}
 			});
 			
 			/* 회원가입 버튼 클릭 */
@@ -59,17 +71,20 @@
 	</script>
 	</head>
 	<body>
-		<div class="joinback">
-			<img class="joinbackimg" alt="../resources/images/no_img.png" src="../resources/images/loginjoinbackimg.png">
-			<img class="joinforinglogo" alt="../resources/images/no_img.png" src="../resources/images/foringlogo.png">
-			<div class="joinwhiteboard">
-				<div class="jointext">
+		<div class="back">
+			<img class="backimg" alt="../resources/images/no_img.png" src="../resources/images/loginjoinbackimg.png">
+			<img class="foringlogo" alt="../resources/images/no_img.png" src="../resources/images/foringlogo.png">
+			<div class="whiteboard">
+				<div class="logintext">
 					<h1><strong>로그인</strong></h1>
 				</div>
 			</div>
 			<div class="partition"></div>
 			<div id="membersearch">
 				<form id="meminfoinput" role="form" action="${ctx}/foring/main" method="post">
+					<c:if test="${memInfo == NULL}">
+						<div id="loginstatus" >※계정 및 비밀번호를 잘못 입력하셨습니다.</div>
+					</c:if>
 					<input type="email" id="email" name="email" maxlength="30" placeholder="이메일을 입력해주세요.">
 					<div id="emailguide"></div>
 					<input type="password" id="userpw" name="userpw" maxlength="30" placeholder="비밀번호를 입력해주세요.">
@@ -88,11 +103,17 @@
 				<button type="button" class="btn" id="joinbtn">
 					<span>회원가입</span>
 				</button>
-				<img alt="../resources/images/no_img.png" src="../resources/images/kakaologinbtn.png" class="btn" id="kakaologinbtn">
-				<img alt="../resources/images/no_img.png" src="../resources/images/naverloginbtn.png" class="btn" id="naverloginbtn">
-				<img alt="../resources/images/no_img.png" src="../resources/images/googleloginbtn.png" class="btn" id="googleloginbtn">
+				<div class="btn" id="kakaologinbtn">
+					<img alt="../resources/images/no_img.png" src="../resources/images/kakaologinbtn.png" id="kakaologinbtnimg">
+				</div>
+				<div class="btn" id="naverloginbtn">
+					<img alt="../resources/images/no_img.png" src="../resources/images/naverloginbtn.png" id="naverloginbtnimg">
+				</div>
+				<div class="btn" id="googleloginbtn">
+					<img alt="../resources/images/no_img.png" src="../resources/images/googleloginbtn.png" id="googleloginbtnimg">
+				</div>
 			</div>
-			<button type="button" class="btn" id="loginbtn" disabled="disabled">
+			<button type="button" class="btn" id="loginbtn">
 				<span>로그인</span>
 			</button>
 		</div>

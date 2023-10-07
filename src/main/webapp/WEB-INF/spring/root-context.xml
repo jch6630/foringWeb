@@ -17,7 +17,7 @@
 	<!-- HikariCp Oracle 설정 -->
 	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
 		<property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"></property>
-		<property name="jdbcUrl" value="jdbc:log4jdbc:oracle:thin:@localhost:1521:xe"></property>
+		<property name="jdbcUrl" value="jdbc:log4jdbc:oracle:thin:@192.168.0.3:1521:xe"></property>
 		<property name="username" value="jeong"></property>
 		<property name="password" value="cksgh"></property>
 	</bean>

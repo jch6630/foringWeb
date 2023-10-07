@@ -18,7 +18,7 @@
 		SELECT COUNT (*) FROM tbl_member WHERE usernick=#{usernick}
 	</select>
 
-<!-- 	<select id="login" resultType="kr.co.foring.member.domain.MemberDTO"> -->
-<!-- 		SELECT * FROM tbl_member WHERE usernick=#{usernick} AND userpw=#{userpw} -->
-<!-- 	</select> -->
+	<select id="login" resultType="kr.co.foring.member.domain.MemberDTO">
+		SELECT * FROM tbl_member WHERE email=#{email} AND userpw=#{userpw}
+	</select>
 </mapper>

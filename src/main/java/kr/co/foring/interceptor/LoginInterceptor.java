@@ -29,7 +29,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 			Object dest = session.getAttribute("dest");
 			
 			if (dest == null) {
-				dest = "/board/list";
+				dest = "/foring/main";
 			}
 			
 			log.info("LoginInterceptor Dest : " + dest);
