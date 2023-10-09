@@ -35,9 +35,9 @@ public class MemberServiceImpl implements IMemberService{
 	public MemberDTO login(MemberDTO mDto) {
 		log.info("login service impl 진입...........");
 		log.info("login service impl 매개변수값 : " + mDto + "...........");
-//		MemberDTO sermDto = mapper.login(mDto);
-		log.info("login service impl 반환값 : " + mapper.login(mDto) + "...........");
-		return null;
+		MemberDTO sermDto = mapper.login(mDto);
+		log.info("login service impl 반환값 : " + sermDto + "...........");
+		return sermDto;
 	}
 
 }

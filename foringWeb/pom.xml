@@ -233,7 +233,22 @@
             <version>${org.springframework-version}</version>
         </dependency>
 
-		      
+		<!-- websocket 통신 -->   
+		<!-- https://mvnrepository.com/artifact/org.springframework/spring-websocket -->
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-websocket</artifactId>
+		    <version>${org.springframework-version}</version>
+		</dependency>
+		
+		<!-- json simple  -->
+		<dependency>
+			<groupId>com.googlecode.json-simple</groupId>
+			<artifactId>json-simple</artifactId>
+			<version>1.1.1</version>
+		</dependency>
+		<!-- json simple  -->
+		
 	</dependencies>
     <build>
         <plugins>

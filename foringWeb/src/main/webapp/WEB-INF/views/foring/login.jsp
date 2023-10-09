@@ -41,7 +41,7 @@
 				
 				$("#meminfoinput").serialize();
 // 			    $("#meminfoinput").attr('method', 'POST');
-			    $("#meminfoinput").attr('action', '${ctx}/foring/login');
+			    $("#meminfoinput").attr('action', '${ctx}/foring/loginPost');
 			    $("#meminfoinput").submit();
 				$("#loginstatus").css("display", "block");
 				}

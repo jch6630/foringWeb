@@ -41,6 +41,19 @@ public class ForingController {
 		log.info("foring Web Start....................");
 		Logger.info("foring Web Start..........................");
 	}
+	
+	@RequestMapping("/mainchat")
+	@ResponseBody
+	public void chat(Model model,HttpServletRequest req) {
+		log.info("[Controller] : mainchat");
+//		CustomUser user = (CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String usernick = req.getParameter("usernick");
+		
+		log.info("==================================");
+		log.info("@ChatController, GET Chat / Usernick : " + usernick);
+		
+		model.addAttribute("usernick", usernick);
+	}
 
 	@RequestMapping("/join")
 	public void join() {
@@ -137,7 +150,7 @@ public class ForingController {
 		Logger.info("foring Web login Start....................");
 	}
 	
-	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	@RequestMapping(value = "/loginPost", method = RequestMethod.POST)
 	public String loginPost(MemberDTO mDto, HttpSession session, Model model) {
 		String returnURL = "";
 		log.info("mDto ====> " + mDto);

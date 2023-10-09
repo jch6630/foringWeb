@@ -163,33 +163,94 @@
 				<!-- 웹 채팅 구현 -->
 			</div>
 		</div>
+	<script type="text/javascript"
+	src="https://cdn.jsdelivr.net/npm/sockjs-client@1.6.1/dist/sockjs.min.js"></script>
 	<script type="text/javascript">
-		const Chat = (function(){
-		    const myName = "blue";
 		 
-		    // init 함수
-		    function init() {
-		        // enter 키 이벤트
-		        $(document).on('keydown', '#chattingbox', function(e){
-		        	
+	    const usernick = "${login.usernick}";
+	    
+        let sock = new SockJS("/mc");
+		sock.onclose = onClose;
+		sock.onmessage = onMessage;
+			
+	        // enter 키 이벤트
+	        $('#chattingbox').on('keydown', function(e){
 		            if(e.keyCode == 13 && !e.shiftKey) {
 			        	if($(this).val() == ""){
 			        		alert("메세지를 입력해주세요.");
 			        		return false;
 			        	}
+			        	else{
 		                e.preventDefault();
-		                const message = $(this).val();
+		                
 		 
 		                // 메시지 전송
-		                sendMessage(message);
+// 		                sendMessage($("#chattingbox").val());
+		                sendMessage($("#chattingbox").val());
 		                // 입력창 clear
 		                clearText();
+			        	}
 		            }
-		        });
+	    	});
+	
+		    // 메세지 전송
+		    function sendMessage(message) {
+		 		alert("sendMessage");
+		        const data = {
+		            senderNick : usernick,
+		            message : message
+		        };
+		        sock.send(JSON.stringify(data));
+		        // 서버로부터 메세지를 받기
+// 	            onMessage();
 		    }
+		    
+		 	// 서버로부터 메세지를 받았을 때
+			function onMessage(msg) {
+				alert("onMessage");
+		 		alert(msg);
+		 		alert(JSON.stringify(msg));
+		 		
+// 		 	    var data = msg.data;
+// 		 		alert(data);
+// 		 		alert(JSON.stringify(data));
+		 		// Json 데이터 파싱
+		 	    var obj = msg.data;
+		 		alert(obj);
+		 		alert(JSON.stringify(obj));
+		 		
+				var data = JSON.parse(obj);
+		 		alert(data);
+		 		alert(JSON.stringify(data));
+// 				$("#messageArea").append(data + "<br/>");
+		        resive(data);
+			}
+	        	
+		    // 메세지 수신
+		    function resive(data) {
+				alert("resive");
+				alert(data.senderNick);
+				alert(data.message);
+		        const LR = (data.senderNick != "${login.usernick}")? "left" : "right";
+		        appendMessageTag(LR, data.senderNick, data.message);
+		    }
+		    
+		    // 메세지 태그 append
+		    function appendMessageTag(LR_className, senderNick, message) {
+				alert("appendMessageTag");
+				alert("senderNick : " + senderNick);
+				alert("message : " + message);
+		        const chatLi = createMessageTag(LR_className, senderNick, message);
 		 
+		        $('div.chat:not(.format) ul').append(chatLi);
+		 
+		        // 스크롤바 아래 고정
+		        $('div.chat').scrollTop($('div.chat').prop('scrollHeight'));
+		    }
+		    
 		    // 메세지 태그 생성
-		    function createMessageTag(LR_className, senderName, message) {
+		    function createMessageTag(LR_className, senderNick, message) {
+				alert("createMessageTag");
 		        // 형식 가져오기
 		        let chatLi = $('div.chat.format ul li').clone();
 		        
@@ -202,61 +263,30 @@
 		 		let hr = now.getHours();
 		 		let min = now.getMinutes();
 		 		let sec = now.getSeconds();
-		 		
-		 		
 		        
 		        // 값 채우기
 		        chatLi.addClass(LR_className);
 		        
-		        chatLi.find('.sender span').html("<strong>" + senderName + "</strong>");
+		        chatLi.find('.sender span').html("<strong>" + senderNick + "</strong>");
 		        chatLi.find('.message span').html(message);
 		        chatLi.find('.senddate span').html("(" + year + "-" + month + "-" + date + "&nbsp"
-						  							+ hr + "-" + min + "-" + sec + ")");
+						  							+ hr + ":" + min + ")");
 		 
 		        return chatLi;
 		    }
 		 
-		    // 메세지 태그 append
-		    function appendMessageTag(LR_className, senderName, message) {
-		        const chatLi = createMessageTag(LR_className, senderName, message);
-		 
-		        $('div.chat:not(.format) ul').append(chatLi);
-		 
-		        // 스크롤바 아래 고정
-		        $('div.chat').scrollTop($('div.chat').prop('scrollHeight'));
-		    }
-		 
-		    // 메세지 전송
-		    function sendMessage(message) {
-		        // 서버에 전송하는 코드로 후에 대체
-		        const data = {
-		            "senderName"    : "blue",
-		            "message"        : message
-		        };
-		 
-		        // 통신하는 기능이 없으므로 여기서 receive
-		        resive(data);
-		    }
-		 
 		    // 메세지 입력박스 내용 지우기
 		    function clearText() {
+				alert("clearText");
 		        $('#chattingbox').val('');
 		    }
 		 
-		    // 메세지 수신
-		    function resive(data) {
-		        const LR = (data.senderName != myName)? "left" : "right";
-		        appendMessageTag("right", data.senderName, data.message);
-		    }
-		 
-		    return {
-		        'init': init
-		    };
-		})();
-		 
-		$(function(){
-		    Chat.init();
-		});
+		    
+		 	// 서버와 연결을 끊었을 때
+			function onClose() {
+				$("#chattingbox").attr("placeholder", "연결 끊김");
+			}
+	 
 	</script>
 	</section>
 <%@ include file="../includes/footer.jsp" %>
