@@ -15,6 +15,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -42,18 +43,18 @@ public class ForingController {
 		Logger.info("foring Web Start..........................");
 	}
 	
-	@RequestMapping("/mainchat")
-	@ResponseBody
-	public void chat(Model model,HttpServletRequest req) {
-		log.info("[Controller] : mainchat");
-//		CustomUser user = (CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		String usernick = req.getParameter("usernick");
-		
-		log.info("==================================");
-		log.info("@ChatController, GET Chat / Usernick : " + usernick);
-		
-		model.addAttribute("usernick", usernick);
-	}
+//	@RequestMapping("/mainchat")
+//	@ResponseBody
+//	public void chat(Model model,HttpServletRequest req) {
+//		log.info("[Controller] : mainchat");
+////		CustomUser user = (CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//		String usernick = req.getParameter("usernick");
+//		
+//		log.info("==================================");
+//		log.info("@ChatController, GET Chat / Usernick : " + usernick);
+//		
+//		model.addAttribute("usernick", usernick);
+//	}
 
 	@RequestMapping("/join")
 	public void join() {
@@ -165,6 +166,18 @@ public class ForingController {
 		
 		model.addAttribute("memInfo", memInfo);
 		return returnURL;
+	}
+	
+	@GetMapping("/logout")
+	public String logout(HttpSession session) {
+		log.info("logout........................");
+		Object obj = session.getAttribute("login");
+		
+		if (obj != null) {
+			session.removeAttribute("login");
+			session.invalidate();
+		}
+		return "redirect:/foring/main";
 	}
 	
 }

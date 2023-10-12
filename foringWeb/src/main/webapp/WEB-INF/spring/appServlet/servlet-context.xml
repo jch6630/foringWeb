@@ -30,19 +30,19 @@
 	</beans:bean>
 	
 	<beans:bean id="LoginInterceptor" class="kr.co.foring.interceptor.LoginInterceptor"/>
-<!-- 	<beans:bean id="AuthInterceptor" class="kr.co.foring.interceptor.AuthInterceptor"/> -->
+	<beans:bean id="AuthInterceptor" class="kr.co.foring.interceptor.AuthInterceptor"/>
 	
 	<interceptors>
 		<interceptor>
 		 	<mapping path="/foring/loginPost"/>
 		 	<beans:ref bean="LoginInterceptor"/>
 		</interceptor>
-<!-- 		<interceptor> -->
-<!-- 		 	<mapping path="/foring/register"/> -->
+		<interceptor>
+		 	<mapping path="/mc"/>
 <!-- 		 	<mapping path="/foring/modify"/> -->
 <!-- 		 	<mapping path="/foring/remove"/> -->
-<!-- 		 	<beans:ref bean="AuthInterceptor"/> -->
-<!-- 		</interceptor> -->
+		 	<beans:ref bean="AuthInterceptor"/>
+		</interceptor>
 	</interceptors>
 	
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->

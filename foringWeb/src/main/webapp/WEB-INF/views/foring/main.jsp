@@ -195,7 +195,7 @@
 	
 		    // 메세지 전송
 		    function sendMessage(message) {
-		 		alert("sendMessage");
+// 		 		alert("sendMessage");
 		        const data = {
 		            senderNick : usernick,
 		            message : message
@@ -207,39 +207,39 @@
 		    
 		 	// 서버로부터 메세지를 받았을 때
 			function onMessage(msg) {
-				alert("onMessage");
-		 		alert(msg);
-		 		alert(JSON.stringify(msg));
+// 				alert("onMessage");
+// 		 		alert(msg);
+// 		 		alert(JSON.stringify(msg));
 		 		
 // 		 	    var data = msg.data;
 // 		 		alert(data);
 // 		 		alert(JSON.stringify(data));
 		 		// Json 데이터 파싱
 		 	    var obj = msg.data;
-		 		alert(obj);
-		 		alert(JSON.stringify(obj));
+// 		 		alert(obj);
+// 		 		alert(JSON.stringify(obj));
 		 		
 				var data = JSON.parse(obj);
-		 		alert(data);
-		 		alert(JSON.stringify(data));
+// 		 		alert(data);
+// 		 		alert(JSON.stringify(data));
 // 				$("#messageArea").append(data + "<br/>");
 		        resive(data);
 			}
 	        	
 		    // 메세지 수신
 		    function resive(data) {
-				alert("resive");
-				alert(data.senderNick);
-				alert(data.message);
+// 				alert("resive");
+// 				alert(data.senderNick);
+// 				alert(data.message);
 		        const LR = (data.senderNick != "${login.usernick}")? "left" : "right";
 		        appendMessageTag(LR, data.senderNick, data.message);
 		    }
 		    
 		    // 메세지 태그 append
 		    function appendMessageTag(LR_className, senderNick, message) {
-				alert("appendMessageTag");
-				alert("senderNick : " + senderNick);
-				alert("message : " + message);
+// 				alert("appendMessageTag");
+// 				alert("senderNick : " + senderNick);
+// 				alert("message : " + message);
 		        const chatLi = createMessageTag(LR_className, senderNick, message);
 		 
 		        $('div.chat:not(.format) ul').append(chatLi);
@@ -250,7 +250,7 @@
 		    
 		    // 메세지 태그 생성
 		    function createMessageTag(LR_className, senderNick, message) {
-				alert("createMessageTag");
+// 				alert("createMessageTag");
 		        // 형식 가져오기
 		        let chatLi = $('div.chat.format ul li').clone();
 		        
@@ -277,7 +277,7 @@
 		 
 		    // 메세지 입력박스 내용 지우기
 		    function clearText() {
-				alert("clearText");
+// 				alert("clearText");
 		        $('#chattingbox').val('');
 		    }
 		 

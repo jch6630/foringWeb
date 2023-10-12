@@ -42,7 +42,10 @@
 				});
 			});
 			$(".loginbutton").on("click", function(e){
-				location.href = "/foring/login";
+					location.href = "/foring/login";
+			});
+			$(".logoutbutton").on("click", function(e){
+					location.href = "/foring/logout";
 			});
 			
 			$(".joinbutton").on("click", function(){
@@ -79,9 +82,9 @@
 						</div>
 					</c:if>
 					<c:if test="${not empty login}">
-						<div class="login">
-							<button type="button" class="loginbutton">
-								<span class="logintext" title="LOGIN">LOGOUT</span>
+						<div class="logout">
+							<button type="button" class="logoutbutton">
+								<span class="logouttext" title="LOGOUT">LOGOUT</span>
 							</button>
 						</div>
 					</c:if>
