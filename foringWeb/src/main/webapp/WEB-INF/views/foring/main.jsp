@@ -166,7 +166,22 @@
 	<script type="text/javascript"
 	src="https://cdn.jsdelivr.net/npm/sockjs-client@1.6.1/dist/sockjs.min.js"></script>
 	<script type="text/javascript">
-		 
+	
+		$('#chattingbox').one("focus",function(e){
+			const login = "${login}";
+			$.ajax({
+				type:"GET",
+		        url:"/foring/mainchat",
+		        data: login,
+		        success:function(){
+		        	if (login == "") {
+						alert("로그인 후 이용바랍니다.");
+						location.href = "/foring/login"
+		        	}
+				}
+			})
+			
+		})
 	    const usernick = "${login.usernick}";
 	    
         let sock = new SockJS("/mc");

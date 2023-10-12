@@ -1,4 +1,7 @@
 @charset "UTF-8";
+input{
+	z-index: 1000px;
+}
  html, body {
         width: 99.5%;
         height: 99.4%;

@@ -1,4 +1,7 @@
 @charset "UTF-8";
+input{
+	z-index: 1000px;
+}
 footer {
 	color: #000000;
 	background-color: #fff;

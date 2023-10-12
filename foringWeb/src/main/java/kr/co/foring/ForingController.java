@@ -2,6 +2,7 @@ package kr.co.foring;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.Random;
 
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
@@ -16,6 +17,7 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -43,18 +45,18 @@ public class ForingController {
 		Logger.info("foring Web Start..........................");
 	}
 	
-//	@RequestMapping("/mainchat")
-//	@ResponseBody
-//	public void chat(Model model,HttpServletRequest req) {
-//		log.info("[Controller] : mainchat");
-////		CustomUser user = (CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//		String usernick = req.getParameter("usernick");
-//		
-//		log.info("==================================");
-//		log.info("@ChatController, GET Chat / Usernick : " + usernick);
-//		
-//		model.addAttribute("usernick", usernick);
-//	}
+	@RequestMapping("/mainchat")
+	public String chat(HttpServletRequest req) {
+		log.info("[Controller] : mainchat");
+//		CustomUser user = (CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String usernick = req.getParameter("usernick");
+		
+		log.info("req ==================> " + req);
+		log.info("usernick ==================> " + usernick);
+		log.info("==================================");
+		log.info("@ChatController, GET Chat / Usernick : " + usernick);
+		return "redirect:/foring/main";
+	}
 
 	@RequestMapping("/join")
 	public void join() {
@@ -92,9 +94,9 @@ public class ForingController {
 		Logger.info("email : " + email);
                 
 		/* 인증번호(난수) 생성 */
-//        Random random = new Random();
-        int checkNum = 111111;
-//        int checkNum = random.nextInt(888888) + 111111;
+        Random random = new Random();
+        int checkNum = random.nextInt(888888) + 111111;
+//        int checkNum = 111111;
         Logger.info("인증번호 : " + checkNum);
         
         /* 이메일 보내기 */
@@ -146,7 +148,7 @@ public class ForingController {
 	}
 	
 	@RequestMapping("/login")
-	public void login() {
+	public void loginGet(@ModelAttribute("mDto") MemberDTO mDto) {
 		log.info("foring Web login Start....................");
 		Logger.info("foring Web login Start....................");
 	}

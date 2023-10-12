@@ -20,6 +20,7 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 			
 			if (session.getAttribute("login") == null) {
 				log.info("current user is not logined");
+				log.info("response.sendRedirect : " + contextPath + "/foring/login");
 				
 				response.sendRedirect(contextPath + "/foring/login");
 				
