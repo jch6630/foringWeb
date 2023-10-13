@@ -1,0 +1,9 @@
+@charset "UTF-8";
+#boardCategory{
+	width: 200px;
+	height: 650px;
+	background-color: purple;
+	position: absolute;
+	top: 25px;
+	left: 10px;
+}

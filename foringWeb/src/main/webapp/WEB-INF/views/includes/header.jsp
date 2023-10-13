@@ -18,6 +18,7 @@
 		rel="stylesheet">
 	<link rel="stylesheet" href="../resources/css/foringCss.css">
 	<link rel="stylesheet" href="../resources/css/footer.css">
+	<link rel="stylesheet" href="../resources/css/board.css">
 	<style type="text/css">
 	@-ms-viewport {
 		width: device-width;
@@ -81,6 +82,20 @@
 							</button>
 						</div>
 					</c:if>
+					<%-- <c:if test="${not empty login}">
+						<div class="logout">
+							<button type="button" class="logoutbutton">
+								<span class="logouttext" title="LOGOUT">LOGOUT</span>
+							</button>
+						</div>
+					</c:if> --%>
+					<c:if test="${empty login}">
+						<div class="join">
+						<button type="button" class="joinbutton">
+							<span class="jointext" title="JOIN">JOIN</span>
+						</button>
+					</div>
+					</c:if>
 					<c:if test="${not empty login}">
 						<div class="logout">
 							<button type="button" class="logoutbutton">
@@ -88,11 +103,6 @@
 							</button>
 						</div>
 					</c:if>
-					<div class="join">
-						<button type="button" class="joinbutton">
-							<span class="jointext" title="JOIN">JOIN</span>
-						</button>
-					</div>
 				</article>
 			</section>
 		</header>

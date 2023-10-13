@@ -4,11 +4,11 @@ input{
 }
 footer {
 	color: #000000;
-	background-color: #fff;
+	background: linear-gradient(#E2E2E2, #A6B3FC);
 }
 
 footer .container {
-	padding: 40px 20px;
+	padding: 10px 20px;
 }
 footer hr{
 	border: 2px solid black;
