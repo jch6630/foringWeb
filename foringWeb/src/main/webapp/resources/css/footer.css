@@ -4,7 +4,7 @@ input{
 }
 footer {
 	color: #000000;
-	background: linear-gradient(#E2E2E2, #A6B3FC);
+	background: linear-gradient(#A6B3FC, #E2E2E2);
 }
 
 footer .container {

@@ -25,12 +25,12 @@
 		 	<mapping path="/foring/loginPost"/>
 		 	<beans:ref bean="LoginInterceptor"/>
 		</interceptor>
-		<interceptor>
-		 	<mapping path="/mc"/>
+		<!-- <interceptor> -->
+		 	<!-- <mapping path="/mc"/> -->
 		 	<!-- <mapping path="/foring/mainchat"/> -->
 <!-- 		 	<mapping path="/foring/remove"/> -->
-		 	<beans:ref bean="AuthInterceptor"/>
-		</interceptor>
+		 	<!-- <beans:ref bean="AuthInterceptor"/> -->
+		<!-- </interceptor> -->
 	</interceptors>
 
 	<!-- 웹 소켓 통신 -->
