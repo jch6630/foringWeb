@@ -2,7 +2,7 @@
 #category{
 	width: 200px;
 	height: 650px;
-	background-color: purple;
+	background-color: #eaeae8;
 	position: absolute;
 	top: 30px;
 	left: 10px;
@@ -13,8 +13,8 @@
 }
 .categoryMenuMain{
 	padding: 15px;
-	border-top: 8px solid green;
-	border-bottom: 8px solid green;
+	border-top: 8px solid #0eb4fc;
+	border-bottom: 8px solid #0eb4fc;
 	font-size: 20px;
 }
 .categoryMenuDetail{
@@ -28,7 +28,7 @@
 	left: 300px;
 }
 #contentInputBox{
-	border: 1px solid green;
+	border: 1px solid #0eb4fc;
 	border-radius: 1em;
 	/* width: auto;
 	height: auto; */

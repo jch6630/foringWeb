@@ -12,7 +12,7 @@
 	    	if (position+currentPosition > 536) { 
 				return false;
 			} else {
-		    	$("#category").stop().animate({"top":position+currentPosition+"px"},1000);
+		    	$("#category").stop().animate({"top":position+currentPosition+"px"},700);
 			}
 	  	});
 	});
