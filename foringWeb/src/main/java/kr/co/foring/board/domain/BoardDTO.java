@@ -1,6 +1,5 @@
 package kr.co.foring.board.domain;
 
-import java.util.Date;
 import java.util.List;
 
 import lombok.AllArgsConstructor;
@@ -14,13 +13,15 @@ import lombok.ToString;
 @ToString
 public class BoardDTO {
 
-	private Integer bno;
-	private String title;
-	private String content;
-	private String writer;
-	private Date regdate;
-	private int viewcnt;
-	private Integer replycnt;
+	private Integer boardid;
+	private String categorymenu;
+	private String usernick;
+	private String disclosure;
+	private String boardpw;
+	private String boardtitle;
+	private String boardcontent;
+	private int viewcCnt;
+	private Integer replyCnt;
 	private List<BoardAttachDTO> attachList;
 	
 }

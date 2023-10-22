@@ -10,7 +10,7 @@ public class Criteria {
 	private int	pageNum;
 	private int amount;
 	
-	private String type;
+	private String categorymenu;
 	private String keyword;
 	
 	public Criteria(){
@@ -22,15 +22,11 @@ public class Criteria {
 		this.amount = amount;
 	}
 	
-	public String[] getTypeArr() {
-		return type == null ? new String[] {} : type.split("");
-	}
-	
 	public String getListLink() {
 		UriComponentsBuilder builder = UriComponentsBuilder.fromPath("")
 				.queryParam("pageNum", this.pageNum)
 				.queryParam("amount", this.amount)
-				.queryParam("type", this.type)
+				.queryParam("categorymenu", this.categorymenu)
 				.queryParam("keyword", this.keyword);
 		return builder.toUriString();
 	}

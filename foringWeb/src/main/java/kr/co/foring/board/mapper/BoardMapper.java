@@ -2,11 +2,14 @@ package kr.co.foring.board.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+
 import kr.co.foring.board.domain.BoardDTO;
 import kr.co.foring.board.domain.Criteria;
-import kr.co.foring.member.domain.MemberDTO;
 
+@Mapper
 public interface BoardMapper {
-	public int getTotalCnt(Criteria cri);
-	public List<BoardDTO> boardList(Criteria cri);
+	public int getTotalCnt(@Param("cri")Criteria cri, @Param("categorymenu")String categorymenu);
+	public List<BoardDTO> boardList(@Param("cri")Criteria cri, @Param("categorymenu")String categorymenu);
 }

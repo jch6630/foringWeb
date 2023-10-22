@@ -1,5 +1,8 @@
 package kr.co.foring.board.domain;
 
+import lombok.Data;
+
+@Data
 public class PageDTO {
 
 	private int startPage;
