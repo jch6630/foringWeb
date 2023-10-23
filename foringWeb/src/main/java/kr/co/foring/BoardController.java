@@ -1,6 +1,8 @@
 package kr.co.foring;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,6 +11,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import kr.co.foring.board.domain.BoardDTO;
 import kr.co.foring.board.domain.Criteria;
@@ -37,8 +42,11 @@ public class BoardController {
 	public String boardlist(Criteria cri, String categorymenu, String result) throws Exception{
 		log.info("list.......List<BoardDTO>.....................categorymenu : " + categorymenu + ".....cri : " + cri);
 		List<BoardDTO> boardlist = service.boardlist(cri, categorymenu);
+		
+		Map<String, String> resultMap = new HashMap<>();
+		
 		String boardliststr = boardlist.toString();
-//		result.put("list", boardliststr);
+		resultMap.put("list", boardliststr);
 		log.info("boardliststr.............. " + boardliststr);
 		
 		int total = service.getTotalCnt(cri, categorymenu);
@@ -48,9 +56,11 @@ public class BoardController {
 		String pagedtostr = pageDto.toString();
 		log.info("pagedtostr ................... " + pagedtostr);
 		
-//		result.put("listMaker", pagedtostr);
+		resultMap.put("listMaker", pagedtostr);
 		
-		result = "{list : " + '"' + boardliststr + '"' + ", listMaker : " + '"' + pagedtostr + '"' + " }";
+		Gson gson = new GsonBuilder().create();
+        result = gson.toJson(resultMap);
+//		result = "{list : " + '"' + boardliststr + '"' + ", listMaker : " + '"' + pagedtostr + '"' + " }";
 		log.info("result : " + result);
 		return result;
 	}

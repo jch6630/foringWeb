@@ -27,59 +27,10 @@
 		        data:{"categorymenu" : categorymenu},
 		        success:function(data){
 		        	alert("ok");
-		        	let resultJson = eval("(" + data + ")");
-// 		        	alert(resultJson.list);
-// 		        	alert(resultJson.listMaker);
-// 		        	alert(JSON.stringify(resultJson.list));
-// 		        	alert(JSON.stringify(resultJson.listMaker));
-		        	
-		            let list = JSON.stringify(resultJson.list).replace(/[\[\]]/g, "");
-		            let list2 = list.substring(10, list.length-2);
-// 		        	alert(list2);
-					let listsplit = new Array();
-					listsplit = list2.split("), BoardDTO(");
-// 		        	alert(listsplit.length);
-					
-					let listcontent =  new Array();
-					let listdetail =  new Array();
-					let boardlistdetailkey = new Array();
-					let boardlistdetailvalue = new Array();
-					let boardlistdetail = new Array();
-					
-					let boardliststr = "{";
-					
-					for(var i=0;i < listsplit.length;i++){
-						listcontent[i] = String(listsplit[i]).split(",");
-						console.log("listsplit" + [i] + " : " + listsplit[i]);
-						console.log("listcontent" + [i] + " : " + listcontent[i]);
-						for(var j=0;j<listcontent.length;j++){
-							listdetail[j] = String(listcontent[j]).split('=');
-							console.log("listdetail" + [j] + " : " + listdetail[j]);
-							boardlistdetailkey[j] = listdetail[0];
-							boardlistdetailvalue[j] = '"' + listdetail[1] +  '"';
-							console.log("boardlistdetailkey" + [j] + " : " + boardlistdetailkey[j]);
-							console.log("boardlistdetailvalue" + [j] + " : " + boardlistdetailvalue[j]);
-						}
-						
-						for(var j=0;j < listcontent.length;j++){
-							boardlistdetail[j] = boardlistdetailkey[j] + "=" + boardlistdetailvalue[j];
-							console.log("boardlistdetailkey" + [j] + " : " + boardlistdetailkey[j]);
-							console.log("boardlistdetailvalue" + [j] + " : " + boardlistdetailvalue[j]);
-							console.log("boardlistdetail : " + boardlistdetail);
-						}
-						boardliststr += boardlistdetail[i]
-						if (i<listsplit.length) {
-							boardliststr += ", ";
-						}
-						else{
-							boardliststr += "}";
-						}
-					}
-					console.log("boardliststr : " + boardliststr);
-					
-					alert(boardliststr);
-					
-					
+		        	alert(data);
+		        	var responseData = JSON.parse(data)
+		        	alert(responseData["list"]);
+		        	alert(responseData["listMaker"]);
 		        },
 		        error: function(jqXHR, textStatus, errorThrown) {
 	               if(textStatus=="timeout") {
