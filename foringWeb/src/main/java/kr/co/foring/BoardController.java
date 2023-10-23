@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
@@ -39,26 +40,33 @@ public class BoardController {
 	
 	@RequestMapping(value = "/boardlist", method = RequestMethod.POST)
 	@ResponseBody
-	public String boardlist(Criteria cri, String categorymenu, String result) throws Exception{
+	public String boardlist(Criteria cri, @RequestParam Map<String, Object> requestParam, String result) throws Exception{
+		
+		String categorymenu = (String) requestParam.get("categorymenu");
+		int pageNum = Integer.parseInt((String)requestParam.get("nowPageNum"));
+		
+		cri.setPageNum(pageNum);
+		
 		log.info("list.......List<BoardDTO>.....................categorymenu : " + categorymenu + ".....cri : " + cri);
 		List<BoardDTO> boardlist = service.boardlist(cri, categorymenu);
 		
+		Gson gson = new GsonBuilder().create();
 		Map<String, String> resultMap = new HashMap<>();
 		
-		String boardliststr = boardlist.toString();
-		resultMap.put("list", boardliststr);
-		log.info("boardliststr.............. " + boardliststr);
+		String boardlistgson = gson.toJson(boardlist);
+		
+		resultMap.put("list", boardlistgson);
+		log.info("boardlistgson.............. " + boardlistgson);
 		
 		int total = service.getTotalCnt(cri, categorymenu);
 		
 		log.info("total : " + total);
 		PageDTO pageDto = new PageDTO(cri, total);
-		String pagedtostr = pageDto.toString();
-		log.info("pagedtostr ................... " + pagedtostr);
+		String pagedtogson = gson.toJson(pageDto);
+		log.info("pagedtogson ................... " + pagedtogson);
 		
-		resultMap.put("listMaker", pagedtostr);
+		resultMap.put("listMaker", pagedtogson);
 		
-		Gson gson = new GsonBuilder().create();
         result = gson.toJson(resultMap);
 //		result = "{list : " + '"' + boardliststr + '"' + ", listMaker : " + '"' + pagedtostr + '"' + " }";
 		log.info("result : " + result);

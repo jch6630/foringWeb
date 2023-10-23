@@ -10,27 +10,83 @@
 	  	var currentPosition = parseInt($("#category").css("top"));
 	  	$(window).scroll(function() {
 	    	var position = $(window).scrollTop(); 
-	    	if (position+currentPosition > 536) { 
+	    	if (position+currentPosition > 440) { 
 				return false;
 			} else {
 		    	$("#category").stop().animate({"top":position+currentPosition+"px"},700);
 			}
 	  	});
+	  		
+	  	var startPage = 0;
+	  	var endPage = 0;
+	  	let nowPageNum = 1;
+	  	let categorymenu = "notice";
 	  	
 	  	$(".detailMenuBtn").on("click",function(){
-	  		var categorymenu = $(this).attr('data-value');
-// 	  		alert($(this).attr('data-value'));
+	  		
+	  		if ($("#appendList")) {
+	  			$("#boardList").html("<tr><th>글 번호</th><th>제목</th><th>작성자</th><th>조회수</th></tr>");
+	  			$("#pagination").html("");
+			}
+	  		
+	  		categorymenu = $(this).attr('data-value');
 	  		$.ajax({
 		        type:"POST",
 		        url:"boardlist",
 		        dataType: "text",
-		        data:{"categorymenu" : categorymenu},
+		        data:{
+		        		"categorymenu" : categorymenu,
+		        		"nowPageNum" : nowPageNum
+		        	},
 		        success:function(data){
-		        	alert("ok");
-		        	alert(data);
 		        	var responseData = JSON.parse(data)
-		        	alert(responseData["list"]);
-		        	alert(responseData["listMaker"]);
+		        	console.log(responseData["list"]);
+		        	console.log(responseData["listMaker"]);
+		        	
+		        	var list = JSON.parse(responseData["list"]);
+		        	var pageDto = JSON.parse(responseData["listMaker"]);
+		        	for (var i = 0; i < list.length; i++) {
+			        	var html = ""; 
+			        	html += '<tr id="appendList">';
+			        	html += '<td>'+list[i].boardid+'</td>';
+			        	html += '<td><a class="move" href=' + list[i].boardid + '>'+list[i].boardtitle+'</td>';
+			        	html += '<td>'+list[i].usernick+'</td>';
+			        	html += '<td>'+list[i].viewcCnt+'</td>';
+			        	html += '</tr>';
+			        	$("#boardList").append(html);
+					}
+		        	
+		        	var prevHtml ="";
+		        	if (pageDto.prev) {
+		        		prevHtml = "<li id='prevBtn'><div class='pagingBtn'><</div></li>"
+		        		$("#pagination").append(prevHtml);
+					}
+		        	else {
+		        		prevHtml = "<li id='nextBtn'><div class='pagingBtn' style='color:gray; outline: 1px solid gray; cursor: default; pointer-events: none;'><</div></li>"
+		        		$("#pagination").append(prevHtml);
+					}
+		        	var nowPageNum = 0;
+		        	var nowPageNumHtml = "";
+		        	
+		        	startPage = pageDto.startPage;
+		        	endPage = pageDto.endPage;
+		        	
+		        	for (var i = pageDto.startPage; i <= pageDto.endPage; i++) {
+		        		nowPageNum = i
+		        		nowPageNumHtml = "<li id='paginationBtn'><div class='pagingBtn' id='pagingBtn" + nowPageNum + "'>" + nowPageNum + "</div></li>"
+		        		$("#pagination").append(nowPageNumHtml);
+					}
+		        	
+		        	var nextHtml ="";
+		        	if (pageDto.next) {
+		        		nextHtml = "<li id='nextBtn'><div class='pagingBtn'>></div></li>"
+		        		$("#pagination").append(nextHtml);
+					}
+		        	else {
+						nextHtml = "<li id='nextBtn'><div class='pagingBtn' style='color:gray; outline: 1px solid gray; cursor: default; pointer-events: none;'>></div></li>"
+		        		$("#pagination").append(nextHtml);
+					}
+		        	
 		        },
 		        error: function(jqXHR, textStatus, errorThrown) {
 	               if(textStatus=="timeout") {
@@ -41,6 +97,95 @@
 	            }
 		    });
 	  	})
+	  	$(document).on("click", ".pagingBtn", function pagingBtnClick(){
+
+	 		if ($("#appendList")) {
+	 			$("#boardList").html("<tr><th>글 번호</th><th>제목</th><th>작성자</th><th>조회수</th></tr>");
+	 			$("#pagination").html("");
+			}
+	 		
+	  		if ($(this).text() == "<") {
+	  			nowPageNum = startPage - 1;
+			}
+	  		else if ($(this).text() == ">") {
+	  			nowPageNum = endPage + 1;
+			}
+	  		else{
+	  			nowPageNum = parseInt($(this).text());
+	  		}
+	  		$.ajax({
+		        type:"POST",
+		        url:"boardlist",
+		        dataType: "text",
+		        data:{
+		        	"categorymenu" : categorymenu,
+	        		"nowPageNum" : nowPageNum
+		        	},
+		        success:function(data){
+	        	
+		        	var responseData = JSON.parse(data)
+	        	console.log(responseData["list"]);
+	        	console.log(responseData["listMaker"]);
+	        	
+	        	var list = JSON.parse(responseData["list"]);
+	        	var pageDto = JSON.parse(responseData["listMaker"]);
+	        	for (var i = 0; i < list.length; i++) {
+		        	var html = ""; 
+		        	html += '<tr id="appendList">';
+		        	html += '<td>'+list[i].boardid+'</td>';
+		        	html += '<td><a class="move" href=' + list[i].boardid + '>'+list[i].boardtitle+'</td>';
+		        	html += '<td>'+list[i].usernick+'</td>';
+		        	html += '<td>'+list[i].viewcCnt+'</td>';
+		        	html += '</tr>';
+		        	$("#boardList").append(html);
+				}
+	        	
+	        	var prevHtml ="";
+	        	if (pageDto.prev) {
+	        		prevHtml = "<li id='prevBtn'><div class='pagingBtn'><</div></li>"
+	        		$("#pagination").append(prevHtml);
+				}
+	        	else {
+	        		prevHtml = "<li id='nextBtn'><div class='pagingBtn' style='color:gray; outline: 1px solid gray; cursor: default; pointer-events: none;'><</div></li>"
+	        		$("#pagination").append(prevHtml);
+				}
+	        	
+	        	var nowPageNum = 0;
+	        	var nowPageNumHtml = "";
+	        	
+	        	startPage = pageDto.startPage;
+	        	endPage = pageDto.endPage;
+	        	
+	        	if (endPage - startPage < 9) {
+	        		endPage += 1
+				}
+	        	
+	        	for (var i = startPage; i <= endPage; i++) {
+	        		nowPageNum = i
+	        		nowPageNumHtml = "<li id='paginationBtn'><div class='pagingBtn' id='pagingBtn" + nowPageNum + "'>" + nowPageNum + "</div></li>"
+	        		$("#pagination").append(nowPageNumHtml);
+				}
+	        	
+	        	var nextHtml ="";
+	        	if (pageDto.next) {
+	        		nextHtml = "<li id='nextBtn'><div class='pagingBtn'>></div></li>"
+	        		$("#pagination").append(nextHtml);
+				}
+	        	else {
+					nextHtml = "<li id='nextBtn'><div class='pagingBtn' style='color:gray; outline: 1px solid gray; cursor: default; pointer-events: none;'>></div></li>"
+	        		$("#pagination").append(nextHtml);
+	        		$("#pagination").css("width",(30*(endPage-startPage+3)) + "px");
+				}
+		        },
+		        error: function(jqXHR, textStatus, errorThrown) {
+	               if(textStatus=="timeout") {
+	                alert("시간이 초과되어 데이터를 수신하지 못하였습니다.");
+	               } else {
+	                alert("데이터 전송에 실패했습니다. 다시 시도해 주세요");
+	               } 
+	            }
+		    });
+	 	})
 	});
 </script>
 <section class="body">
@@ -72,23 +217,14 @@
 				<th>글 번호</th>
 				<th>제목</th>
 				<th>작성자</th>
-				<th>작성일</th>
+<!-- 				<th>작성일</th> -->
 				<th>조회수</th>
 			</tr>
-			<c:forEach items="${list }" var="list">
-				<tr>
-					<td>${list.boardid }</td>
-					<td><a class="move" href=${list.boardid }>	
-							<span>${list.boardtitle }</span>
-							<span class="badge bg-ref">${list.usernick }</span>
-						</a>
-					</td>
-					<td>${board.writer }</td>
-					<td><fmt:formatDate value="${board.regdate }" pattern="yy-MM-dd"></fmt:formatDate></td>
-					<td><span class="badge bg-ref">${board.viewcnt }</span></td>
-				</tr>
-			</c:forEach>
 		</table>
+	</div>
+	<div id="paging">
+		<ul id="pagination">
+		</ul>
 	</div>
 </section>
 <%@ include file="../includes/footer.jsp" %>
