@@ -156,10 +156,6 @@
 	        	startPage = pageDto.startPage;
 	        	endPage = pageDto.endPage;
 	        	
-	        	if (endPage - startPage < 9) {
-	        		endPage += 1
-				}
-	        	
 	        	for (var i = startPage; i <= endPage; i++) {
 	        		nowPageNum = i
 	        		nowPageNumHtml = "<li id='paginationBtn'><div class='pagingBtn' id='pagingBtn" + nowPageNum + "'>" + nowPageNum + "</div></li>"
@@ -170,6 +166,7 @@
 	        	if (pageDto.next) {
 	        		nextHtml = "<li id='nextBtn'><div class='pagingBtn'>></div></li>"
 	        		$("#pagination").append(nextHtml);
+	        		$("#pagination").css("width", "360px");
 				}
 	        	else {
 					nextHtml = "<li id='nextBtn'><div class='pagingBtn' style='color:gray; outline: 1px solid gray; cursor: default; pointer-events: none;'>></div></li>"
