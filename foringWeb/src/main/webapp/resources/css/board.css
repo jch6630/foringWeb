@@ -52,10 +52,11 @@ a{
 	display: flex;
 	position: absolute;
 	top: 57px;
-	left: 830px;
+	left: 810px;
+	padding: 0px 20px;
 }
 #contentInput{
-	width: 200px;
+	width: 175px;
 	outline: none;
 	border: none;
 	margin: 5px;

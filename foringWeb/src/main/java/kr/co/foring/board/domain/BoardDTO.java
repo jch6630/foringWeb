@@ -20,7 +20,7 @@ public class BoardDTO {
 	private String boardpw;
 	private String boardtitle;
 	private String boardcontent;
-	private int viewcCnt;
+	private int viewCnt;
 	private Integer replyCnt;
 	private List<BoardAttachDTO> attachList;
 	

@@ -43,12 +43,15 @@ public class BoardController {
 	public String boardlist(Criteria cri, @RequestParam Map<String, Object> requestParam, String result) throws Exception{
 		
 		String categorymenu = (String) requestParam.get("categorymenu");
+		String keyword = (String) requestParam.get("content");
 		int pageNum = Integer.parseInt((String)requestParam.get("nowPageNum"));
 		
 		cri.setPageNum(pageNum);
+		cri.setCategorymenu(categorymenu);
+		cri.setKeyword(keyword);
 		
 		log.info("list.......List<BoardDTO>.....................categorymenu : " + categorymenu + ".....cri : " + cri);
-		List<BoardDTO> boardlist = service.boardlist(cri, categorymenu);
+		List<BoardDTO> boardlist = service.boardlist(cri);
 		
 		Gson gson = new GsonBuilder().create();
 		Map<String, String> resultMap = new HashMap<>();
@@ -58,7 +61,7 @@ public class BoardController {
 		resultMap.put("list", boardlistgson);
 		log.info("boardlistgson.............. " + boardlistgson);
 		
-		int total = service.getTotalCnt(cri, categorymenu);
+		int total = service.getTotalCnt(cri);
 		
 		log.info("total : " + total);
 		PageDTO pageDto = new PageDTO(cri, total);
@@ -68,8 +71,8 @@ public class BoardController {
 		resultMap.put("listMaker", pagedtogson);
 		
         result = gson.toJson(resultMap);
-//		result = "{list : " + '"' + boardliststr + '"' + ", listMaker : " + '"' + pagedtostr + '"' + " }";
 		log.info("result : " + result);
+		
 		return result;
 	}
 	

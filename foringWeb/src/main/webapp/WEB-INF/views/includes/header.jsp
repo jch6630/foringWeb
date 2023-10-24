@@ -13,7 +13,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Main Page</title>
+    <title>For-ing</title>
 	<link href="https://fonts.googleapis.com/css?family=Montserrat"
 		rel="stylesheet">
 	<link rel="stylesheet" href="../resources/css/foringCss.css">

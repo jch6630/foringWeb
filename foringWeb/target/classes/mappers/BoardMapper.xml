@@ -3,36 +3,56 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="kr.co.foring.board.mapper.BoardMapper">
-	<select id="boardList" parameterType="map" resultType="kr.co.foring.board.domain.BoardDTO">
+	
+	<sql id="boardSearcher">
+		<trim prefix="(" suffix=") AND " prefixOverrides="OR">
+			<choose>
+				<when test="cri.keyword != null">
+						usernick LIKE '%'||#{cri.keyword}||'%'
+					OR	boardtitle LIKE '%'||#{cri.keyword}||'%'
+					OR	boardcontent LIKE '%'||#{cri.keyword}||'%'
+				</when>
+			</choose>
+		</trim>
+	</sql>
+	
+	<select id="boardList" resultType="kr.co.foring.board.domain.BoardDTO">
 	 <![CDATA[
-			SELECT	boardid,
-					categorymenu,
-					usernick,
-					disclosure,
-					boardpw,
-					boardtitle,
-					boardcontent
-			FROM	(
-						SELECT	rownum rn,
-								boardid,
-								categorymenu,
-								usernick,
-								disclosure,
-								boardpw,
-								boardtitle,
-								boardcontent
-						FROM	tbl_board
-						WHERE	categorymenu = #{categorymenu}
-						AND		rownum <= #{cri.pageNum} * #{cri.amount}
-						ORDER BY boardid DESC
-					)
+			SELECT  * 
+			FROM    (
+		        SELECT  rownum rn,
+		                subboard.*
+		        FROM    (
+		                    SELECT  boardid,
+		                            categorymenu,
+		                            usernick,
+		                            disclosure,
+		                            boardpw,
+		                            boardtitle,
+		                            boardcontent 
+		                    FROM    tbl_board
+		                    WHERE	
+			]]>
+			<include refid="boardSearcher"></include>
+			<![CDATA[
+							categorymenu = #{cri.categorymenu}
+							ORDER BY boardid DESC
+						) subboard
+				)
 			WHERE	rn > (#{cri.pageNum}-1)*#{cri.amount}
+			AND		rn <= #{cri.pageNum} * #{cri.amount}
 			]]>
 	</select>
 	<select id="getTotalCnt" resultType="int">
-			SELECT	COUNT(*)
-			FROM	tbl_board
-			WHERE	categorymenu = #{categorymenu}
-			AND		boardid > 0
+			<![CDATA[
+				SELECT	COUNT(*)
+				FROM	tbl_board
+				WHERE	
+			]]>
+			<include refid="boardSearcher"></include>
+			<![CDATA[
+						categorymenu = #{cri.categorymenu}
+				AND		boardid > 0
+			]]>
 	</select>
 </mapper>

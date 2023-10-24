@@ -21,6 +21,10 @@ public class Criteria {
 		this.pageNum = pageNum;
 		this.amount = amount;
 	}
+
+	public String getKeyword() {
+		return keyword;
+	}
 	
 	public String getListLink() {
 		UriComponentsBuilder builder = UriComponentsBuilder.fromPath("")

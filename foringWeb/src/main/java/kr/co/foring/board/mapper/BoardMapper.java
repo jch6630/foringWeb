@@ -10,6 +10,6 @@ import kr.co.foring.board.domain.Criteria;
 
 @Mapper
 public interface BoardMapper {
-	public int getTotalCnt(@Param("cri")Criteria cri, @Param("categorymenu")String categorymenu);
-	public List<BoardDTO> boardList(@Param("cri")Criteria cri, @Param("categorymenu")String categorymenu);
+	public int getTotalCnt(@Param("cri")Criteria cri);
+	public List<BoardDTO> boardList(@Param("cri")Criteria cri);
 }
