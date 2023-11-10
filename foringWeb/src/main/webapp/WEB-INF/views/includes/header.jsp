@@ -52,6 +52,7 @@
 			$(".joinbutton").on("click", function(){
 				location.href = "/foring/join";
 			});
+			
 		});
 	</script>
 	</head>
@@ -68,7 +69,7 @@
 					</button>
 					<div class="mainmenu">
 						<ul class="menu">
-							<li class="mainmenucon"><a href="#">게시판</a></li>
+							<li class="mainmenucon" id="boardMenuCon"><a href="/foring/board">게시판</a></li>
 							<div id="heightline"></div>
 							<li class="mainmenucon"><a href="#">이력서</a></li>
 							<div id="heightline"></div>

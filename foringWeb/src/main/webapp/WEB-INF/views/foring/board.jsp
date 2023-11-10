@@ -6,7 +6,11 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript">
+
+
 	$(document).ready(function(e){
+
+		/* 좌측 플로팅 네비 */
 	  	var currentPosition = parseInt($("#category").css("top"));
 	  	$(window).scroll(function() {
 	    	var position = $(window).scrollTop(); 
@@ -16,6 +20,77 @@
 		    	$("#category").stop().animate({"top":position+currentPosition+"px"},700);
 			}
 	  	});
+	  	
+		$(function(){
+	  		$.ajax({
+		        type:"POST",
+		        url:"boardlist",
+		        dataType: "text",
+		        data:{
+		        		"categorymenu" : categorymenu,
+		        		"nowPageNum" : nowPageNum,
+		        		"content" : content
+		        	},
+		        success:function(data){
+		        	var responseData = JSON.parse(data)
+		        	console.log(responseData["list"]);
+		        	console.log(responseData["listMaker"]);
+		        	
+		        	var list = JSON.parse(responseData["list"]);
+		        	var pageDto = JSON.parse(responseData["listMaker"]);
+		        	for (var i = 0; i < list.length; i++) {
+			        	var html = ""; 
+			        	html += '<tr id="appendList">';
+			        	html += '<td>'+list[i].boardid+'</td>';
+			        	html += '<td><a class="move" href=' + list[i].boardid + '>'+list[i].boardtitle+'</td>';
+			        	html += '<td>'+list[i].usernick+'</td>';
+			        	html += '<td>'+list[i].viewCnt+'</td>';
+			        	html += '</tr>';
+			        	$("#boardList").append(html);
+					}
+		        	
+		        	var prevHtml ="";
+		        	if (pageDto.prev) {
+		        		prevHtml = "<li id='prevBtn'><div class='pagingBtn'><</div></li>"
+		        		$("#pagination").append(prevHtml);
+					}
+		        	else {
+		        		prevHtml = "<li id='nextBtn'><div class='pagingBtn' style='color:gray; outline: 1px solid gray; cursor: default; pointer-events: none;'><</div></li>"
+		        		$("#pagination").append(prevHtml);
+					}
+		        	var nowPageNum = 0;
+		        	var nowPageNumHtml = "";
+		        	
+		        	startPage = pageDto.startPage;
+		        	endPage = pageDto.endPage;
+		        	
+		        	for (var i = pageDto.startPage; i <= pageDto.endPage; i++) {
+		        		nowPageNum = i
+		        		nowPageNumHtml = "<li id='paginationBtn'><div class='pagingBtn' id='pagingBtn" + nowPageNum + "'>" + nowPageNum + "</div></li>"
+		        		$("#pagination").append(nowPageNumHtml);
+					}
+		        	
+		        	var nextHtml ="";
+		        	if (pageDto.next) {
+		        		nextHtml = "<li id='nextBtn'><div class='pagingBtn'>></div></li>"
+		        		$("#pagination").append(nextHtml);
+					}
+		        	else {
+						nextHtml = "<li id='nextBtn'><div class='pagingBtn' style='color:gray; outline: 1px solid gray; cursor: default; pointer-events: none;'>></div></li>"
+		        		$("#pagination").append(nextHtml);
+					}
+		        	
+		        },
+		        error: function(jqXHR, textStatus, errorThrown) {
+	               if(textStatus=="timeout") {
+	                alert("시간이 초과되어 데이터를 수신하지 못하였습니다.");
+	               } else {
+	                alert("데이터 전송에 실패했습니다. 다시 시도해 주세요");
+	               } 
+	            }
+		    });
+		}).one();
+		
 	  		
 	  	var startPage = 0;
 	  	var endPage = 0;
@@ -23,6 +98,7 @@
 	  	let categorymenu = $("#categorymenu").val();
 	  	let content = $("#content").val();
 	  	
+	  	/* 게시판 하위 메뉴 클릭시 페이지 변화 */
 	  	$(".detailMenuBtn").on("click",function(){
 	  		
 	  		if ($("#appendList")) {
@@ -105,7 +181,7 @@
 		    });
 	  	})
 	  	
-	  	
+	  	/* 페이징 버튼 클릭시 페이지 변화 */
 	  	$(document).on("click", ".pagingBtn", function pagingBtnClick(){
 
 	 		if ($("#appendList")) {
@@ -197,7 +273,7 @@
 		    });
 	 	})
 	 	
-	 	
+	 	/* 게시판 검색시 페이지 변화 */
 	  	$(document).on("keyup", "#contentInput", function pagingBtnClick(key){
 	  		if (key.keyCode==13) {
 	  			
@@ -290,6 +366,15 @@
 			    });
 			}
 	 	})
+	 	
+	 	$(document).on("click", ".move", function(e) {
+	 		var actionForm = $("#actionForm");
+			e.preventDefault();
+			actionForm.append("<input type='hidden' name='bno' value='" + $(this).attr("href") + "'>");
+			actionForm.attr("action", "${ctx}/foring/read");
+			actionForm.submit();
+		});
+	 	
 	});
 </script>
 <section class="body">
@@ -331,7 +416,7 @@
 		</ul>
 	</div>
 	
-	<form action="${ctx }/board/list" id="actionForm" method="get">
+	<form action="" id="actionForm" method="get">
 		<input type="hidden" id="nowPageNum" value="1">
 		<input type="hidden" id="amount">
 		<input type="hidden" id="categorymenu" value="notice">

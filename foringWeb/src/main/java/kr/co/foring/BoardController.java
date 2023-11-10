@@ -76,4 +76,9 @@ public class BoardController {
 		return result;
 	}
 	
+	@RequestMapping(value = "/read", method = RequestMethod.GET)
+	public void read() throws Exception{
+		log.info("read 페이지 들어옴..............");
+	}
+	
 }
