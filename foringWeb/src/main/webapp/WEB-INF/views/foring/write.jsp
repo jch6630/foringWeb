@@ -2,11 +2,11 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ include file="../includes/header.jsp" %>
-<link rel="stylesheet" href="../resources/css/read.css">
 <c:set var="ctx" value="${pageContext.request.contextPath == '/' ? '' : pageContext.request.contextPath }" scope="application"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript">
+
 
 	$(document).ready(function(e){
 
@@ -21,17 +21,6 @@
 			}
 	  	});
 	  	
-	  	$(".detailMenuBtn").on("click", function(e){
-	  		var actionForm = $("#actionForm");
-	  		var categorymenu = $(this).attr('data-value')
-// 	  		alert(categorymenu);
-	  		e.preventDefault();
-			actionForm.append("<input type='hidden' id='categorymenu' name='categorymenu' value=" + categorymenu + ">");
-			actionForm.attr("action", "${ctx}/foring/board");
-			actionForm.submit();
-	  	});
-	  	
-	});
 </script>
 <section class="body">
 	<div id="category">
@@ -49,18 +38,6 @@
 			<li class="categoryMenuDetail"><a href="resumeWrite"> 이력서 작성</a></li>
 			<li class="categoryMenuDetail"><a href="selfIntroWrite">- 자기소개서 작성</a></li>
 		</ul>
-		<form action="" id="actionForm" method="get">
-		</form>
-	</div>
-	<div id="readContainer">
-		<div id="boardTitle">게시글 제목 : ${read.boardtitle}</div>
-		<div id="boardCategory">카테고리 : ${read.categorymenu}</div>
-		<div id="boardDate">작성일 : 2023-11-11</div>
-		<div id="boardViewCnt">조회수 : ${read.viewCnt}</div>
-		<div id="boardWriter">작성자 : ${read.usernick}</div>
-		<div id="boardDisclosure">공개여부 : ${read.disclosure}</div>
-		<div id="boardAttachment">첨부파일 : attach.jpg</div>
-		<div id="boardContent">게시글 내용 : ${read.boardcontent}</div>
 	</div>
 	
 </section>

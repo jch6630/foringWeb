@@ -12,4 +12,5 @@ import kr.co.foring.board.domain.Criteria;
 public interface BoardMapper {
 	public int getTotalCnt(@Param("cri")Criteria cri);
 	public List<BoardDTO> boardList(@Param("cri")Criteria cri);
+	public BoardDTO read(@Param("bno")Integer bno);
 }

@@ -8,6 +8,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -33,9 +35,10 @@ public class BoardController {
 	private IBoardService service;
 	
 	@RequestMapping("/board")
-	public void main() {
+	public void main(@RequestParam("categorymenu") String categorymenu, Model model) {
 		log.info("foring board Start....................");
 		Logger.info("foring board Start..........................");
+		model.addAttribute("categorymenu", categorymenu);
 	}
 	
 	@RequestMapping(value = "/boardlist", method = RequestMethod.POST)
@@ -77,8 +80,14 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value = "/read", method = RequestMethod.GET)
-	public void read() throws Exception{
+	public void read(@RequestParam("bno") int bno, @ModelAttribute("cri") Criteria cri, Model model) throws Exception{
 		log.info("read 페이지 들어옴..............");
+		model.addAttribute("read", service.read(bno));
+	}
+	
+	@RequestMapping(value = "/write", method = RequestMethod.GET)
+	public void write() throws Exception{
+		log.info("write 페이지 들어옴..............");
 	}
 	
 }

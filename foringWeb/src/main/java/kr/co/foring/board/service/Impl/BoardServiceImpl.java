@@ -26,4 +26,9 @@ public class BoardServiceImpl implements IBoardService {
 		return mapper.getTotalCnt(cri);
 	}
 	
+	@Override
+	public BoardDTO read(Integer bno) throws Exception {
+		return mapper.read(bno);
+	}
+	
 }

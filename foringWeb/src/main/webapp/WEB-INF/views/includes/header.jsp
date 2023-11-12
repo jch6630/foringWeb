@@ -52,6 +52,15 @@
 			$(".joinbutton").on("click", function(){
 				location.href = "/foring/join";
 			});
+			$("#boardMenuConAnk").on("click", function(e){
+		  		e.preventDefault();
+				var actionForm = $("#actionForm");
+		  		var categorymenu = $(this).attr('data-value')
+//	 	  		alert(categorymenu);
+				actionForm.append("<input type='hidden' id='categorymenu' name='categorymenu' value=" + categorymenu + ">");
+				actionForm.attr("action", "${ctx}/foring/board");
+				actionForm.submit();
+			});
 			
 		});
 	</script>
@@ -69,7 +78,9 @@
 					</button>
 					<div class="mainmenu">
 						<ul class="menu">
-							<li class="mainmenucon" id="boardMenuCon"><a href="/foring/board">게시판</a></li>
+							<li class="mainmenucon" id="boardMenuCon">
+								<a href="/" id="boardMenuConAnk" data-value="notice">게시판</a>
+							</li>
 							<div id="heightline"></div>
 							<li class="mainmenucon"><a href="#">이력서</a></li>
 							<div id="heightline"></div>
@@ -104,6 +115,8 @@
 							</button>
 						</div>
 					</c:if>
+					<form action="" id="actionForm" method="get">
+					</form>		
 				</article>
 			</section>
 		</header>

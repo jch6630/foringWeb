@@ -9,5 +9,6 @@ public interface IBoardService {
 
 	public List<BoardDTO> boardlist(Criteria cri) throws Exception;
 	public int getTotalCnt(Criteria cri) throws Exception;
+	public BoardDTO read(Integer bno) throws Exception;
 	
 }

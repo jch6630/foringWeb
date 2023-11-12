@@ -1,0 +1,58 @@
+@charset "UTF-8";
+#readContainer{
+	height: 600px;
+	width: 1000px;
+	background: white;
+	position: absolute;
+	top: 30px;
+	left: 290px;
+	border: 5px #eaeae8 solid;
+	border-top-color: #0eb4fc;
+}
+#boardTitle{
+	font-size: 20pt;
+	font-weight: bold;
+	position: absolute;
+	top: 10px;
+	left: 1%;
+}
+#boardCategory{
+	position: absolute;
+	top: 60px;
+	left: 1%;
+}
+#boardDate{
+	position: absolute;
+	top: 60px;
+	left: 45%;
+}
+#boardViewCnt{
+	position: absolute;
+	top: 60px;
+	right: 1%;
+}
+#boardWriter{
+	position: absolute;
+	top: 100px;
+	left: 1%;
+}
+#boardDisclosure{
+	position: absolute;
+	top: 100px;
+	left: 45%;
+}
+#boardAttachment{
+	position: absolute;
+	top: 140px;
+	left: 1%;
+}
+#boardContent{
+	position: absolute;
+	top: 180px;
+	left: 0%;
+	padding: 10px;
+	background-color: white;
+	height: 400px;
+	width: 98%;
+	outline: 5px solid #eaeae8;
+}

@@ -21,83 +21,109 @@
 			}
 	  	});
 	  	
-		$(function(){
-	  		$.ajax({
-		        type:"POST",
-		        url:"boardlist",
-		        dataType: "text",
-		        data:{
-		        		"categorymenu" : categorymenu,
-		        		"nowPageNum" : nowPageNum,
-		        		"content" : content
-		        	},
-		        success:function(data){
-		        	var responseData = JSON.parse(data)
-		        	console.log(responseData["list"]);
-		        	console.log(responseData["listMaker"]);
-		        	
-		        	var list = JSON.parse(responseData["list"]);
-		        	var pageDto = JSON.parse(responseData["listMaker"]);
-		        	for (var i = 0; i < list.length; i++) {
-			        	var html = ""; 
-			        	html += '<tr id="appendList">';
-			        	html += '<td>'+list[i].boardid+'</td>';
-			        	html += '<td><a class="move" href=' + list[i].boardid + '>'+list[i].boardtitle+'</td>';
-			        	html += '<td>'+list[i].usernick+'</td>';
-			        	html += '<td>'+list[i].viewCnt+'</td>';
-			        	html += '</tr>';
-			        	$("#boardList").append(html);
-					}
-		        	
-		        	var prevHtml ="";
-		        	if (pageDto.prev) {
-		        		prevHtml = "<li id='prevBtn'><div class='pagingBtn'><</div></li>"
-		        		$("#pagination").append(prevHtml);
-					}
-		        	else {
-		        		prevHtml = "<li id='nextBtn'><div class='pagingBtn' style='color:gray; outline: 1px solid gray; cursor: default; pointer-events: none;'><</div></li>"
-		        		$("#pagination").append(prevHtml);
-					}
-		        	var nowPageNum = 0;
-		        	var nowPageNumHtml = "";
-		        	
-		        	startPage = pageDto.startPage;
-		        	endPage = pageDto.endPage;
-		        	
-		        	for (var i = pageDto.startPage; i <= pageDto.endPage; i++) {
-		        		nowPageNum = i
-		        		nowPageNumHtml = "<li id='paginationBtn'><div class='pagingBtn' id='pagingBtn" + nowPageNum + "'>" + nowPageNum + "</div></li>"
-		        		$("#pagination").append(nowPageNumHtml);
-					}
-		        	
-		        	var nextHtml ="";
-		        	if (pageDto.next) {
-		        		nextHtml = "<li id='nextBtn'><div class='pagingBtn'>></div></li>"
-		        		$("#pagination").append(nextHtml);
-					}
-		        	else {
-						nextHtml = "<li id='nextBtn'><div class='pagingBtn' style='color:gray; outline: 1px solid gray; cursor: default; pointer-events: none;'>></div></li>"
-		        		$("#pagination").append(nextHtml);
-					}
-		        	
-		        },
-		        error: function(jqXHR, textStatus, errorThrown) {
-	               if(textStatus=="timeout") {
-	                alert("시간이 초과되어 데이터를 수신하지 못하였습니다.");
-	               } else {
-	                alert("데이터 전송에 실패했습니다. 다시 시도해 주세요");
-	               } 
-	            }
-		    });
-		}).one();
 		
-	  		
 	  	var startPage = 0;
 	  	var endPage = 0;
 	  	let nowPageNum = $("#nowPageNum").val();
-	  	let categorymenu = $("#categorymenu").val();
-	  	let content = $("#content").val();
 	  	
+	  	let content = $("#content").val();
+	  	let responseCategorymenu = $('input[name=categorymenu]').val();
+	  	let categorymenu = ""
+	  	if (responseCategorymenu == "") {
+// 	  		alert(responseCategorymenu);
+		  	categorymenu = $("#categorymenu").val();
+		}
+	  	else {
+// 	  		alert(responseCategorymenu);
+	  		categorymenu = responseCategorymenu;
+	  		
+	  		let detailNametext = ""
+	  		if (categorymenu =="notice") {
+	  			detailNametext= "공지사항"
+			}
+	  		else if (categorymenu =="free") {
+	  			detailNametext= "자유게시판"
+			}
+			else if (categorymenu =="infor") {
+				detailNametext= "정보게시판"	
+			}
+			else if (categorymenu =="study") {
+				detailNametext= "스터디모임게시판"
+			}
+	  		
+	  		$("#detailNametext").text(detailNametext)
+	  	
+			$(function(){
+		  		$.ajax({
+			        type:"POST",
+			        url:"boardlist",
+			        dataType: "text",
+			        data:{
+			        		"categorymenu" : categorymenu,
+			        		"nowPageNum" : nowPageNum,
+			        		"content" : content
+			        	},
+			        success:function(data){
+			        	var responseData = JSON.parse(data)
+// 			        	console.log(responseData["list"]);
+// 			        	console.log(responseData["listMaker"]);
+			        	
+			        	var list = JSON.parse(responseData["list"]);
+			        	var pageDto = JSON.parse(responseData["listMaker"]);
+			        	for (var i = 0; i < list.length; i++) {
+				        	var html = ""; 
+				        	html += '<tr id="appendList">';
+				        	html += '<td>'+list[i].boardid+'</td>';
+				        	html += '<td><a class="move" href=' + list[i].boardid + '>'+list[i].boardtitle+'</td>';
+				        	html += '<td>'+list[i].usernick+'</td>';
+				        	html += '<td>'+list[i].viewCnt+'</td>';
+				        	html += '</tr>';
+				        	$("#boardList").append(html);
+						}
+			        	
+			        	var prevHtml ="";
+			        	if (pageDto.prev) {
+			        		prevHtml = "<li id='prevBtn'><div class='pagingBtn'><</div></li>"
+			        		$("#pagination").append(prevHtml);
+						}
+			        	else {
+			        		prevHtml = "<li id='nextBtn'><div class='pagingBtn' style='color:gray; outline: 1px solid gray; cursor: default; pointer-events: none;'><</div></li>"
+			        		$("#pagination").append(prevHtml);
+						}
+			        	var nowPageNum = 0;
+			        	var nowPageNumHtml = "";
+			        	
+			        	startPage = pageDto.startPage;
+			        	endPage = pageDto.endPage;
+			        	
+			        	for (var i = pageDto.startPage; i <= pageDto.endPage; i++) {
+			        		nowPageNum = i
+			        		nowPageNumHtml = "<li id='paginationBtn'><div class='pagingBtn' id='pagingBtn" + nowPageNum + "'>" + nowPageNum + "</div></li>"
+			        		$("#pagination").append(nowPageNumHtml);
+						}
+			        	
+			        	var nextHtml ="";
+			        	if (pageDto.next) {
+			        		nextHtml = "<li id='nextBtn'><div class='pagingBtn'>></div></li>"
+			        		$("#pagination").append(nextHtml);
+						}
+			        	else {
+							nextHtml = "<li id='nextBtn'><div class='pagingBtn' style='color:gray; outline: 1px solid gray; cursor: default; pointer-events: none;'>></div></li>"
+			        		$("#pagination").append(nextHtml);
+						}
+			        	
+			        },
+			        error: function(jqXHR, textStatus, errorThrown) {
+		               if(textStatus=="timeout") {
+		                alert("시간이 초과되어 데이터를 수신하지 못하였습니다.");
+		               } else {
+		                alert("데이터 전송에 실패했습니다. 다시 시도해 주세요");
+		               } 
+		            }
+			    });
+			}).one();
+	  	}
+		
 	  	/* 게시판 하위 메뉴 클릭시 페이지 변화 */
 	  	$(".detailMenuBtn").on("click",function(){
 	  		
@@ -123,8 +149,8 @@
 		        	},
 		        success:function(data){
 		        	var responseData = JSON.parse(data)
-		        	console.log(responseData["list"]);
-		        	console.log(responseData["listMaker"]);
+// 		        	console.log(responseData["list"]);
+// 		        	console.log(responseData["listMaker"]);
 		        	
 		        	var list = JSON.parse(responseData["list"]);
 		        	var pageDto = JSON.parse(responseData["listMaker"]);
@@ -213,8 +239,8 @@
 		        success:function(data){
 	        	
 		        	var responseData = JSON.parse(data)
-	        	console.log(responseData["list"]);
-	        	console.log(responseData["listMaker"]);
+// 	        	console.log(responseData["list"]);
+// 	        	console.log(responseData["listMaker"]);
 	        	
 	        	var list = JSON.parse(responseData["list"]);
 	        	var pageDto = JSON.parse(responseData["listMaker"]);
@@ -374,6 +400,10 @@
 			actionForm.attr("action", "${ctx}/foring/read");
 			actionForm.submit();
 		});
+	  	
+	  	$(document).on("click", "#writeBtn", function(e) {
+	 		location.href ="./write";
+		});
 	 	
 	});
 </script>
@@ -415,12 +445,18 @@
 		<ul id="pagination">
 		</ul>
 	</div>
+	<div id="write">
+		<button type="button" id="writeBtn">
+			<span id="writeBtnText" title="WRITE">글쓰기</span>
+		</button>
+	</div>
 	
 	<form action="" id="actionForm" method="get">
 		<input type="hidden" id="nowPageNum" value="1">
 		<input type="hidden" id="amount">
 		<input type="hidden" id="categorymenu" value="notice">
 		<input type="hidden" id="content">
+		<input type="hidden" name="categorymenu" value="${categorymenu}">
 	</form>
 	
 </section>

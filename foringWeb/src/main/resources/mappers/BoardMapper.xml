@@ -29,7 +29,9 @@
 		                            disclosure,
 		                            boardpw,
 		                            boardtitle,
-		                            boardcontent 
+		                            boardcontent,
+		                            viewcnt,
+									replycnt
 		                    FROM    tbl_board
 		                    WHERE	
 			]]>
@@ -54,5 +56,18 @@
 						categorymenu = #{cri.categorymenu}
 				AND		boardid > 0
 			]]>
+	</select>
+	<select id="read" resultType="kr.co.foring.board.domain.BoardDTO">
+		SELECT 	boardid,
+				boardtitle,
+				boardcontent,
+				usernick,
+				disclosure,
+				boardpw,
+				categorymenu,
+				viewcnt,
+				replycnt
+		FROM 	tbl_board
+		WHERE	boardid=#{bno}
 	</select>
 </mapper>
