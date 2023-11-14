@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -88,6 +89,23 @@ public class BoardController {
 	@RequestMapping(value = "/write", method = RequestMethod.GET)
 	public void write() throws Exception{
 		log.info("write 페이지 들어옴..............");
+	}
+	
+	@RequestMapping(value = "/write", method = RequestMethod.POST)
+	public String registerPost(BoardDTO bDto, RedirectAttributes rttr) throws Exception{
+		log.info("register post............");
+		
+		log.info("register : " + bDto);
+		
+		if (bDto.getAttachList() != null) {
+			bDto.getAttachList().forEach(attach -> log.info(attach));
+		}
+
+		service.register(bDto);
+		
+		rttr.addFlashAttribute("result", bDto.getBoardid());
+		
+		return "redirect:/foring/boardlist";
 	}
 	
 }

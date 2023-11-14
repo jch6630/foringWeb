@@ -4,13 +4,17 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import kr.co.foring.board.domain.BoardDTO;
 import kr.co.foring.board.domain.Criteria;
 import kr.co.foring.board.mapper.BoardMapper;
 import kr.co.foring.board.service.IBoardService;
+import lombok.extern.log4j.Log4j;
+import lombok.extern.log4j.Log4j2;
 
 @Service
+@Log4j
 public class BoardServiceImpl implements IBoardService {
 
 	@Autowired
@@ -25,10 +29,27 @@ public class BoardServiceImpl implements IBoardService {
 	public int getTotalCnt(Criteria cri) throws Exception {
 		return mapper.getTotalCnt(cri);
 	}
-	
+
 	@Override
 	public BoardDTO read(Integer bno) throws Exception {
 		return mapper.read(bno);
 	}
-	
+
+	@Transactional
+	@Override
+	public void write(BoardDTO bDto) throws Exception {
+		mapper.insert(bDto);
+
+		if (bDto.getAttachList() == null || bDto.getAttachList().size() <= 0) {
+			return;
+		}
+
+		bDto.getAttachList().forEach(attach -> {
+			log.info("bDto ==================> " + bDto);
+			attach.setBno(bDto.getBno());
+			log.info("attach ==================> " + attach);
+			attachMapper.insert(attach);
+		});
+	}
+
 }
