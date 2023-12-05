@@ -12,8 +12,8 @@ import lombok.ToString;
 @Data
 @ToString
 public class ReplyDTO {
-	private Integer replyid;
-	private Integer boardid;
+	private int replyid;
+	private int boardid;
 	private String usernick;
 	private String disclosure;
 	private String replycontent;

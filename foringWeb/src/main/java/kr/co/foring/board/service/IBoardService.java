@@ -10,10 +10,11 @@ public interface IBoardService {
 
 	public List<BoardDTO> boardlist(Criteria cri) throws Exception;
 	public int getTotalCnt(Criteria cri) throws Exception;
-	public int getReplyTotalCnt(Criteria cri) throws Exception;
+	public int getReplyTotalCnt(Integer bno, Criteria cri) throws Exception;
 	public BoardDTO read(Integer bno) throws Exception;
 	public List<ReplyDTO> reply(Integer bno, Criteria cri) throws Exception;
 	public void viewCnt(Integer bno) throws Exception;
 //	public void write(BoardDTO bDto) throws Exception;
+	public int replyRegister(ReplyDTO rDto);
 	
 }

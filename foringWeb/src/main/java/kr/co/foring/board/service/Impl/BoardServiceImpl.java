@@ -10,10 +10,8 @@ import kr.co.foring.board.domain.Criteria;
 import kr.co.foring.board.domain.ReplyDTO;
 import kr.co.foring.board.mapper.BoardMapper;
 import kr.co.foring.board.service.IBoardService;
-import lombok.extern.log4j.Log4j;
 
 @Service
-@Log4j
 public class BoardServiceImpl implements IBoardService {
 
 	@Autowired
@@ -45,8 +43,13 @@ public class BoardServiceImpl implements IBoardService {
 	}
 
 	@Override
-	public int getReplyTotalCnt(Criteria cri) throws Exception {
-		return mapper.getReplyTotalCnt(cri);
+	public int getReplyTotalCnt(Integer bno, Criteria cri) throws Exception {
+		return mapper.getReplyTotalCnt(bno, cri);
+	}
+
+	@Override
+	public int replyRegister(ReplyDTO rDto) {
+		return mapper.replyRegister(rDto);
 	}
 
 //	@Transactional

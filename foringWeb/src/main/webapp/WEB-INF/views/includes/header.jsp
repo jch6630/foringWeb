@@ -94,13 +94,6 @@
 							</button>
 						</div>
 					</c:if>
-					<%-- <c:if test="${not empty login}">
-						<div class="logout">
-							<button type="button" class="logoutbutton">
-								<span class="logouttext" title="LOGOUT">LOGOUT</span>
-							</button>
-						</div>
-					</c:if> --%>
 					<c:if test="${empty login}">
 						<div class="join">
 						<button type="button" class="joinbutton">

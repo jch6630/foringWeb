@@ -166,10 +166,12 @@ public class ForingController {
 			memNotFound.setEmail("notFound");
 			model.addAttribute("memNotFound", memNotFound);
 			log.info("memNotFound ====> " + model);
+			session.setAttribute("memInfo", null);
 			return "foring/login";
 		} 
 		
 		model.addAttribute("memInfo", memInfo);
+		session.setAttribute("memInfo", memInfo);
 		return returnURL;
 	}
 	

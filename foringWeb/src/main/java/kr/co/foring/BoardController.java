@@ -100,12 +100,23 @@ public class BoardController {
 		cri.setAmount(10);
 		
 		result.put("reply", service.reply(bno, cri));
-		int total = service.getReplyTotalCnt(cri);
+		int total = service.getReplyTotalCnt(bno,cri);
 		
 		log.info("total : " + total);
 		PageDTO pageDto = new PageDTO(cri, total);
 		result.put("listMaker", pageDto);
 		
+		log.info(result);
+		return result;
+	}
+	
+	@RequestMapping(value = "/replyRegister", method = RequestMethod.POST)
+	@ResponseBody
+	public int replyRegister(ReplyDTO rDto) throws Exception{
+		log.info("reply 작성중..............");
+		log.info("rDto : " + rDto);
+		
+		int result = service.replyRegister(rDto);
 		log.info(result);
 		return result;
 	}

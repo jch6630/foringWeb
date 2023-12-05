@@ -57,6 +57,11 @@
 				AND		boardid > 0
 			]]>
 	</select>
+	<update id="viewCnt">
+		UPDATE 	tbl_board
+		SET 	viewcnt = viewcnt+1
+		WHERE	boardid=#{bno}
+	</update>
 	<select id="read" resultType="kr.co.foring.board.domain.BoardDTO">
 		SELECT 	boardid,
 				boardtitle,
@@ -91,11 +96,11 @@
 			<![CDATA[
 				SELECT	COUNT(*)
 				FROM	tbl_reply
+				WHERE	boardid=#{bno}
 			]]>
 	</select>
-	<update id="viewCnt">
-		UPDATE 	tbl_board
-		SET 	viewcnt = viewcnt+1
-		WHERE	boardid=#{bno}
-	</update>
+	<insert id="replyRegister" >
+		INSERT INTO tbl_reply(replyid, boardid, usernick, disclosure, replycontent) 
+		VALUES (reply_seq.nextval, #{boardid}, #{usernick, jdbcType=VARCHAR}, #{disclosure, jdbcType=VARCHAR}, #{replycontent, jdbcType=VARCHAR})
+	</insert>
 </mapper>

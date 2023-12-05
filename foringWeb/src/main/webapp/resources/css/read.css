@@ -104,4 +104,39 @@
 	font-size: 0.8em;
 	text-align: center;
 }
-
+#pagingReply{
+	text-align:center;
+	display: flex;
+	justify-content:center;
+}
+#paginationReply{
+	display: flex;
+	width: auto;
+	justify-content:space-between;
+	list-style: none;
+}
+.pagingReplyBtn{
+	float: left;
+	height: 1.5em;
+	aspect-ratio: 1/1;
+	cursor: pointer;
+	text-align:center;
+	font-size: 1em;
+	font-weight: bold;
+	border-radius: 25%;
+	outline: 1px solid black;
+}
+#replyReg{
+	margin-top: 10px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+#replyRegText{
+	padding:5px;
+	width:100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	resize: none;
+}
