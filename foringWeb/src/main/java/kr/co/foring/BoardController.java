@@ -22,6 +22,7 @@ import com.google.gson.GsonBuilder;
 import kr.co.foring.board.domain.BoardDTO;
 import kr.co.foring.board.domain.Criteria;
 import kr.co.foring.board.domain.PageDTO;
+import kr.co.foring.board.domain.ReplyDTO;
 import kr.co.foring.board.service.IBoardService;
 import lombok.extern.log4j.Log4j;
 
@@ -83,7 +84,30 @@ public class BoardController {
 	@RequestMapping(value = "/read", method = RequestMethod.GET)
 	public void read(@RequestParam("bno") int bno, @ModelAttribute("cri") Criteria cri, Model model) throws Exception{
 		log.info("read 페이지 들어옴..............");
+		service.viewCnt(bno);
 		model.addAttribute("read", service.read(bno));
+	}
+	
+	@RequestMapping(value = "/reply", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> reply(@RequestParam("bno") int bno, @RequestParam("nowPageNum") int pageNum) throws Exception{
+		log.info("reply 페이지 들어옴..............");
+		log.info("bno : " + bno);
+		Map<String, Object> result = new HashMap<>();
+		
+		Criteria cri = new Criteria();
+		cri.setPageNum(pageNum);
+		cri.setAmount(10);
+		
+		result.put("reply", service.reply(bno, cri));
+		int total = service.getReplyTotalCnt(cri);
+		
+		log.info("total : " + total);
+		PageDTO pageDto = new PageDTO(cri, total);
+		result.put("listMaker", pageDto);
+		
+		log.info(result);
+		return result;
 	}
 	
 	@RequestMapping(value = "/write", method = RequestMethod.GET)
@@ -93,17 +117,17 @@ public class BoardController {
 	
 	@RequestMapping(value = "/write", method = RequestMethod.POST)
 	public String registerPost(BoardDTO bDto, RedirectAttributes rttr) throws Exception{
-		log.info("register post............");
+		log.info("write post............");
 		
-		log.info("register : " + bDto);
-		
-		if (bDto.getAttachList() != null) {
-			bDto.getAttachList().forEach(attach -> log.info(attach));
-		}
-
-		service.register(bDto);
-		
-		rttr.addFlashAttribute("result", bDto.getBoardid());
+//		log.info("register : " + bDto);
+//		
+//		if (bDto.getAttachList() != null) {
+//			bDto.getAttachList().forEach(attach -> log.info(attach));
+//		}
+//
+////		service.register(bDto);
+//		
+//		rttr.addFlashAttribute("result", bDto.getBoardid());
 		
 		return "redirect:/foring/boardlist";
 	}

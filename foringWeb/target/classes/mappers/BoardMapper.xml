@@ -70,4 +70,32 @@
 		FROM 	tbl_board
 		WHERE	boardid=#{bno}
 	</select>
+	<select id="reply" resultType="kr.co.foring.board.domain.ReplyDTO">
+	<![CDATA[
+		SELECT	*
+		FROM	(
+				SELECT  rownum rn,
+						subboard.* 
+				FROM	(
+						SELECT 	*
+						FROM 	tbl_reply
+						WHERE	boardid=#{bno}
+						ORDER BY replyregdate DESC
+						) subboard
+				)
+		WHERE	rn > (#{cri.pageNum}-1)*#{cri.amount}
+		AND		rn <= #{cri.pageNum} * #{cri.amount}
+	]]>
+	</select>
+	<select id="getReplyTotalCnt" resultType="int">
+			<![CDATA[
+				SELECT	COUNT(*)
+				FROM	tbl_reply
+			]]>
+	</select>
+	<update id="viewCnt">
+		UPDATE 	tbl_board
+		SET 	viewcnt = viewcnt+1
+		WHERE	boardid=#{bno}
+	</update>
 </mapper>

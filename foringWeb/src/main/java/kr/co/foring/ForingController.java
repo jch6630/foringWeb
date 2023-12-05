@@ -155,15 +155,18 @@ public class ForingController {
 	
 	@RequestMapping(value = "/loginPost", method = RequestMethod.POST)
 	public String loginPost(MemberDTO mDto, HttpSession session, Model model) {
-		String returnURL = "";
+		String returnURL = "redirect:/foring/main";
 		log.info("mDto ====> " + mDto);
 		Logger.info("mDto ====> " + mDto);
 		MemberDTO memInfo = service.login(mDto);
 		log.info("memInfo ====> " + memInfo);
 		Logger.info("memInfo ====> " + memInfo);
 		if (memInfo == null) {
-			model.addAttribute("memInfo", memInfo);
-			return "redirect:/foring/login";
+			MemberDTO memNotFound = new MemberDTO();
+			memNotFound.setEmail("notFound");
+			model.addAttribute("memNotFound", memNotFound);
+			log.info("memNotFound ====> " + model);
+			return "foring/login";
 		} 
 		
 		model.addAttribute("memInfo", memInfo);

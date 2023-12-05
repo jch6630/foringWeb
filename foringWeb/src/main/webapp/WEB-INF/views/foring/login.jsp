@@ -18,8 +18,6 @@
 		
 		$(document).ready(function(e){
 			
-		let code = ""; 
-		
 			/* 버튼 호버 효과 */
 			$(".btn").hover(function(e){
 				$(this).addClass("hoverEffect");
@@ -32,18 +30,14 @@
 			/* ///////////////////////////////////////////////////////////////////////////// */
 			
 			/* 로그인 정보 전송 */
-			$("#loginbtn").on("click", function(e){
+			$("#loginbtn").on("click", function loginPost (e){
 				if($("#email").val() != "" && $("#userpw").val() != "") {
+// 					alert("로그인 진행중되었습니다.")
+					e.preventDefault();
+					$("#meminfoinput").serialize();
+				    $("#meminfoinput").attr('action', '${ctx}/foring/loginPost');
+				    $("#meminfoinput").submit();
 					
-				alert("로그인 진행중되었습니다.")
-				
-				e.preventDefault();
-				
-				$("#meminfoinput").serialize();
-// 			    $("#meminfoinput").attr('method', 'POST');
-			    $("#meminfoinput").attr('action', '${ctx}/foring/loginPost');
-			    $("#meminfoinput").submit();
-				$("#loginstatus").css("display", "block");
 				}
 				else{
 					if ($("#email").val() == "") {
@@ -59,6 +53,12 @@
 						$("#userpwguide").empty();
 					}
 					
+				}
+			});
+			
+			$("#userpw").on("keyup", function(e){
+				if(e.keyCode === 13){
+					$("#loginbtn").click();
 				}
 			});
 			
@@ -83,7 +83,7 @@
 			<div class="partition"></div>
 			<div id="membersearch">
 				<form id="meminfoinput" role="form" action="${ctx}/foring/main" method="post">
-					<c:if test="${memInfo == NULL}">
+					<c:if test="${memNotFound.email == 'notFound'}">
 						<div id="loginstatus" >※계정 및 비밀번호를 잘못 입력하셨습니다.</div>
 					</c:if>
 					<input type="email" id="email" name="email" maxlength="30" placeholder="이메일을 입력해주세요.">

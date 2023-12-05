@@ -109,14 +109,16 @@ a{
 	width: 750px;
 	height:30px;
 	position: absolute;
-	top: 1050px;
+/* 	top: 1050px; */
 	left: 290px;
 	text-align:center;
+	display: flex;
+	justify-content:center;
 }
 #pagination{
-	display:table;
+	display: flex;
 	width: 360px;
-	margin:0 auto;
+	justify-content:center;
 /* 	background:blue; */
 	list-style: none;
 	text-align:center;
@@ -135,11 +137,11 @@ a{
 #write{
 	display: inline-block;
 	width: 5%;
-	height: 35px;
+	height: 30px;
 	background-color: white;
 	overflow:hidden;
 	position: absolute;
-	top: 1047.5px;
+/* 	top: 1047.5px; */
 	left: 965px;
 }
 #writeBtn{
@@ -147,7 +149,7 @@ a{
 	height: 28px;
 	border: 1px solid #2E9AFE;
 	border-radius : 10px;
-	margin: 3.5px auto;
+/* 	margin: 5px auto; */
 	background-color: white;
 	cursor: pointer;
 }

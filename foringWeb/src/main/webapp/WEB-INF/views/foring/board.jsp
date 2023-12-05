@@ -112,6 +112,8 @@
 			        		$("#pagination").append(nextHtml);
 						}
 			        	
+		  				$("#paging").css("top",((list.length+1)*30)+120+"px");
+		  				$("#write").css("top",((list.length+1)*30)+120+"px");
 			        },
 			        error: function(jqXHR, textStatus, errorThrown) {
 		               if(textStatus=="timeout") {
@@ -196,6 +198,8 @@
 		        		$("#pagination").append(nextHtml);
 					}
 		        	
+	  				$("#paging").css("top",((list.length+1)*30)+120+"px");
+	  				$("#write").css("top",((list.length+1)*30)+120+"px");
 		        },
 		        error: function(jqXHR, textStatus, errorThrown) {
 	               if(textStatus=="timeout") {
@@ -239,55 +243,59 @@
 		        success:function(data){
 	        	
 		        	var responseData = JSON.parse(data)
-// 	        	console.log(responseData["list"]);
-// 	        	console.log(responseData["listMaker"]);
-	        	
-	        	var list = JSON.parse(responseData["list"]);
-	        	var pageDto = JSON.parse(responseData["listMaker"]);
-	        	for (var i = 0; i < list.length; i++) {
-		        	var html = ""; 
-		        	html += '<tr id="appendList">';
-		        	html += '<td>'+list[i].boardid+'</td>';
-		        	html += '<td><a class="move" href=' + list[i].boardid + '>'+list[i].boardtitle+'</td>';
-		        	html += '<td>'+list[i].usernick+'</td>';
-		        	html += '<td>'+list[i].viewCnt+'</td>';
-		        	html += '</tr>';
-		        	$("#boardList").append(html);
-				}
-	        	
-	        	var prevHtml ="";
-	        	if (pageDto.prev) {
-	        		prevHtml = "<li id='prevBtn'><div class='pagingBtn'><</div></li>"
-	        		$("#pagination").append(prevHtml);
-				}
-	        	else {
-	        		prevHtml = "<li id='nextBtn'><div class='pagingBtn' style='color:gray; outline: 1px solid gray; cursor: default; pointer-events: none;'><</div></li>"
-	        		$("#pagination").append(prevHtml);
-				}
-	        	
-	        	var nowPageNum = 0;
-	        	var nowPageNumHtml = "";
-	        	
-	        	startPage = pageDto.startPage;
-	        	endPage = pageDto.endPage;
-	        	
-	        	for (var i = startPage; i <= endPage; i++) {
-	        		nowPageNum = i
-	        		nowPageNumHtml = "<li id='paginationBtn'><div class='pagingBtn' id='pagingBtn" + nowPageNum + "'>" + nowPageNum + "</div></li>"
-	        		$("#pagination").append(nowPageNumHtml);
-				}
-	        	
-	        	var nextHtml ="";
-	        	if (pageDto.next) {
-	        		nextHtml = "<li id='nextBtn'><div class='pagingBtn'>></div></li>"
-	        		$("#pagination").append(nextHtml);
-	        		$("#pagination").css("width", "360px");
-				}
-	        	else {
-					nextHtml = "<li id='nextBtn'><div class='pagingBtn' style='color:gray; outline: 1px solid gray; cursor: default; pointer-events: none;'>></div></li>"
-	        		$("#pagination").append(nextHtml);
-	        		$("#pagination").css("width",(30*(endPage-startPage+3)) + "px");
-				}
+	// 	        	console.log(responseData["list"]);
+	// 	        	console.log(responseData["listMaker"]);
+		        	
+		        	var list = JSON.parse(responseData["list"]);
+		        	var pageDto = JSON.parse(responseData["listMaker"]);
+		        	for (var i = 0; i < list.length; i++) {
+			        	var html = ""; 
+			        	html += '<tr id="appendList">';
+			        	html += '<td>'+list[i].boardid+'</td>';
+			        	html += '<td><a class="move" href=' + list[i].boardid + '>'+list[i].boardtitle+'</td>';
+			        	html += '<td>'+list[i].usernick+'</td>';
+			        	html += '<td>'+list[i].viewCnt+'</td>';
+			        	html += '</tr>';
+			        	$("#boardList").append(html);
+					}
+		        	
+		        	
+		        	var prevHtml ="";
+		        	if (pageDto.prev) {
+		        		prevHtml = "<li id='prevBtn'><div class='pagingBtn'><</div></li>"
+		        		$("#pagination").append(prevHtml);
+					}
+		        	else {
+		        		prevHtml = "<li id='nextBtn'><div class='pagingBtn' style='color:gray; outline: 1px solid gray; cursor: default; pointer-events: none;'><</div></li>"
+		        		$("#pagination").append(prevHtml);
+					}
+		        	
+		        	var nowPageNum = 0;
+	// 	        	var nowPageNumHtml = "";
+		        	
+		        	startPage = pageDto.startPage;
+		        	endPage = pageDto.endPage;
+		        	
+		        	for (var i = startPage; i <= endPage; i++) {
+		        		nowPageNum = i
+		        		nowPageNumHtml = "<li id='paginationBtn'><div class='pagingBtn' id='pagingBtn" + nowPageNum + "'>" + nowPageNum + "</div></li>"
+		        		$("#pagination").append(nowPageNumHtml);
+					}
+		        	
+		        	var nextHtml ="";
+		        	if (pageDto.next) {
+		        		nextHtml = "<li id='nextBtn'><div class='pagingBtn'>></div></li>"
+		        		$("#pagination").append(nextHtml);
+		        		$("#pagination").css("width", "360px");
+					}
+		        	else {
+						nextHtml = "<li id='nextBtn'><div class='pagingBtn' style='color:gray; outline: 1px solid gray; cursor: default; pointer-events: none;'>></div></li>"
+		        		$("#pagination").append(nextHtml);
+		        		$("#pagination").css("width",(30*(endPage-startPage+3)) + "px");
+					}
+		        	
+	  				$("#paging").css("top",((list.length+1)*30)+120+"px");
+	  				$("#write").css("top",((list.length+1)*30)+120+"px");
 		        },
 		        error: function(jqXHR, textStatus, errorThrown) {
 	               if(textStatus=="timeout") {
@@ -381,6 +389,8 @@
 			        		$("#pagination").append(nextHtml);
 			        		$("#pagination").css("width",(30*(endPage-startPage+3)) + "px");
 						}
+		  				$("#paging").css("top",((list.length+1)*30)+120+"px");
+		  				$("#write").css("top",((list.length+1)*30)+120+"px");
 			        },
 			        error: function(jqXHR, textStatus, errorThrown) {
 		               if(textStatus=="timeout") {

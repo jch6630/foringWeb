@@ -162,7 +162,7 @@ input{
 	position: absolute;
 	top: 50px;
 	left: 2%;
-	display: none;
+/* 	display: none; */
 	color: red;
 }
 #email{

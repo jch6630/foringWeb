@@ -1,7 +1,7 @@
 @charset "UTF-8";
 #readContainer{
 	height: 600px;
-	width: 1000px;
+	width: 70%;
 	background: white;
 	position: absolute;
 	top: 30px;
@@ -50,9 +50,58 @@
 	position: absolute;
 	top: 180px;
 	left: 0%;
-	padding: 10px;
 	background-color: white;
-	height: 400px;
-	width: 98%;
+	height: 420px;
+	width: 100%;
 	outline: 5px solid #eaeae8;
 }
+#boardContentText{
+	height: 398px;
+	width: 100%;
+	border-top: 2px dashed #eaeae8;
+	background-color: white;
+	overflow:auto;
+}
+#replyContainer{
+	height: auto;
+	width: 70%;
+	background: white;
+	position: absolute;
+	top: 680px;
+	left: 290px;
+	border: 5px #eaeae8 solid;
+	border-top-color: #0eb4fc;
+}
+#replies{
+	height: auto;
+	width: 100%;
+/* 	background:yellow; */
+}
+#reply{
+	height: auto;
+	width: 100%;
+}
+#replyUsernick{
+	padding: 1px;
+	border-bottom: 1px #eaeae8 solid;
+	height: inherit;
+	width: 15%;
+	text-align: center;
+}
+#replyContent{
+	padding: 1px 5px;
+	border-bottom: 1px #eaeae8 solid;
+	border-left: 1px #eaeae8 dotted;
+	border-right: 1px #eaeae8 dotted;
+	height: inherit;
+	width: 75%;
+}
+#replyRegdate{
+	padding: 1px;
+	border-bottom: 1px #eaeae8 solid;
+	height: inherit;
+	width: 10%;
+	font-size: 0.8em;
+	text-align: center;
+}
+
