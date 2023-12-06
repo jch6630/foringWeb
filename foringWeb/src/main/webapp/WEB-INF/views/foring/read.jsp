@@ -33,7 +33,7 @@
 	        	for (var i = 0; i < replyList.length; i++) {
 	        		console.log(replyList[i]);
 	        		let replyRow = "";
-	        		replyRow += "<tr id='reply'>";
+	        		replyRow += "<tr class='reply' id='reply" + replyList[i].replyid + "'>";
 	        		replyRow += "<td id='replyUsernick'>" + replyList[i].usernick + "</td>";
 	        		replyRow += "<td id='replyContent'>" + replyList[i].replycontent + "</td>";
 	        		const replyregdate = new Date(replyList[i].replyregdate);
@@ -58,6 +58,7 @@
 	        		}
 	        		
 	        		replyRow += "<td id='replyRegdate'>" + showingTime + "</td>";
+	        		replyRow += "<td id='rereplyBtnBack'><button class='rereplyBtn' id='rereplyBtn_" + replyList[i].replyid + "'>답글▽</button></td>";
 	        		replyRow += "</tr>";
 	        		$("#replies").append(replyRow);
 				}
@@ -97,29 +98,49 @@
 	        		$("#paginationReply").append(nextHtml);
 				}
 	        	
-					$("#pagingReply").css("top",((replyList.length+1)*30)-50+"px");
-					
-					$(document).off().on("click", ".pagingReplyBtn", function(){
-// 						alert("ok");
-						let prevPageNum = nowPageNum;
-						if ($(this).text() == "<") {
-				  			nowPageNum = startPage - 1;
-						}
-				  		else if ($(this).text() == ">") {
-				  			nowPageNum = endPage + 1;
-						}
-				  		else{
-				  			nowPageNum = parseInt($(this).text());
-				  		}
+				$("#pagingReply").css("top",((replyList.length+1)*30)-50+"px");
+				
+				$(".pagingReplyBtn").off().on("click",function(){
+					let prevPageNum = nowPageNum;
+					if ($(this).text() == "<") {
+			  			nowPageNum = startPage - 1;
+					}
+			  		else if ($(this).text() == ">") {
+			  			nowPageNum = endPage + 1;
+					}
+			  		else{
+			  			nowPageNum = parseInt($(this).text());
+			  		}
+			  		
+			  		$("#replyPageNum").val(nowPageNum);
+				  	$(replyCallIn()).one();
+			  	});
+			  	
+			  	$(".rereplyBtn").off().on("click", function(e){
+			  		var usernick = $("#usernick").val();
+			  		if(usernick == ""){
+			  			alert("로그인 후 이용 바랍니다.");
+			  			return false;
+			  		}
+			  		else{
+						let replyKey = this.id.split("_");
+				  		$("#reReplyContainer"+replyKey[1]).remove();
+				  		$("#reReplyReg"+replyKey[1]).remove();
 				  		
-				  		$("#replyPageNum").val(nowPageNum);
-// 				  		if(prevPageNum == nowPageNum){
-// 				  			return;
-// 				  		}
-// 				  		else{
-					  		$(replyCallIn()).one();
-// 				  		}
-				  	});
+						rereplyBtnClick(replyKey[1]);
+						var reReplyContainerDom = "";
+						reReplyContainerDom += "<tr class='reReplyContainer' id='reReplyContainer" + replyKey[1] + "'>";
+						reReplyContainerDom += "<td class='reReplyContainerBox' colspan='4'><table class='reReplies' id='reReplies" + replyKey[1] + "'>";
+						reReplyContainerDom += "</table></td>";
+						reReplyContainerDom += "</tr>";
+						reReplyContainerDom += "<tr class='reReplyReg' id='reReplyReg" + replyKey[1] + "'>";
+						reReplyContainerDom += "<td class='reReplyRegArea' colspan='4'>";
+						reReplyContainerDom += "<textarea class='reReplyTextArea' placeholder='답글을 작성하세요.'  maxlength='300'></textarea>";
+						reReplyContainerDom += "</td>";
+						reReplyContainerDom += "</tr>";
+						$("#reply"+replyKey[1]).after(reReplyContainerDom);
+			  		}			  	
+		  		});
 	        },
 	        error: function(jqXHR, textStatus, errorThrown) {
 	           if(textStatus=="timeout") {
@@ -131,8 +152,62 @@
 	    });
 	}
 	
-	function pagingBtnClick(){
-		alert("startPage : " + startPage + ", endPage : " + endPage);
+	function rereplyBtnClick(replyid, usernick){
+		$.ajax({
+	        type:"POST",
+	        url:"rereply",
+	        data: {
+	        	"replyid" : replyid,
+	        	"usernick" : usernick
+	        },
+	        success:function(data){
+	        	console.log(data);
+	        	var list = data.rereply;
+	        	if(list.length == 0){
+	        		$("#reReplies" + replyid).append("<tr><td colspan='4'>등록된 답글이 없습니다.</td></tr>")
+	        	}
+	        	else{
+	        		for (var i = 0; i < list.length; i++) {
+		        		let reReplyRow = "";
+		        		reReplyRow += "<tr class='reReply' id='reReply" + list[i].reReplyid + "'>";
+		        		reReplyRow += "<td id='LSymbol'>ㄴ</td>";
+		        		reReplyRow += "<td id='reReplyUsernick'>" + list[i].usernick + "</td>";
+		        		reReplyRow += "<td id='reReplyContent'>" + list[i].rereplycontent + "</td>";
+		        		const reReplyregdate = new Date(list[i].rereplyregdate);
+		        		const nowTime = new Date();
+		        		let showingTime = "";
+		        		
+		        		if (reReplyregdate.getDate() < nowTime.getDate()) {
+		        			showingTime = reReplyregdate.getFullYear() + "-" + (reReplyregdate.getMonth()+1) + "-" + reReplyregdate.getDate();
+						}
+		        		else{
+		        			if(reReplyregdate.getHours()==nowTime.getHours()){
+		        				if (reReplyregdate.getMinutes()==nowTime.getMinutes()) {
+		        					showingTime = "방금 전";
+								} 
+		        				else{
+		        					showingTime = String(nowTime.getMinutes() - reReplyregdate.getMinutes()) + "분 전";
+								}
+		        			}
+		        			else{
+		        				showingTime = (nowTime.getHours() - reReplyregdate.getHours()) + "시간 전";
+		        			}
+		        		}
+		        		
+		        		reReplyRow += "<td id='reReplyRegdate'>" + showingTime + "</td>";
+		        		reReplyRow += "</tr>";
+		        		$("#reReplies" + replyid).append(reReplyRow);
+					}
+	        	}
+	        },
+	        error: function(jqXHR, textStatus, errorThrown) {
+	           if(textStatus=="timeout") {
+	            alert("시간이 초과되어 데이터를 수신하지 못하였습니다.");
+	           } else {
+	            alert("데이터 전송에 실패했습니다. 다시 시도해 주세요");
+	           } 
+	        }
+	    });
 	}
 	
 	$(document).ready(function(e){
@@ -165,36 +240,41 @@
 	  	$(replyCallIn()).one();
 	  	
 	  	$("#replyRegText").keypress(function(e){
-	  		if(e.keyCode == 13){
-	  			var memInfo = $("#meminfo").val();
-// 		  		alert(memInfo);
-	  			
-	  			var data = {
-		  			replycontent : $(this).val(),
-		  			boardid : parseInt(bno),
-		  			usernick : memInfo,
-		  			disclosure : "y"
-	  			};
-	  			
-	  			$.ajax({
-	  		        type:"POST",
-	  		        url:"replyRegister",
-	  		        data: data,
-	  		        success:function(data){
-	  		        	if(data==1){
-	  		        		replyCallIn();
-	  		        		$("#replyRegText").val("");
-	  		        	}
-	  		        },
-	  		        error: function(jqXHR, textStatus, errorThrown) {
-	  		           if(textStatus=="timeout") {
-	  		            alert("시간이 초과되어 데이터를 수신하지 못하였습니다.");
-	  		           } else {
-	  		            alert("데이터 전송에 실패했습니다. 다시 시도해 주세요");
-	  		           } 
-	  		        }
-	  		    });
-	  			
+  			var usernick = $("#usernick").val();
+	  		if(usernick == ""){
+	  			alert("로그인 후 이용 바랍니다.");
+	  			return false;
+	  		}
+	  		else{
+		  		if(e.keyCode == 13){
+	// 		  		alert(usernick);
+		  			
+		  			var data = {
+			  			replycontent : $(this).val(),
+			  			boardid : parseInt(bno),
+			  			usernick : usernick,
+			  			disclosure : "y"
+		  			};
+		  			
+		  			$.ajax({
+		  		        type:"POST",
+		  		        url:"replyRegister",
+		  		        data: data,
+		  		        success:function(data){
+		  		        	if(data==1){
+		  		        		replyCallIn();
+		  		        		$("#replyRegText").val("");
+		  		        	}
+		  		        },
+		  		        error: function(jqXHR, textStatus, errorThrown) {
+		  		           if(textStatus=="timeout") {
+		  		            alert("시간이 초과되어 데이터를 수신하지 못하였습니다.");
+		  		           } else {
+		  		            alert("데이터 전송에 실패했습니다. 다시 시도해 주세요");
+		  		           } 
+		  		        }
+		  		    });
+		  		}
 	  		}
 	  	})
 	  	
@@ -220,7 +300,7 @@
 			<input type="hidden" id="replyPageNum" value="1">
 			<input type="hidden" id="replyStartPageNum" value="0">
 			<input type="hidden" id="replyEndPageNum" value="0">
-			<input type="hidden" id="meminfo" value="${memInfo.usernick}">
+			<input type="hidden" id="usernick" value="${memInfo.usernick}">
 		</form>
 	</div>
 	<div id="readContainer">
@@ -245,7 +325,7 @@
 			</ul>
 		</div>
 		<form id="replyReg">
-			<textarea id="replyRegText" placeholder="댓글은 입력하세요." ></textarea>
+			<textarea id="replyRegText" placeholder="댓글은 입력하세요."  maxlength="300"></textarea>
 		</form>
 	</div>
 	

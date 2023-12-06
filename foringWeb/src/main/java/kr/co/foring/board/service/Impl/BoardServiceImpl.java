@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import kr.co.foring.board.domain.BoardDTO;
 import kr.co.foring.board.domain.Criteria;
+import kr.co.foring.board.domain.ReReplyDTO;
 import kr.co.foring.board.domain.ReplyDTO;
 import kr.co.foring.board.mapper.BoardMapper;
 import kr.co.foring.board.service.IBoardService;
@@ -50,6 +51,11 @@ public class BoardServiceImpl implements IBoardService {
 	@Override
 	public int replyRegister(ReplyDTO rDto) {
 		return mapper.replyRegister(rDto);
+	}
+
+	@Override
+	public List<ReReplyDTO> rereply(Integer replyid) {
+		return mapper.rereply(replyid);
 	}
 
 //	@Transactional

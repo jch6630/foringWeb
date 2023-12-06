@@ -4,6 +4,7 @@ import java.util.List;
 
 import kr.co.foring.board.domain.BoardDTO;
 import kr.co.foring.board.domain.Criteria;
+import kr.co.foring.board.domain.ReReplyDTO;
 import kr.co.foring.board.domain.ReplyDTO;
 
 public interface IBoardService {
@@ -16,5 +17,6 @@ public interface IBoardService {
 	public void viewCnt(Integer bno) throws Exception;
 //	public void write(BoardDTO bDto) throws Exception;
 	public int replyRegister(ReplyDTO rDto);
+	public List<ReReplyDTO> rereply(Integer replyid);
 	
 }

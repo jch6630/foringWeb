@@ -121,6 +121,19 @@ public class BoardController {
 		return result;
 	}
 	
+	@RequestMapping(value = "/rereply", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> rereply(@RequestParam("replyid") Integer replyid) throws Exception{
+		log.info("rereply 페이지 들어옴..............");
+		log.info("replyid : " + replyid);
+		Map<String, Object> result = new HashMap<>();
+		
+		result.put("rereply", service.rereply(replyid));
+		
+		log.info(result);
+		return result;
+	}
+	
 	@RequestMapping(value = "/write", method = RequestMethod.GET)
 	public void write() throws Exception{
 		log.info("write 페이지 들어옴..............");
