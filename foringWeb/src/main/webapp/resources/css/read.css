@@ -135,6 +135,43 @@
 	width: 100%;
 	height: 10px;
 }
+.reReplies{
+	width: 100%;
+	height: auto;
+}
+.reReply{
+	width: 100%;
+	height: auto;
+/* 	outline: 1px solid #a4aaca; */
+/* 	border-radius: 2px; */
+}
+.LSymbol{
+	width: 5%;
+/* 	background: yellow; */
+	text-align: center;
+}
+.reReplyUsernick{
+	outline: 1px dashed #a4aaca;
+	border-radius: 5px;
+	width: 10%;
+	text-align: center;
+}
+.reReplyContent{
+	outline: 1px dashed #a4aaca;
+	border-radius: 5px;
+	width: 75%;
+	padding-left: 10px;
+	padding-right: 10px;
+	word-break: brweak-word;
+}
+.reReplyRegdate{
+	outline: 1px dashed #a4aaca;
+	border-radius: 5px;
+	width: 10%;
+	font-size: 0.8em;
+	text-align: center;
+}
+
 .reReplyReg{
 	margin-top: 10px;
 	height: auto;

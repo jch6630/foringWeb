@@ -14,10 +14,10 @@
 	  	var currentPosition = parseInt($("#category").css("top"));
 	  	$(window).scroll(function() {
 	    	var position = $(window).scrollTop(); 
-	    	if (position+currentPosition > 440) { 
+	    	if (position+currentPosition > 150) { 
 				return false;
 			} else {
-		    	$("#category").stop().animate({"top":position+currentPosition+"px"},700);
+		    	$("#category").stop().animate({"top":position+currentPosition+"px"},300);
 			}
 	  	});
 	  	

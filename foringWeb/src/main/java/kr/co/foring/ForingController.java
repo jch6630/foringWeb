@@ -155,7 +155,7 @@ public class ForingController {
 	
 	@RequestMapping(value = "/loginPost", method = RequestMethod.POST)
 	public String loginPost(MemberDTO mDto, HttpSession session, Model model) {
-		String returnURL = "redirect:/foring/main";
+		String returnURL = "";
 		log.info("mDto ====> " + mDto);
 		Logger.info("mDto ====> " + mDto);
 		MemberDTO memInfo = service.login(mDto);

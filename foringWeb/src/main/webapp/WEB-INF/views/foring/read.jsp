@@ -124,14 +124,23 @@
 			  		}
 			  		else{
 						let replyKey = this.id.split("_");
-				  		$("#reReplyContainer"+replyKey[1]).remove();
-				  		$("#reReplyReg"+replyKey[1]).remove();
+
+						$(".body").css("height" , "1200px");
+
+				  		if($("#reReplyContainer"+replyKey[1]).length != 0){
+				  			$(".reReplyContainer").remove();
+					  		$(".reReplyReg").remove();
+					  		return false;
+				  		}
+				  		
+				  		$(".reReplyContainer").remove();
+				  		$(".reReplyReg").remove();
 				  		
 						rereplyBtnClick(replyKey[1]);
 						var reReplyContainerDom = "";
 						reReplyContainerDom += "<tr class='reReplyContainer' id='reReplyContainer" + replyKey[1] + "'>";
-						reReplyContainerDom += "<td class='reReplyContainerBox' colspan='4'><table class='reReplies' id='reReplies" + replyKey[1] + "'>";
-						reReplyContainerDom += "</table></td>";
+						reReplyContainerDom += "<td class='reReplyContainerBox' colspan='4'><div style='width: 95%; height: auto; max-height: 300px; overflow: auto; float: right;'><table class='reReplies' id='reReplies" + replyKey[1] + "'>";
+						reReplyContainerDom += "</table></div></td>";
 						reReplyContainerDom += "</tr>";
 						reReplyContainerDom += "<tr class='reReplyReg' id='reReplyReg" + replyKey[1] + "'>";
 						reReplyContainerDom += "<td class='reReplyRegArea' colspan='4'>";
@@ -139,6 +148,9 @@
 						reReplyContainerDom += "</td>";
 						reReplyContainerDom += "</tr>";
 						$("#reply"+replyKey[1]).after(reReplyContainerDom);
+						
+						var bodyHeight = parseInt($(".body").css("height"))+300;
+						$(".body").css("height" , bodyHeight+"px");
 			  		}			  	
 		  		});
 	        },
@@ -170,9 +182,9 @@
 	        		for (var i = 0; i < list.length; i++) {
 		        		let reReplyRow = "";
 		        		reReplyRow += "<tr class='reReply' id='reReply" + list[i].reReplyid + "'>";
-		        		reReplyRow += "<td id='LSymbol'>ㄴ</td>";
-		        		reReplyRow += "<td id='reReplyUsernick'>" + list[i].usernick + "</td>";
-		        		reReplyRow += "<td id='reReplyContent'>" + list[i].rereplycontent + "</td>";
+		        		reReplyRow += "<td class='LSymbol'>ㄴ</td>";
+		        		reReplyRow += "<td class='reReplyUsernick'>" + list[i].usernick + "</td>";
+		        		reReplyRow += "<td class='reReplyContent'>" + list[i].rereplycontent + "</td>";
 		        		const reReplyregdate = new Date(list[i].rereplyregdate);
 		        		const nowTime = new Date();
 		        		let showingTime = "";
@@ -194,7 +206,7 @@
 		        			}
 		        		}
 		        		
-		        		reReplyRow += "<td id='reReplyRegdate'>" + showingTime + "</td>";
+		        		reReplyRow += "<td class='reReplyRegdate'>" + showingTime + "</td>";
 		        		reReplyRow += "</tr>";
 		        		$("#reReplies" + replyid).append(reReplyRow);
 					}
