@@ -33,9 +33,7 @@
 	        	for (var i = 0; i < replyList.length; i++) {
 	        		console.log(replyList[i]);
 	        		let replyRow = "";
-	        		replyRow += "<tr class='reply' id='reply" + replyList[i].replyid + "'>";
-	        		replyRow += "<td id='replyUsernick'>" + replyList[i].usernick + "</td>";
-	        		replyRow += "<td id='replyContent'>" + replyList[i].replycontent + "</td>";
+	        		
 	        		const replyregdate = new Date(replyList[i].replyregdate);
 	        		const nowTime = new Date();
 	        		let showingTime = "";
@@ -57,9 +55,22 @@
 	        			}
 	        		}
 	        		
-	        		replyRow += "<td id='replyRegdate'>" + showingTime + "</td>";
-	        		replyRow += "<td id='rereplyBtnBack'><button class='rereplyBtn' id='rereplyBtn_" + replyList[i].replyid + "'>답글▽</button></td>";
-	        		replyRow += "</tr>";
+	        		if(replyList[i].disclosure == "n"){
+	        			replyRow += "<tr class='reply' id='reply" + replyList[i].replyid + "'>";
+		        		replyRow += "<td id='replyUsernick'>비공개</td>";
+		        		replyRow += "<td id='replyContent'>비공개 처리된 댓글입니다.</td>";
+		        		replyRow += "<td id='replyRegdate'>" + showingTime + "</td>";
+		        		replyRow += "<td id='rereplyBtnBack'><button class='rereplyBtn' id='rereplyBtn_" + replyList[i].replyid + "' style='cursor: default;' disabled>답글▽</button></td>";
+		        		replyRow += "</tr>";
+	        		}
+	        		else{
+		        		replyRow += "<tr class='reply' id='reply" + replyList[i].replyid + "'>";
+		        		replyRow += "<td id='replyUsernick'>" + replyList[i].usernick + "</td>";
+		        		replyRow += "<td id='replyContent'>" + replyList[i].replycontent + "</td>";
+		        		replyRow += "<td id='replyRegdate'>" + showingTime + "</td>";
+		        		replyRow += "<td id='rereplyBtnBack'><button class='rereplyBtn' id='rereplyBtn_" + replyList[i].replyid + "'>답글▽</button></td>";
+		        		replyRow += "</tr>";
+	        		}
 	        		$("#replies").append(replyRow);
 				}
 	        	
@@ -274,7 +285,8 @@
 	  	var currentPosition = parseInt($("#category").css("top"));
 	  	$(window).scroll(function() {
 	    	var position = $(window).scrollTop(); 
-	    	if (position+currentPosition > 440) { 
+	    	if (position+currentPosition > parseInt($(".body").css("height"))-700) { 
+// 	    		alert("body_height : " + $(".body").css("height"));
 				return false;
 			} else {
 		    	$("#category").stop().animate({"top":position+currentPosition+"px"},700);
@@ -305,13 +317,23 @@
 	  		}
 	  		else{
 		  		if(e.keyCode == 13){
-	// 		  		alert(usernick);
+		  			
+		  			var replyRegDis = $("#replyRegDis").is(":checked") ; 
+	 				var disclosure = "y";
+// 	 				alert(replyRegDis);
+		  			if(replyRegDis){
+		  				disclosure = "n";
+		  			}
+		  			else{
+		  				disclosure = "y"
+		  			}
+// 	 				alert(disclosure);
 		  			
 		  			var data = {
 			  			replycontent : $(this).val(),
 			  			boardid : parseInt(bno),
 			  			usernick : usernick,
-			  			disclosure : "y"
+			  			disclosure : disclosure
 		  			};
 		  			
 		  			$.ajax({
@@ -332,9 +354,29 @@
 		  		           } 
 		  		        }
 		  		    });
+		  			
+		  			$("#replyRegDis").prop("checked", false);
 		  		}
 	  		}
 	  	})
+	  	
+	  	$("#replyRegText").keydown(function(){
+	  		var usernick = $("#usernick").val();
+	  		if(usernick == ""){
+	  			alert("로그인 후 이용 바랍니다.");
+	  			return false;
+	  		}
+	  		else{
+	  			var replycontent = $(this).val();
+	  			$("#replyRegTextNowCnt").text(replycontent.length);
+	  		}
+	  	});
+	  	
+	  	$("#replyRegText").keyup(function(){
+ 			if ($(this).val().length > $(this).attr('maxlength')) {
+ 	            $(this).val($(this).val().substr(0, $(this).attr('maxlength')));
+ 	        }
+	  	});
 	  	
 	});
 </script>
@@ -383,6 +425,13 @@
 			</ul>
 		</div>
 		<form id="replyReg">
+			<div id="replyRegOptions">
+				<div>
+					<span>비공개</span>
+					<input type="checkbox" id="replyRegDis" />
+				</div>
+				<div id="replyRegTextCnt"><span id="replyRegTextNowCnt">0</span><span id="replyRegTextMaxCnt">/300</span></div>
+			</div>
 			<textarea id="replyRegText" placeholder="댓글은 입력하세요."  maxlength="300"></textarea>
 		</form>
 	</div>
