@@ -103,6 +103,7 @@
 		INSERT INTO tbl_reply(replyid, boardid, usernick, disclosure, replycontent) 
 		VALUES (reply_seq.nextval, #{boardid}, #{usernick, jdbcType=VARCHAR}, #{disclosure, jdbcType=VARCHAR}, #{replycontent, jdbcType=VARCHAR})
 	</insert>
+	
 	<select id="rereply" resultType="kr.co.foring.board.domain.ReReplyDTO">
 	<![CDATA[
 		SELECT 	*
@@ -111,4 +112,8 @@
 		ORDER BY rereplyregdate DESC
 	]]>
 	</select>
+	<insert id="reReplyRegister" >
+		INSERT INTO tbl_rereply(rereplyid, replyid, usernick, disclosure, rereplycontent) 
+		VALUES (rereply_seq.nextval, #{replyid}, #{usernick, jdbcType=VARCHAR}, #{disclosure, jdbcType=VARCHAR}, #{rereplycontent, jdbcType=VARCHAR})
+	</insert>
 </mapper>

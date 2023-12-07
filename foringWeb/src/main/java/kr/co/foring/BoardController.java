@@ -22,6 +22,7 @@ import com.google.gson.GsonBuilder;
 import kr.co.foring.board.domain.BoardDTO;
 import kr.co.foring.board.domain.Criteria;
 import kr.co.foring.board.domain.PageDTO;
+import kr.co.foring.board.domain.ReReplyDTO;
 import kr.co.foring.board.domain.ReplyDTO;
 import kr.co.foring.board.service.IBoardService;
 import lombok.extern.log4j.Log4j;
@@ -130,6 +131,16 @@ public class BoardController {
 		
 		result.put("rereply", service.rereply(replyid));
 		
+		log.info(result);
+		return result;
+	}
+	@RequestMapping(value = "/reReplyRegister", method = RequestMethod.POST)
+	@ResponseBody
+	public int reReplyRegister(ReReplyDTO rrDto) throws Exception{
+		log.info("reReply 작성중..............");
+		log.info("rrDto : " + rrDto);
+		
+		int result = service.reReplyRegister(rrDto);
 		log.info(result);
 		return result;
 	}

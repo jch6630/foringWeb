@@ -21,4 +21,5 @@ public interface BoardMapper {
 	public void viewCnt(@Param("bno")Integer bno);
 	public int replyRegister(ReplyDTO rDto);
 	public List<ReReplyDTO> rereply(@Param("replyid")Integer replyid);
+	public int reReplyRegister(ReReplyDTO rrDto);
 }

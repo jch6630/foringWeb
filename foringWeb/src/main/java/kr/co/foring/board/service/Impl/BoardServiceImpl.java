@@ -58,6 +58,11 @@ public class BoardServiceImpl implements IBoardService {
 		return mapper.rereply(replyid);
 	}
 
+	@Override
+	public int reReplyRegister(ReReplyDTO rrDto) {
+		return mapper.reReplyRegister(rrDto);
+	}
+
 //	@Transactional
 //	@Override
 //	public void write(BoardDTO bDto) throws Exception {

@@ -18,5 +18,6 @@ public interface IBoardService {
 //	public void write(BoardDTO bDto) throws Exception;
 	public int replyRegister(ReplyDTO rDto);
 	public List<ReReplyDTO> rereply(Integer replyid);
+	public int reReplyRegister(ReReplyDTO rrDto);
 	
 }

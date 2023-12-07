@@ -144,7 +144,7 @@
 						reReplyContainerDom += "</tr>";
 						reReplyContainerDom += "<tr class='reReplyReg' id='reReplyReg" + replyKey[1] + "'>";
 						reReplyContainerDom += "<td class='reReplyRegArea' colspan='4'>";
-						reReplyContainerDom += "<textarea class='reReplyTextArea' placeholder='답글을 작성하세요.'  maxlength='300'></textarea>";
+						reReplyContainerDom += "<textarea class='reReplyTextArea' id='reReplyTextArea" + replyKey[1] + "' placeholder='답글을 작성하세요.'  maxlength='300'></textarea>";
 						reReplyContainerDom += "</td>";
 						reReplyContainerDom += "</tr>";
 						$("#reply"+replyKey[1]).after(reReplyContainerDom);
@@ -153,6 +153,7 @@
 						$(".body").css("height" , bodyHeight+"px");
 			  		}			  	
 		  		});
+			  	
 	        },
 	        error: function(jqXHR, textStatus, errorThrown) {
 	           if(textStatus=="timeout") {
@@ -211,6 +212,9 @@
 		        		$("#reReplies" + replyid).append(reReplyRow);
 					}
 	        	}
+	        	$(document).on("keypress",".reReplyTextArea",function(e){
+			  		reReplyRegister(e, replyid);
+			  	});
 	        },
 	        error: function(jqXHR, textStatus, errorThrown) {
 	           if(textStatus=="timeout") {
@@ -221,6 +225,48 @@
 	        }
 	    });
 	}
+	
+
+  	function reReplyRegister(e, replyid){
+		var usernick = $("#usernick").val();
+  		if(usernick == ""){
+  			alert("로그인 후 이용 바랍니다.");
+  			return false;
+  		}
+  		else{
+	  		if(e.keyCode == 13){
+// 		  		alert("reReplyRegister 이벤트 발생");
+	  			
+	  			var data = {
+		  			rereplycontent : $("#reReplyTextArea"+replyid).val(),
+		  			replyid : parseInt(replyid),
+		  			usernick : usernick,
+		  			disclosure : "y"
+	  			};
+// 		  		alert(data.toString());
+	  			
+	  			$.ajax({
+	  		        type:"POST",
+	  		        url:"reReplyRegister",
+	  		        data: data,
+	  		        success:function(data){
+	  		        	if(data==1){
+	  		        		$("#rereplyBtn_"+replyid).trigger('click');
+	  		        		$("#rereplyBtn_"+replyid).trigger('click');
+	  		        		$(".reReplyTextArea").val("");
+	  		        	}
+	  		        },
+	  		        error: function(jqXHR, textStatus, errorThrown) {
+	  		           if(textStatus=="timeout") {
+	  		            alert("시간이 초과되어 데이터를 수신하지 못하였습니다.");
+	  		           } else {
+	  		            alert("데이터 전송에 실패했습니다. 다시 시도해 주세요");
+	  		           } 
+	  		        }
+	  		    });
+	  		}
+  		}
+  	}
 	
 	$(document).ready(function(e){
 		
