@@ -109,7 +109,7 @@
 	        		$("#paginationReply").append(nextHtml);
 				}
 	        	
-				$("#pagingReply").css("top",((replyList.length+1)*30)-50+"px");
+// 				$("#pagingReply").css("top",((replyList.length+1)*30)-50+"px");
 				
 				$(".pagingReplyBtn").off().on("click",function(){
 					let prevPageNum = nowPageNum;
@@ -137,6 +137,7 @@
 						let replyKey = this.id.split("_");
 
 						$(".body").css("height" , "1200px");
+// 						alert(parseInt($("#replyContainer").css("height")));
 
 				  		if($("#reReplyContainer"+replyKey[1]).length != 0){
 				  			$(".reReplyContainer").remove();
@@ -160,7 +161,7 @@
 						reReplyContainerDom += "</tr>";
 						$("#reply"+replyKey[1]).after(reReplyContainerDom);
 						
-						var bodyHeight = parseInt($(".body").css("height"))+300;
+						var bodyHeight = parseInt($(".body").css("height"))+ parseInt($("#replyContainer").css("height"));
 						$(".body").css("height" , bodyHeight+"px");
 			  		}			  	
 		  		});
@@ -405,11 +406,15 @@
 	</div>
 	<div id="readContainer">
 		<div id="boardTitle">게시글 제목 : ${read.boardtitle}</div>
-		<div id="boardCategory">카테고리 : ${read.categorymenu}</div>
-		<div id="boardDate">작성일 : 2023-11-11</div>
-		<div id="boardViewCnt">조회수 : ${read.viewCnt}</div>
-		<div id="boardWriter">작성자 : ${read.usernick}</div>
-		<div id="boardDisclosure">공개여부 : ${read.disclosure}</div>
+		<div id="readContainerFirstLine">
+			<div id="boardCategory">카테고리 : ${read.categorymenu}</div>
+			<div id="boardDate">작성일 : 2023-11-11</div>
+			<div id="boardViewCnt">조회수 : ${read.viewCnt}</div>
+		</div>
+		<div id="readContainerSecondLine">
+			<div id="boardWriter">작성자 : ${read.usernick}</div>
+			<div id="boardDisclosure">공개여부 : ${read.disclosure}</div>
+		</div>
 		<div id="boardAttachment">첨부파일 : attach.jpg</div>
 		<div id="boardContent">
 			게시글 내용 <br/> 

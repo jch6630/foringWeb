@@ -1,55 +1,81 @@
 @charset "UTF-8";
 #readContainer{
+	margin-top: 50px;
 	height: auto;
 	width: 70%;
 	background: white;
-	position: absolute;
-	top: 30px;
-	left: 290px;
+/* 	position: absolute; */
+/* 	top: 30px; */
+/* 	left: 290px; */
+	display: flex;
+	justify-content: space-between;
+	flex-direction:column;
 	border: 5px #eaeae8 solid;
 	border-top-color: #0eb4fc;
 }
 #boardTitle{
+	margin-top:10px;
+	margin-left: 5%;
 	font-size: 20pt;
 	font-weight: bold;
-	position: absolute;
-	top: 10px;
-	left: 1%;
+/* 	position: absolute; */
+/* 	top: 10px; */
+/* 	left: 1%; */
+}
+#readContainerFirstLine{
+	width:90%;
+	margin: 10px 5%;
+	display: flex;
+	justify-content: space-between;
+	flex-direction: row;
 }
 #boardCategory{
-	position: absolute;
-	top: 60px;
-	left: 1%;
+/* 	position: absolute; */
+/* 	top: 60px; */
+/* 	left: 1%; */
 }
 #boardDate{
-	position: absolute;
-	top: 60px;
-	left: 45%;
+/* 	position: absolute; */
+/* 	top: 60px; */
+/* 	left: 45%; */
 }
 #boardViewCnt{
-	position: absolute;
-	top: 60px;
-	right: 1%;
+/* 	position: absolute; */
+/* 	top: 60px; */
+/* 	right: 1%; */
+}
+#readContainerSecondLine{
+	width:90%;
+	margin: 10px 5%;
+	display: flex;
+	justify-content: space-between;
+	flex-direction: row;
 }
 #boardWriter{
-	position: absolute;
-	top: 100px;
-	left: 1%;
+/* 	position: absolute; */
+/* 	top: 100px; */
+/* 	left: 1%; */
 }
 #boardDisclosure{
-	position: absolute;
-	top: 100px;
-	left: 45%;
+/* 	position: absolute; */
+/* 	top: 100px; */
+/* 	left: 45%; */
 }
 #boardAttachment{
-	position: absolute;
-	top: 140px;
-	left: 1%;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	margin-left: 5%;
+/* 	position: absolute; */
+/* 	top: 140px; */
+/* 	left: 1%; */
 }
 #boardContent{
-	position: absolute;
-	top: 180px;
-	left: 0%;
+/* 	position: absolute; */
+/* 	top: 180px; */
+/* 	left: 0%; */
+	display: flex;
+	flex-direction: column;
+	margin-top:15px;
 	background-color: white;
 	height: 420px;
 	width: 100%;
@@ -59,8 +85,8 @@
 }
 #boardContentText{
 	padding: 10px;
-	height: 398px;
-	width: 100%;
+/* 	height: 398px; */
+/* 	width: 100%; */
 	border-top: 2px dashed #eaeae8;
 	background-color: white;
 	text-align: left;
@@ -70,9 +96,12 @@
 	height: auto;
 	width: 70%;
 	background: white;
-	position: absolute;
-	top: 680px;
-	left: 290px;
+/* 	position: absolute; */
+/* 	top: 680px; */
+/* 	left: 290px; */
+	margin-top:50px;
+	display: flex;
+	flex-direction: column;
 	border: 5px #eaeae8 solid;
 	border-top-color: #0eb4fc;
 }
@@ -189,15 +218,19 @@
 }
 
 #pagingReply{
-	margin-top: 10px;
-	text-align:center;
+/* 	margin-top: 10px; */
+	height:auto;
 	display: flex;
+	flex-direction:column;
 	justify-content:center;
+	align-items: center;
 }
 #paginationReply{
 	display: flex;
+	margin: 5px auto;
 	width: auto;
-	justify-content:space-between;
+	height:auto;
+	justify-content:center;
 	list-style: none;
 }
 .pagingReplyBtn{

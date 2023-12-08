@@ -5,165 +5,24 @@
 input{
 	z-index: 1000px;
 }
-/* 헤더 */
-header{
-	box-shadow: 0px 0px 5px 0px black;
-	height : 100px;
-	width : 100%;
-	z-index: 100px;
-	margin: 0 auto;
-}
-/* 로고 */
-.logo{
-	float: left;
-	display: inline-block;
-	height: 80px;
-	width : 15%;
-	margin-top: 15px;
-	margin-left: 13%;
-}
-.logoimg{
-	display: inline-block;
-	height: 80px;
-	width : 100%;
-}
-/* /////////////////////// */
-/* 햄버거버튼 */
-.mainbarspace{
-	display: none;
-}
-.main_hamButton{
-	display: none;
-}
-/* ///////////// */
-/* 메인메뉴 */
-.mainmenu {
-	margin-left: 1.8%;
-	height: 100px;
-	display: inline-block;
-	width: 40%;
-}
-.menu {
-	list-style: none;
-	margin-top : 25px;
-	width: 100%;
-	height: 60px;
-	float: left;
-}
-.mainmenucon{
-	overflow: auto;
-	margin-left: 10%;
-	margin-top: 10px;
-	height:40px;
-	display: inline-block;
-	line-height: 38px;
-}
-#heightline{
-	margin: 10px 0 10px 10%;
-	display: inline-block;
-	width:2px;
-	background-color: #A9E2F3;
-	height : 20px;
-}
-.menu>li>a{
-	margin-top: 10px;
-	font-size: 120%;
-	color:#0080FF;
-	text-decoration: none;
-	background-color: white;
-}
-/* ////////////////////////// */
-/* 회원 */
-/* 로그인 */
-.login{
-	display: inline-block;
-	width: 5%;
-	height: 35px;
-	background-color: white;
-	overflow:hidden;
-	margin: 0 0% 28px 3%;
-}
-.loginbutton{
-	width: 100%;
-	height: 28px;
-	border: 1px solid #2E9AFE;
-	border-radius : 10px;
-	margin: 3.5px auto;
-	background-color: white;
-	cursor: pointer;
-}
-.logintext{
-	line-height:22px;
-	font-size: 20px;
-	color: #5a87e6;
-	font-weight: 400;
-	font-family: "Cairo";
-	text-align: center;
-}
-/* /////////////////////////// */
-/* 회원가입 */
-.join{
-	display: inline-block;
-	width: 5%;
-	height: 35px;
-	background-color: white;
-	overflow:hidden;
-	margin: 0 0% 28px 0%;
-}
-.joinbutton{
-	width: 100%;
-	height: 28px;
-	border: 1px solid #2E9AFE;
-	border-radius : 10px;
-	margin: 3.5px auto;
-	background-color: white;
-	cursor: pointer;
-}
-.jointext{
-	line-height:22px;
-	font-size: 20px;
-	color: #5a87e6;
-	font-weight: 400;
-	font-family: "Cairo";
-	text-align: center;
-}
-/* /////////////////////////// */
-/* 로그아웃 */
-.logout{
-	display: inline-block;
-	width: 5%;
-	height: 35px;
-	background-color: white;
-	overflow:hidden;
-	margin: 0 0% 28px 8.5%;
-}
-.logoutbutton{
-	width: 100%;
-	height: 28px;
-	border: 1px solid #2E9AFE;
-	border-radius : 10px;
-	margin: 3.5px auto;
-	background-color: white;
-	cursor: pointer;
-}
-.logouttext{
-	line-height:22px;
-	font-size: 20px;
-	color: #5a87e6;
-	font-weight: 400;
-	font-family: "Cairo";
-	text-align: center;
-}
-/* /////////////////////////// */
-/* /////////////////////////// */
-/* /////////////////////////// */
+
 /* 메인페이지 몸체 */
+body{
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	align-items: center;
+}
 .body{
 	background-color: none;
-	margin-left: 15%;
+/* 	margin-left: 15%; */
 	width: 70%;
-	height: 1200px;
-	position: relative;
+	height: auto;
+/* 	position: relative; */
+	display: flex;
+/* 	justify-content: center; */
+	flex-direction: column;
+	align-items: center;
 }
 /* 검색창 */
 .searchbox{
@@ -173,29 +32,29 @@ header{
 	background-color: white;
 	width: 76%;
 	height: 60px;
-	position: absolute;
-	top: 30px;
-	left: 2%;
+/* 	position: absolute; */
+/* 	top: 30px; */
+/* 	left: 2%; */
+	display:flex;
+	justify-content:center;
+	margin-top: 50px;
 }
 #searchbox{
-	
-    border: 1px solid #ccc;
-
     padding: 5px 5px;
     text-indent: 30px;
     text-align: left;
-    width: 120px;
-    
+    width: 100%;
 	color: black;
 	border: none;
+	border-radius: 10px;
 	outline: none;
-	width: 96%;
+/* 	width: 96%; */
 	height: 40px;
 	font-size: 25px;
 	background-color:white;
-	position: absolute;
-	top: 6px;
-	left: 2%;
+/* 	position: absolute; */
+/* 	top: 6px; */
+/* 	left: 2%; */
 }
 #searchbox::placeholder{
 	background-image: url(../images/readingglasses.png);
@@ -206,58 +65,15 @@ header{
 	color: #E6E6E6;
 }
 /* /////////////////////////// */
-/* 합격자소서 */
-.succresume{
-	background-color: none;
-	width: 18%;
-	height: 580px;
-	position: absolute;
-	top: 30px;
-	left: 80%;
-	text-align: center;
-	border: 1px dashed gray;
-	border-top: 2px solid black;
-}
-.succresumelistline {
-/* 	color: black; */
-	border: 1px solid black;
-}
-.succresumelisttitle {
-	font-size: 140%;
-}
-.succresumelist {
-	width: 100%;
-	list-style: none;
-}
-.succresumelink {
-	text-decoration: none;
-}
-.succresumelink>ul {
-	list-style: none;
-	margin-left: 10%;
-	margin-top: 10px;
-	margin-bottom: 10px;
-	width: 80%;
-	height:250px;
-	border: 1px solid #A9E2F3;
-}
-.succresumelink>ul>li {
-	color:black;
-	line-height: 50px;
-	font-size: 100%;
-}
-.succresumelistkind hr {
-	color: black;
-}
-/* /////////////////////////// */
 /* 인기게시판 */
 .hotboard{
 	background-color: #A9E2F3;
 	width: 76%;
 	height: 490px;
-	position: absolute;
-	top: 120px;
-	left: 2%;
+	display: flex;
+/* 	position: absolute; */
+/* 	top: 120px; */
+/* 	left: 2%; */
 }
 .hotboardtable {
   border-collapse: collapse;
@@ -349,16 +165,16 @@ header{
 	text-decoration: none;
 	color: black;
 }
-
 /* /////////////////////////// */
 /* 메인페이지 채팅 창 */
 .mainchat{
 	background-color:none;
-	width: 96%;
+	width: 90%;
 	height: 520px;
-	position: absolute;
-	top: 640px;
-	left: 2%;
+	margin-top: 50px;
+	position: relative;
+/* 	top: 640px; */
+/* 	left: 2%; */
 }
 .mainchatbox {
 	margin-left:0.2%;

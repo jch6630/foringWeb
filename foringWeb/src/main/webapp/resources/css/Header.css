@@ -1,0 +1,181 @@
+@charset "UTF-8";
+/* 헤더 */
+header{
+	box-shadow: 0px 0px 5px 0px black;
+	height : 100px;
+	width : 100%;
+	z-index: 100px;
+	margin: 0 auto;
+	display: flex;
+	
+}
+.hbody{
+	width : 100%;
+	display: flex;
+	justify-content: center;
+}
+.mainbar{
+	width : 80%;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+}
+/* 로고 */
+.logo{
+	float: left;
+	display: inline-block;
+	height: 80px;
+	width : 15%;
+/* 	margin-top: 15px; */
+/* 	margin-left: 13%; */
+}
+.logoimg{
+	display: inline-block;
+	height: 80px;
+	width : 100%;
+}
+/* /////////////////////// */
+/* 햄버거버튼 */
+.mainbarspace{
+	display: none;
+}
+.main_hamButton{
+	display: none;
+}
+/* ///////////// */
+/* 메인메뉴 */
+.mainmenu {
+/* 	margin-left: 1.8%; */
+	display: flex;
+	justify-content: space-around;
+	align-items:center;
+	height: 100px;
+	width: 40%;
+}
+.menu {
+	list-style: none;
+/* 	margin-top : 25px; */
+	display: flex;
+	justify-content: space-around;
+	align-items:center;
+	width: 100%;
+	height: 60px;
+/* 	float: left; */
+}
+.mainmenucon{
+	overflow: auto;
+/* 	margin-left: 10%; */
+/* 	margin-top: 10px; */
+	height:40px;
+	display: inline-block;
+	line-height: 38px;
+}
+#heightline{
+/* 	margin: 10px 0 10px 10%; */
+/* 	display: inline-block; */
+	width:2px;
+	background-color: #A9E2F3;
+	height : 20px;
+}
+.menu>li>a{
+/* 	margin-top: 10px; */
+	font-size: 120%;
+	color:#0080FF;
+	text-decoration: none;
+	background-color: white;
+}
+/* ////////////////////////// */
+/* 회원 */
+#memFunArr{
+	display: flex;
+	justify-content:space-between;
+	align-items:center;
+	width: 10%;
+}
+/* 로그인 */
+.login{
+	display: flex;
+	justify-content:space-between;
+	align-items:center;
+	width: auto;
+	height: 35px;
+	background-color: white;
+	overflow:hidden;
+/* 	margin: 0 0% 28px 3%; */
+}
+.loginbutton{
+	width: 100%;
+	height: 28px;
+	border: 1px solid #2E9AFE;
+	border-radius : 10px;
+/* 	margin: 3.5px auto; */
+	background-color: white;
+	cursor: pointer;
+}
+.logintext{
+	line-height:22px;
+	font-size: 20px;
+	color: #5a87e6;
+	font-weight: 400;
+	font-family: "Cairo";
+	text-align: center;
+}
+/* /////////////////////////// */
+/* 회원가입 */
+.join{
+	display: flex;
+	justify-content:space-between;
+	align-items:center;
+	width: auto;
+	height: 35px;
+	background-color: white;
+	overflow:hidden;
+/* 	margin: 0 0% 28px 0%; */
+}
+.joinbutton{
+	width: 100%;
+	height: 28px;
+	border: 1px solid #2E9AFE;
+	border-radius : 10px;
+/* 	margin: 3.5px auto; */
+	background-color: white;
+	cursor: pointer;
+}
+.jointext{
+	line-height:22px;
+	font-size: 20px;
+	color: #5a87e6;
+	font-weight: 400;
+	font-family: "Cairo";
+	text-align: center;
+}
+/* /////////////////////////// */
+/* 로그아웃 */
+.logout{
+	display: flex;
+	justify-content:space-between;
+	align-items:center;
+	width: auto;
+	height: 35px;
+	background-color: white;
+	overflow:hidden;
+/* 	margin: 0 0% 28px 8.5%; */
+}
+.logoutbutton{
+	width: 100%;
+	height: 28px;
+	border: 1px solid #2E9AFE;
+	border-radius : 10px;
+/* 	margin: 3.5px auto; */
+	background-color: white;
+	cursor: pointer;
+}
+.logouttext{
+	line-height:22px;
+	font-size: 20px;
+	color: #5a87e6;
+	font-weight: 400;
+	font-family: "Cairo";
+	text-align: center;
+}
+/* /////////////////////////// */

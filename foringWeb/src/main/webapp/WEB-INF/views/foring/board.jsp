@@ -434,11 +434,13 @@
 			<li class="categoryMenuDetail"><a href="selfIntroWrite">- 자기소개서 작성</a></li>
 		</ul>
 	</div>
-	<div id="detailName">
-		<h2 id="detailNametext">공지사항</h2>
-	</div>
-	<div id="contentInputBox">
-		<input type="text" id="contentInput" placeholder="관심 있는 내용을 입력해 주세요!" maxlength="30"/>
+	<div id="boardFirstLine">
+		<div id="detailName">
+			<h2 id="detailNametext">공지사항</h2>
+		</div>
+		<div id="contentInputBox">
+			<input type="text" id="contentInput" placeholder="관심 있는 내용을 입력해 주세요!" maxlength="30"/>
+		</div>
 	</div>
 	<div id="board">
 		<table id="boardList">
@@ -451,14 +453,17 @@
 			</tr>
 		</table>
 	</div>
-	<div id="paging">
-		<ul id="pagination">
-		</ul>
-	</div>
-	<div id="write">
-		<button type="button" id="writeBtn">
-			<span id="writeBtnText" title="WRITE">글쓰기</span>
-		</button>
+	<div id="boardLastLine">
+		<div style="width: 10%;height: 30px;"></div>
+		<div id="paging">
+			<ul id="pagination">
+			</ul>
+		</div>
+		<div id="write">
+			<button type="button" id="writeBtn">
+				<span id="writeBtnText" title="WRITE">글쓰기</span>
+			</button>
+		</div>
 	</div>
 	
 	<form action="" id="actionForm" method="get">

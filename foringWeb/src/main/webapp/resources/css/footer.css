@@ -7,7 +7,9 @@ footer {
 	background: linear-gradient(#0eb4fc, #d0e8ff);
 /* 	position : absolute; */
 /* 	top : 1200px; */
-/* 	width: 100%; */
+	width: 100%;
+	margin-top:300px;
+	display: flex;
 }
 
 footer .container {

@@ -17,8 +17,11 @@
 	<link href="https://fonts.googleapis.com/css?family=Montserrat"
 		rel="stylesheet">
 	<link rel="stylesheet" href="../resources/css/foringCss.css">
+	<link rel="stylesheet" href="../resources/css/Header.css">
+	<link rel="stylesheet" href="../resources/css/resumeContainer.css">
 	<link rel="stylesheet" href="../resources/css/footer.css">
 	<link rel="stylesheet" href="../resources/css/board.css">
+	<link rel="stylesheet" href="../resources/css/categoryFloatingBar.css">
 	<style type="text/css">
 	@-ms-viewport {
 		width: device-width;
@@ -87,27 +90,29 @@
 							<li class="mainmenucon"><a href="#">MyPage</a></li>
 						</ul>
 					</div>
-					<c:if test="${empty login}">
-						<div class="login">
-							<button type="button" class="loginbutton">
-								<span class="logintext" title="LOGIN">LOGIN</span>
+					<div id="memFunArr">
+						<c:if test="${empty login}">
+							<div class="login">
+								<button type="button" class="loginbutton">
+									<span class="logintext" title="LOGIN">LOGIN</span>
+								</button>
+							</div>
+						</c:if>
+						<c:if test="${empty login}">
+							<div class="join">
+							<button type="button" class="joinbutton">
+								<span class="jointext" title="JOIN">JOIN</span>
 							</button>
 						</div>
-					</c:if>
-					<c:if test="${empty login}">
-						<div class="join">
-						<button type="button" class="joinbutton">
-							<span class="jointext" title="JOIN">JOIN</span>
-						</button>
+						</c:if>
+						<c:if test="${not empty login}">
+							<div class="logout">
+								<button type="button" class="logoutbutton">
+									<span class="logouttext" title="LOGOUT">LOGOUT</span>
+								</button>
+							</div>
+						</c:if>
 					</div>
-					</c:if>
-					<c:if test="${not empty login}">
-						<div class="logout">
-							<button type="button" class="logoutbutton">
-								<span class="logouttext" title="LOGOUT">LOGOUT</span>
-							</button>
-						</div>
-					</c:if>
 					<form action="" id="actionForm" method="get">
 					</form>		
 				</article>
