@@ -7,18 +7,23 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript">
-	var url_href = window.location.href;
 
+	// url주소에서 bno값 받아오기
+	var url_href = window.location.href;
 	var url = new URL(url_href);
 	var bno = url.searchParams.get("bno");
 	
+	// 댓글 받아오기
 	function replyCallIn(){
+		
+		// 댓글과 댓글 페이징 처리 버튼 초기화
 		$("#replies").empty();
 		$("#paginationReply").empty();
 		
-		
+		// 페이징 처리를 위한 현재 페이지 값
 	  	let nowPageNum = $("#replyPageNum").val();
 		
+		// 주소에서 받아온 bno 값과 페이지 값을 받아와 댓글 data를 받아오는 비동기 처리
 		$.ajax({
 	        type:"POST",
 	        url:"reply",
@@ -27,13 +32,19 @@
 	        	"nowPageNum" : nowPageNum
 	        },
 	        success:function(data){
+	        	// 받아온 데이터 확인
 	        	console.log(data);
+	        	
+	        	// 받아온 댓글 데이터(배열 형식)
 	        	let replyList = data.reply;
 	        	
+	        	// 데이터를 동적으로 포맷 및 DOM으로 만들어 배포 
 	        	for (var i = 0; i < replyList.length; i++) {
-	        		console.log(replyList[i]);
+	        		
+	        		// DOM 객체 선언 및 초기화
 	        		let replyRow = "";
 	        		
+	        		// 댓글 날짜 데이터 포맷 시작
 	        		const replyregdate = new Date(replyList[i].replyregdate);
 	        		const nowTime = new Date();
 	        		let showingTime = "";
@@ -54,7 +65,9 @@
 	        				showingTime = (nowTime.getHours() - replyregdate.getHours()) + "시간 전";
 	        			}
 	        		}
+	        		// 댓글 날짜 데이터 포맷 끝
 	        		
+	        		// 비공개된 댓글 데이터를 DOM으로 초기화
 	        		if(replyList[i].disclosure == "n"){
 	        			replyRow += "<tr class='reply' id='reply" + replyList[i].replyid + "'>";
 		        		replyRow += "<td id='replyUsernick'>비공개</td>";
@@ -63,6 +76,7 @@
 		        		replyRow += "<td id='rereplyBtnBack'><button class='rereplyBtn' id='rereplyBtn_" + replyList[i].replyid + "' style='cursor: default;' disabled>답글▽</button></td>";
 		        		replyRow += "</tr>";
 	        		}
+	        		// 공개된 댓글 데이터를 DOM으로 초기화
 	        		else{
 		        		replyRow += "<tr class='reply' id='reply" + replyList[i].replyid + "'>";
 		        		replyRow += "<td id='replyUsernick'>" + replyList[i].usernick + "</td>";
@@ -71,74 +85,100 @@
 		        		replyRow += "<td id='rereplyBtnBack'><button class='rereplyBtn' id='rereplyBtn_" + replyList[i].replyid + "'>답글▽</button></td>";
 		        		replyRow += "</tr>";
 	        		}
-	        		$("#replies").append(replyRow);
+	        		$("#replies").append(replyRow); // DOM 배포
 				}
 	        	
+	        	// 페이지네이션 데이터
 	        	var pageDto = data.listMaker;
 	        	
+	        	// 현제 페이지 값을 시작 값 이전으로 바꾸는 페이지네이션 버튼 DOM 선언
 	        	var prevHtml ="";
+	        	
+	        	// 현재 페이지의 값보다 작은 페이지 값이 있을 경우
 	        	if (pageDto.prev) {
 	        		prevHtml = "<li id='replyPrevBtn'><div class='pagingReplyBtn'><</div></li>"
 	        		$("#paginationReply").append(prevHtml);
 				}
+	        	// 현재 페이지의 값보다 작은 페이지 값이 없을 경우
 	        	else {
 	        		prevHtml = "<li id='replyNextBtn'><div class='pagingReplyBtn' style='color:gray; outline: 1px solid gray; cursor: default; pointer-events: none;'><</div></li>"
 	        		$("#paginationReply").append(prevHtml);
 				}
-	        	var nowPageNum = 0;
+	        	
+	        	// 페이지네이션 버튼 선언
 	        	var nowPageNumHtml = "";
 	        	
+	        	// 페이지네이션 버튼 시작 값 초기화
 	        	startPage = pageDto.startPage;
+	        	
+	        	// 페이지네이션 버튼 끝 값 초기화
 	        	endPage = pageDto.endPage;
+	        	
+	        	// 페이지네이션 버튼 시작 및 끝 값을 저장
 	        	$("#replyStartPageNum").val(pageDto.startPage);
 	        	$("#replyEndPageNum").val(pageDto.endPage);
 	        	
+	        	// 시작 및 끝 값 사이의 페이지네이션 버튼 DOM 초기화
 	        	for (var i = startPage; i <= endPage; i++) {
-	        		nowPageNum = i
-	        		nowPageNumHtml = "<li id='paginationReplyBtn'><div class='pagingReplyBtn' id='pagingReplyBtn" + nowPageNum + "'>" + nowPageNum + "</div></li>"
+	        		nowPageNumHtml = "<li id='paginationReplyBtn'><div class='pagingReplyBtn' id='pagingReplyBtn" + i + "'>" + i + "</div></li>"
 	        		$("#paginationReply").append(nowPageNumHtml);
 				}
 	        	
+	        	// 현제 페이지 값을 시작 값 이후로 바꾸는 페이지네이션 버튼 DOM 선언
 	        	var nextHtml ="";
+	        	
+	        	// 현재 페이지의 값보다 큰 페이지 값이 있을 경우
 	        	if (pageDto.next) {
 	        		nextHtml = "<li id='replyNextBtn'><div class='pagingReplyBtn'>></div></li>"
 	        		$("#paginationReply").append(nextHtml);
 				}
+	        	// 현재 페이지의 값보다 큰 페이지 값이 없을 경우
 	        	else {
 					nextHtml = "<li id='replyNextBtn'><div class='pagingReplyBtn' style='color:gray; outline: 1px solid gray; cursor: default; pointer-events: none;'>></div></li>"
 	        		$("#paginationReply").append(nextHtml);
 				}
 	        	
-// 				$("#pagingReply").css("top",((replyList.length+1)*30)-50+"px");
-				
+	        	// 페이지네이션 버튼이 클릭 되었을 때
 				$(".pagingReplyBtn").off().on("click",function(){
-					let prevPageNum = nowPageNum;
+					
+					// prev 버튼이 눌렸을 경우
 					if ($(this).text() == "<") {
 			  			nowPageNum = startPage - 1;
 					}
+					// next 버튼이 눌렸을 경우
 			  		else if ($(this).text() == ">") {
 			  			nowPageNum = endPage + 1;
 					}
+					// 값을 가진 버튼이 눌렸을 경우
 			  		else{
 			  			nowPageNum = parseInt($(this).text());
 			  		}
 			  		
+					// 현재 페이지 값 저장
 			  		$("#replyPageNum").val(nowPageNum);
+					
+					// 댓글 다시 불러오기
 				  	$(replyCallIn()).one();
 			  	});
 			  	
+	        	// 대댓글 버튼 클릭
 			  	$(".rereplyBtn").off().on("click", function(e){
+			  		
+			  		// 로그인 정보 가져오기
 			  		var usernick = $("#usernick").val();
+			  		
+			  		// 로그인이 되어있지 않을 경우
 			  		if(usernick == ""){
 			  			alert("로그인 후 이용 바랍니다.");
 			  			return false;
 			  		}
+			  		// 로그인이 되어있을 경우
 			  		else{
+			  			
+			  			// 댓글 코드 선언 및 초기화
 						let replyKey = this.id.split("_");
 
-						$(".body").css("height" , "1200px");
-// 						alert(parseInt($("#replyContainer").css("height")));
-
+			  			// 대댓글 DOM 비우기
 				  		if($("#reReplyContainer"+replyKey[1]).length != 0){
 				  			$(".reReplyContainer").remove();
 					  		$(".reReplyReg").remove();
@@ -161,8 +201,6 @@
 						reReplyContainerDom += "</tr>";
 						$("#reply"+replyKey[1]).after(reReplyContainerDom);
 						
-						var bodyHeight = parseInt($(".body").css("height"))+ parseInt($("#replyContainer").css("height"));
-						$(".body").css("height" , bodyHeight+"px");
 			  		}			  	
 		  		});
 			  	
@@ -255,7 +293,7 @@
 		  			usernick : usernick,
 		  			disclosure : "y"
 	  			};
-// 		  		alert(data.toString());
+		  		alert(data.toString());
 	  			
 	  			$.ajax({
 	  		        type:"POST",
@@ -281,18 +319,6 @@
   	}
 	
 	$(document).ready(function(e){
-		
-		/* 좌측 플로팅 네비 */
-	  	var currentPosition = parseInt($("#category").css("top"));
-	  	$(window).scroll(function() {
-	    	var position = $(window).scrollTop(); 
-	    	if (position+currentPosition > parseInt($(".body").css("height"))-700) { 
-// 	    		alert("body_height : " + $(".body").css("height"));
-				return false;
-			} else {
-		    	$("#category").stop().animate({"top":position+currentPosition+"px"},700);
-			}
-	  	});
 	  	
 	  	$(".detailMenuBtn").on("click", function(e){
 	  		var actionForm = $("#actionForm");
@@ -382,28 +408,8 @@
 	});
 </script>
 <section class="body">
-	<div id="category">
-		<ul id="categoryMenu">
-			<li id="categoryBoard" class="categoryMenuMain"><strong>게시판</strong></li>
-			<li class="categoryMenuDetail"><button class="detailMenuBtn" id="notice" data-value="notice"> 공지사항</button></li>
-			<li class="categoryMenuDetail"><button class="detailMenuBtn" id="free" data-value="free"> 자유게시판</button></li>
-			<li class="categoryMenuDetail"><button class="detailMenuBtn" id="infor" data-value="infor"> 정보게시판</button></li>
-			<li class="categoryMenuDetail"><button class="detailMenuBtn" id="study" data-value="study"> 스터디모임게시판</button></li>
-			<li id="categoryResume" class="categoryMenuMain"><strong>이력서</strong></li>
-			<li class="categoryMenuDetail"><a href="resume"> 이력서</a></li>
-			<li class="categoryMenuDetail"><a href="selfIntro"> 자기소개서</a></li>
-			<li id="categoryMypage" class="categoryMenuMain"><strong>Mypage</strong></li>
-			<li class="categoryMenuDetail"><a href="chgMyImfor"> 개인정보수정</a></li>
-			<li class="categoryMenuDetail"><a href="resumeWrite"> 이력서 작성</a></li>
-			<li class="categoryMenuDetail"><a href="selfIntroWrite">- 자기소개서 작성</a></li>
-		</ul>
-		<form action="" id="actionForm" method="get">
-			<input type="hidden" id="replyPageNum" value="1">
-			<input type="hidden" id="replyStartPageNum" value="0">
-			<input type="hidden" id="replyEndPageNum" value="0">
-			<input type="hidden" id="usernick" value="${memInfo.usernick}">
-		</form>
-	</div>
+	<!-- 사이드 바 -->
+	<%@ include file="../includes/sideMenuBar.jsp" %>
 	<div id="readContainer">
 		<div id="boardTitle">게시글 제목 : ${read.boardtitle}</div>
 		<div id="readContainerFirstLine">
@@ -438,6 +444,12 @@
 				<div id="replyRegTextCnt"><span id="replyRegTextNowCnt">0</span><span id="replyRegTextMaxCnt">/300</span></div>
 			</div>
 			<textarea id="replyRegText" placeholder="댓글은 입력하세요."  maxlength="300"></textarea>
+		</form>
+		<form action="" id="actionForm" method="get">
+			<input type="hidden" id="replyPageNum" value="1">
+			<input type="hidden" id="replyStartPageNum" value="0">
+			<input type="hidden" id="replyEndPageNum" value="0">
+			<input type="hidden" id="usernick" value="${memInfo.usernick}">
 		</form>
 	</div>
 	

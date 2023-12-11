@@ -35,14 +35,15 @@ a{
 #board{
 	margin-top:15px;
 	background: #d0e8ff;
-	width:750px;
+	width: 70%;
 /* 	position: absolute; */
 /* 	top: 100px; */
 /* 	left: 290px; */
+/* 	display:flex; */
 	font-size: 20px;
 }
 #boardList{
-	width:inherit;
+	width: 100%;
 	padding: 5px;
 	outline: 1px solid black;
 }
