@@ -37,51 +37,51 @@ public class BoardController {
 	@Autowired
 	private IBoardService service;
 	
-	@RequestMapping("/board")
-	public void main(@RequestParam("categorymenu") String categorymenu, Model model) {
+	@RequestMapping(value = "/board", method = RequestMethod.POST)
+	public void main(@RequestParam("category") String category, Model model) {
 		log.info("foring board Start....................");
 		Logger.info("foring board Start..........................");
-		model.addAttribute("categorymenu", categorymenu);
+		model.addAttribute("category", category);
 	}
 	
 	@RequestMapping(value = "/boardlist", method = RequestMethod.POST)
 	@ResponseBody
-	public String boardlist(Criteria cri, @RequestParam Map<String, Object> requestParam, String result) throws Exception{
+	public Map<String, Object> boardlist(Criteria cri, @RequestParam Map<String, Object> requestParam, String result) throws Exception{
 		
-		String categorymenu = (String) requestParam.get("categorymenu");
+		String category = (String) requestParam.get("category");
 		String keyword = (String) requestParam.get("content");
 		int pageNum = Integer.parseInt((String)requestParam.get("nowPageNum"));
 		
 		cri.setPageNum(pageNum);
-		cri.setCategorymenu(categorymenu);
+		cri.setCategory(category);
 		cri.setKeyword(keyword);
 		
-		log.info("list.......List<BoardDTO>.....................categorymenu : " + categorymenu + ".....cri : " + cri);
+		log.info("list.......List<BoardDTO>.....................category : " + category + ".....cri : " + cri);
 		List<BoardDTO> boardlist = service.boardlist(cri);
 		
-		Gson gson = new GsonBuilder().create();
-		Map<String, String> resultMap = new HashMap<>();
+//		Gson gson = new GsonBuilder().create();
+		Map<String, Object> resultMap = new HashMap<>();
 		
-		String boardlistgson = gson.toJson(boardlist);
+//		String boardlistgson = gson.toJson(boardlist);
 		
-		resultMap.put("list", boardlistgson);
-		log.info("boardlistgson.............. " + boardlistgson);
+		resultMap.put("list", boardlist);
+		log.info("boardlist.............. " + boardlist);
 		
 		int total = service.getTotalCnt(cri);
 		
 		log.info("total : " + total);
 		PageDTO pageDto = new PageDTO(cri, total);
-		String pagedtogson = gson.toJson(pageDto);
-		log.info("pagedtogson ................... " + pagedtogson);
+//		String pagedtogson = gson.toJson(pageDto);
+		log.info("pageDto ................... " + pageDto);
 		
-		resultMap.put("listMaker", pagedtogson);
+		resultMap.put("listMaker", pageDto);
 		
-        result = gson.toJson(resultMap);
-		log.info("result : " + result);
+//        result = gson.toJson(resultMap);
+		log.info("resultMap : " + resultMap);
 		
-		return result;
+		return resultMap;
 	}
-	
+
 	@RequestMapping(value = "/read", method = RequestMethod.GET)
 	public void read(@RequestParam("bno") int bno, @ModelAttribute("cri") Criteria cri, Model model) throws Exception{
 		log.info("read 페이지 들어옴..............");

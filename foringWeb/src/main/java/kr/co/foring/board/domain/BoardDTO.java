@@ -14,13 +14,14 @@ import lombok.ToString;
 public class BoardDTO {
 
 	private Integer boardid;
-	private String categorymenu;
+	private String category;
 	private String usernick;
 	private String disclosure;
 	private String boardpw;
 	private String boardtitle;
 	private String boardcontent;
 	private int viewCnt;
+	private int likeCnt;
 	private Integer replyCnt;
 	private List<BoardAttachDTO> attachList;
 	

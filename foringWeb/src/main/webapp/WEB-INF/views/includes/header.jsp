@@ -16,12 +16,9 @@
     <title>For-ing</title>
 	<link href="https://fonts.googleapis.com/css?family=Montserrat"
 		rel="stylesheet">
-	<link rel="stylesheet" href="../resources/css/foringCss.css">
 	<link rel="stylesheet" href="../resources/css/Header.css">
 	<link rel="stylesheet" href="../resources/css/resumeContainer.css">
 	<link rel="stylesheet" href="../resources/css/footer.css">
-	<link rel="stylesheet" href="../resources/css/board.css">
-	<link rel="stylesheet" href="../resources/css/categoryFloatingBar.css">
 	<style type="text/css">
 	@-ms-viewport {
 		width: device-width;
@@ -37,7 +34,7 @@
 	</style>
 	<script type="text/javascript"
 		src="https://use.fontawesome.com/926fe18a63.js"></script>
-	<script src="../resources/js/jquery-3.7.0.min.js"></script>
+	<script src="../resources/jquery/jquery.min.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function() {
 			$(function() {
@@ -57,10 +54,10 @@
 			});
 			$("#boardMenuConAnk").on("click", function(e){
 		  		e.preventDefault();
-				var actionForm = $("#actionForm");
-		  		var categorymenu = $(this).attr('data-value')
-//	 	  		alert(categorymenu);
-				actionForm.append("<input type='hidden' id='categorymenu' name='categorymenu' value=" + categorymenu + ">");
+				var actionForm = $("#headerActionForm");
+		  		var category = $(this).attr('data-value')
+// 	 	  		alert(category);
+				actionForm.append("<input type='hidden' id='category' name='category' value=" + category + ">");
 				actionForm.attr("action", "${ctx}/foring/board");
 				actionForm.submit();
 			});
@@ -113,7 +110,7 @@
 							</div>
 						</c:if>
 					</div>
-					<form action="" id="actionForm" method="get">
+					<form action="" id="headerActionForm" method="post">
 					</form>		
 				</article>
 			</section>

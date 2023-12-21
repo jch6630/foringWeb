@@ -92,6 +92,27 @@
 	text-align: left;
 	overflow:auto;
 }
+
+#memFunBtnLine{
+	display: flex;
+	flex-direction: row;
+	justify-content:center;
+	height: 30px;
+	width: 70%;
+	margin: 10px auto;
+}
+#memFunBtnLine button{
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	width: 15%;
+	font-size: 1em;
+}
+.memFunBtnImg{
+	width: 30%;
+}
+
 #replyContainer{
 	height: auto;
 	width: 70%;
@@ -99,7 +120,7 @@
 /* 	position: absolute; */
 /* 	top: 680px; */
 /* 	left: 290px; */
-	margin-top:50px;
+/* 	margin-top:50px; */
 	display: flex;
 	flex-direction: column;
 	border: 5px #eaeae8 solid;

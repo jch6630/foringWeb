@@ -321,11 +321,11 @@
 	$(document).ready(function(e){
 	  	
 	  	$(".detailMenuBtn").on("click", function(e){
-	  		var actionForm = $("#actionForm");
-	  		var categorymenu = $(this).attr('data-value')
-// 	  		alert(categorymenu);
+	  		var actionForm = $("#readActionForm");
+	  		var category = $(this).attr('data-value')
+// 	  		alert(category);
 	  		e.preventDefault();
-			actionForm.append("<input type='hidden' id='categorymenu' name='categorymenu' value=" + categorymenu + ">");
+			actionForm.append("<input type='hidden' id='category' name='category' value=" + category + ">");
 			actionForm.attr("action", "${ctx}/foring/board");
 			actionForm.submit();
 	  	});
@@ -405,6 +405,10 @@
  	        }
 	  	});
 	  	
+	  	$("#memLikeBtn").on("click", function(){
+	  		
+	  	});
+	  	
 	});
 </script>
 <section class="body">
@@ -413,7 +417,7 @@
 	<div id="readContainer">
 		<div id="boardTitle">게시글 제목 : ${read.boardtitle}</div>
 		<div id="readContainerFirstLine">
-			<div id="boardCategory">카테고리 : ${read.categorymenu}</div>
+			<div id="boardCategory">카테고리 : ${read.category}</div>
 			<div id="boardDate">작성일 : 2023-11-11</div>
 			<div id="boardViewCnt">조회수 : ${read.viewCnt}</div>
 		</div>
@@ -427,7 +431,11 @@
 			<div id="boardContentText">${read.boardcontent}</div>
 		</div>
 	</div>
-	
+	<div id="memFunBtnLine">
+		<button id="memLikeBtn"><img class='memFunBtnImg' src='../resources/images/like.png' />좋아요</button>
+		<button id="memUnLikeBtn"><img class='memFunBtnImg' src='../resources/images/unlike.png' />싫어요</button>
+		<button id="memReportBtn"><img class='memFunBtnImg' src='../resources/images/report.png' />신고</button>
+	</div>
 	<div id="replyContainer">
 		<table id="replies">
 		</table>
@@ -445,7 +453,7 @@
 			</div>
 			<textarea id="replyRegText" placeholder="댓글은 입력하세요."  maxlength="300"></textarea>
 		</form>
-		<form action="" id="actionForm" method="get">
+		<form action="" id="readActionForm" method="post">
 			<input type="hidden" id="replyPageNum" value="1">
 			<input type="hidden" id="replyStartPageNum" value="0">
 			<input type="hidden" id="replyEndPageNum" value="0">

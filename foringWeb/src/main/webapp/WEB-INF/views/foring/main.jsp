@@ -2,8 +2,61 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ include file="../includes/header.jsp" %>
+<link rel="stylesheet" href="../resources/css/main.css">
 <c:set var="ctx" value="${pageContext.request.contextPath == '/' ? '' : pageContext.request.contextPath }" scope="application"/>
-
+<script src="../resources/jquery/jquery.min.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		loadHotBoardList();
+	})
+	function loadHotBoardList() {
+	    // Ajax 통신
+	    $.ajax({
+	        type: "POST",
+	        url: "hotBoardList",
+	        dataType: "json",
+	        data: {
+	            "amount": 10
+	        },
+	        success: function(responseData) {
+	            var list = responseData.list;
+// 	            var pageDto = responseData.listMaker;
+	
+	            console.log(list);
+	            // 게시판 목록 출력
+	            if (Array.isArray(list)) {
+	                list.forEach(function(item) {
+	                    var html = "<tr><td><span class='category'>" + item.category + "</span></td><td><a class='hotboardname' href='" + item.boardid + "'>" + item.boardtitle + "</a></td><td><span id='hotBoardLikeImg'><img class='likeimg' src='../resources/images/like.png' /></span><span>"+item.likeCnt+"</span></td><td><span id='hotBoardReplyImg'><img class='commentimg' src='../resources/images/comment.png' /></span><span>"+item.replyCnt+"</span></td></tr>";
+	                    $("#hotboardtable").append(html);
+	                });
+	            }
+	            
+	            if (list.length!=10) {
+	            	for (var i = 0; i < 10-list.length; i++) {
+	            		var html = "<tr><td><span class='category'>-</span></td><td><a class='hotboardname'>-</a></td><td><span><img class='likeimg' src='../resources/images/like.png' /></span></td><td><span><img class='commentimg' src='../resources/images/comment.png' /></span><span></span></td></tr>";
+	                    $("#hotboardtable").append(html);
+					}
+				}
+	        },
+	        error: function(jqXHR, textStatus, errorThrown) {
+	            if (textStatus == "timeout") {
+	                alert("시간이 초과되어 데이터를 수신하지 못하였습니다.");
+	            } else {
+	                alert("데이터 전송에 실패했습니다. 다시 시도해 주세요");
+	            }
+	        }
+	    });
+	}
+	// 게시판 글 클릭 시 이동 처리
+	$(document).on("click", ".hotboardname", function(e) {
+		e.preventDefault();
+ 		var actionForm = $("#hotBoardActionForm");
+//			alert($(this).attr("href"));
+		actionForm.append("<input type='hidden' name='bno' value='" + $(this).attr("href") + "'>");
+		actionForm.attr("action", "${ctx}/foring/read");
+		actionForm.submit();
+	});
+</script>
 <section class="body">
 
 		<div class="searchbox">
@@ -52,85 +105,17 @@
 			</ul>
 		</div>
 		<div class="hotboard">
-			<table border="1" class="hotboardtable">
+			<table border="1" id="hotboardtable">
 				<tr>
 					<td colspan="4"><img src="../resources/images/hoticon.png" class="hoticon"
 						style="vertical-align: middle;" /> <span class="hotboardtitle"
 						style="vertical-align: middle;"><strong>핫 게시판</strong></span>
-
-						<hr></td>
-				</tr>
-				<tr>
-					<td><span class="category">카테고리</span></td>
-					<td><a href="#" class="hotboardname">게시물 제목</a></td>
-					<td><span><img class="likeimg" src="../resources/images/like.png" /></span></td>
-					<td><span><img class="commentimg"
-							src="../resources/images/comment.png" /></span></td>
-				</tr>
-				<tr>
-					<td><span class="category">카테고리</span></td>
-					<td><a href="#" class="hotboardname">게시물 제목</a></td>
-					<td><span><img class="likeimg" src="../resources/images/like.png" /></span></td>
-					<td><span><img class="commentimg"
-							src="../resources/images/comment.png" /></span></td>
-				</tr>
-				<tr>
-					<td><span class="category">카테고리</span></td>
-					<td><a href="#" class="hotboardname">게시물 제목</a></td>
-					<td><span><img class="likeimg" src="../resources/images/like.png" /></span></td>
-					<td><span><img class="commentimg"
-							src="../resources/images/comment.png" /></span></td>
-				</tr>
-				<tr>
-					<td><span class="category">카테고리</span></td>
-					<td><a href="#" class="hotboardname">게시물 제목</a></td>
-					<td><span><img class="likeimg" src="../resources/images/like.png" /></span></td>
-					<td><span><img class="commentimg"
-							src="../resources/images/comment.png" /></span></td>
-				</tr>
-				<tr>
-					<td><span class="category">카테고리</span></td>
-					<td><a href="#" class="hotboardname">게시물 제목</a></td>
-					<td><span><img class="likeimg" src="../resources/images/like.png" /></span></td>
-					<td><span><img class="commentimg"
-							src="../resources/images/comment.png" /></span></td>
-				</tr>
-				<tr>
-					<td><span class="category">카테고리</span></td>
-					<td><a href="#" class="hotboardname">게시물 제목</a></td>
-					<td><span><img class="likeimg" src="../resources/images/like.png" /></span></td>
-					<td><span><img class="commentimg"
-							src="../resources/images/comment.png" /></span></td>
-				</tr>
-				<tr>
-					<td><span class="category">카테고리</span></td>
-					<td><a href="#" class="hotboardname">게시물 제목</a></td>
-					<td><span><img class="likeimg" src="../resources/images/like.png" /></span></td>
-					<td><span><img class="commentimg"
-							src="../resources/images/comment.png" /></span></td>
-				</tr>
-				<tr>
-					<td><span class="category">카테고리</span></td>
-					<td><a href="#" class="hotboardname">게시물 제목</a></td>
-					<td><span><img class="likeimg" src="../resources/images/like.png" /></span></td>
-					<td><span><img class="commentimg"
-							src="../resources/images/comment.png" /></span></td>
-				</tr>
-				<tr>
-					<td><span class="category">카테고리</span></td>
-					<td><a href="#" class="hotboardname">게시물 제목</a></td>
-					<td><span><img class="likeimg" src="../resources/images/like.png" /></span></td>
-					<td><span><img class="commentimg"
-							src="../resources/images/comment.png" /></span></td>
-				</tr>
-				<tr>
-					<td><span class="category">카테고리</span></td>
-					<td><a href="#" class="hotboardname">게시물 제목</a></td>
-					<td><span><img class="likeimg" src="../resources/images/like.png" /></span></td>
-					<td><span><img class="commentimg"
-							src="../resources/images/comment.png" /></span></td>
+						<hr>
+					</td>
 				</tr>
 			</table>
+			<form id="hotBoardActionForm">
+			</form>
 		</div>
 		<div class="mainchat">
 			<div class="mainchatbox">

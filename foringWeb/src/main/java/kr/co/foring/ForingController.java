@@ -2,6 +2,10 @@ package kr.co.foring;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.sql.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 import javax.mail.internet.MimeMessage;
@@ -22,6 +26,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import kr.co.foring.board.domain.BoardDTO;
+import kr.co.foring.board.domain.Criteria;
+import kr.co.foring.board.service.IBoardService;
 import kr.co.foring.member.domain.MemberDTO;
 import kr.co.foring.member.service.IMemberService;
 import lombok.extern.log4j.Log4j;
@@ -38,6 +45,8 @@ public class ForingController {
 	
 	@Autowired
 	private IMemberService service;
+	@Autowired
+	private IBoardService bService;
 	
 	@RequestMapping("/main")
 	public void main() {
@@ -185,6 +194,18 @@ public class ForingController {
 			session.invalidate();
 		}
 		return "redirect:/foring/main";
+	}
+	
+	@RequestMapping(value = "/hotBoardList", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, List<BoardDTO>> hotBoardList(Criteria cri) throws Exception {
+		log.info("hotBoardList.......................");
+		cri.setHotBoard("hotBoard");
+		log.info("cri : " + cri);
+		Map<String, List<BoardDTO>> result = new HashMap<>();
+		result.put("list", bService.boardlist(cri));
+		log.info("result : " + result);
+		return result;
 	}
 	
 }

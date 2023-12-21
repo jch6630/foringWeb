@@ -5,14 +5,24 @@
   <mapper namespace="kr.co.foring.board.mapper.BoardMapper">
 	
 	<sql id="boardSearcher">
-		<trim prefix="(" suffix=") AND " prefixOverrides="OR">
-			<choose>
-				<when test="cri.keyword != null">
-						usernick LIKE '%'||#{cri.keyword}||'%'
-					OR	boardtitle LIKE '%'||#{cri.keyword}||'%'
-					OR	boardcontent LIKE '%'||#{cri.keyword}||'%'
-				</when>
-			</choose>
+		<if test="cri.keyword != null or cri.category != null or cri.hotBoard == 'hotBoard'">
+			WHERE
+		</if>
+		<trim prefix="(" suffix=")" prefixOverrides="AND">
+			<if test="cri.keyword != null">
+					usernick LIKE '%'||#{cri.keyword}||'%'
+				OR	boardtitle LIKE '%'||#{cri.keyword}||'%'
+				OR	boardcontent LIKE '%'||#{cri.keyword}||'%'
+			</if>
+			<if test="cri.category != null">
+				AND category = #{cri.category}
+			</if>
+			<if test="cri.hotBoard == 'hotBoard'">
+<!-- 				AND regdate >= SYSDATE - 50 -->
+				AND viewcnt >= (SELECT avg(viewcnt) FROM tbl_board)
+				AND replycnt >= (SELECT avg(replycnt) FROM tbl_board)
+				AND likecnt >= (SELECT avg(likecnt) FROM tbl_board)
+			</if>
 		</trim>
 	</sql>
 	
@@ -24,7 +34,7 @@
 		                subboard.*
 		        FROM    (
 		                    SELECT  boardid,
-		                            categorymenu,
+		                            category,
 		                            usernick,
 		                            disclosure,
 		                            boardpw,
@@ -33,11 +43,9 @@
 		                            viewcnt,
 									replycnt
 		                    FROM    tbl_board
-		                    WHERE	
 			]]>
 			<include refid="boardSearcher"></include>
 			<![CDATA[
-							categorymenu = #{cri.categorymenu}
 							ORDER BY boardid DESC
 						) subboard
 				)
@@ -49,11 +57,9 @@
 			<![CDATA[
 				SELECT	COUNT(*)
 				FROM	tbl_board
-				WHERE	
 			]]>
 			<include refid="boardSearcher"></include>
 			<![CDATA[
-						categorymenu = #{cri.categorymenu}
 				AND		boardid > 0
 			]]>
 	</select>
@@ -69,7 +75,7 @@
 				usernick,
 				disclosure,
 				boardpw,
-				categorymenu,
+				category,
 				viewcnt,
 				replycnt
 		FROM 	tbl_board

@@ -1,29 +1,4 @@
-* {
-	margin: 0;
-	padding: 0;
-}
-input{
-	z-index: 1000px;
-}
 
-/* 메인페이지 몸체 */
-body{
-	display: flex;
-	justify-content: center;
-	flex-direction: column;
-	align-items: center;
-}
-.body{
-	background-color: none;
-/* 	margin-left: 15%; */
-	width: 70%;
-	height: auto;
-/* 	position: relative; */
-	display: flex;
-/* 	justify-content: center; */
-	flex-direction: column;
-	align-items: center;
-}
 /* 검색창 */
 .searchbox{
 	border-radius: 10px;
@@ -37,6 +12,7 @@ body{
 /* 	left: 2%; */
 	display:flex;
 	justify-content:center;
+	align-items:center;
 	margin-top: 50px;
 }
 #searchbox{
@@ -75,84 +51,94 @@ body{
 /* 	top: 120px; */
 /* 	left: 2%; */
 }
-.hotboardtable {
+#hotboardtable {
   border-collapse: collapse;
   border: none;
   height:490px;
   width: 100%;
 }
-.hotboardtable> tr, td {
+#hotboardtable> tr, td {
   border: none;
 }
 
 /* 각 행의 높이 설정 */
-.hotboardtable tr:nth-child(1) {
+#hotboardtable tr:nth-child(1) {
   height: 70px;
   background-color: white;
 }
-.hotboardtable tr:nth-child(2) {
+#hotboardtable tr:nth-child(2) {
   height: 42px;
   background-color: white;
 }
-.hotboardtable tr:nth-child(3) {
+#hotboardtable tr:nth-child(3) {
   height: 42px;
   background-color: white;
 }
-.hotboardtable tr:nth-child(4) {
+#hotboardtable tr:nth-child(4) {
   height: 42px;
   background-color: white;
 }
-.hotboardtable tr:nth-child(5) {
+#hotboardtable tr:nth-child(5) {
   height: 42px;
   background-color: white;
 }
-.hotboardtable tr:nth-child(6) {
+#hotboardtable tr:nth-child(6) {
   height: 42px;
   background-color: white;
 }
-.hotboardtable tr:nth-child(7) {
+#hotboardtable tr:nth-child(7) {
   height: 42px;
   background-color: white;
 }
-.hotboardtable tr:nth-child(8) {
+#hotboardtable tr:nth-child(8) {
   height: 42px;
   background-color: white;
 }
-.hotboardtable tr:nth-child(9) {
+#hotboardtable tr:nth-child(9) {
   height: 42px;
   background-color: white;
 }
-.hotboardtable tr:nth-child(10) {
+#hotboardtable tr:nth-child(10) {
   height: 42px;
   background-color: white;
 }
-.hotboardtable tr:nth-child(11) {
+#hotboardtable tr:nth-child(11) {
   height: 42px;
   background-color: white;
 }
 
-.hotboardtable tr:first-child td:nth-child(1) {
+#hotboardtable tr:first-child td:nth-child(1) {
   width: 100%;
 }
-.hotboardtable tr:nth-child(2) td:nth-child(1) {
+#hotboardtable td:nth-child(1) {
   width: 10%; /* 셀 5의 너비 */
 }
-.hotboardtable tr:nth-child(2) td:nth-child(2) {
-  width: 80%; /* 셀 6의 너비 */
+#hotboardtable td:nth-child(2) {
+  width: 70%; /* 셀 6의 너비 */
 }
-.hotboardtable tr:nth-child(2) td:nth-child(3) {
-  width: 5%; /* 셀 7의 너비 */
+#hotboardtable td:nth-child(3) {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: row;
+  	width: 10%; /* 셀 7의 너비 */
 }
-.hotboardtable tr:nth-child(2) td:nth-child(4) {
-  width: 5%; /* 셀 8의 너비 */
+#hotboardtable td:nth-child(4) {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: row;
+  	width: 10%; /* 셀 8의 너비 */
 }
 
 .likeimg{
 	width: 50%;
+	aspect-ratio: 1/1;
 }
 
 .commentimg{
 	width: 40%;
+	aspect-ratio: 1/1;
 }
 .hoticon {
 	width: 10%;

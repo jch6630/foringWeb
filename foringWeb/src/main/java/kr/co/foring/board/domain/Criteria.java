@@ -1,5 +1,7 @@
 package kr.co.foring.board.domain;
 
+import java.sql.Date;
+
 import org.springframework.web.util.UriComponentsBuilder;
 
 import lombok.Data;
@@ -10,8 +12,9 @@ public class Criteria {
 	private int	pageNum;
 	private int amount;
 	
-	private String categorymenu;
+	private String category;
 	private String keyword;
+	private String hotBoard;
 	
 	public Criteria(){
 		this(1,30);
@@ -30,7 +33,7 @@ public class Criteria {
 		UriComponentsBuilder builder = UriComponentsBuilder.fromPath("")
 				.queryParam("pageNum", this.pageNum)
 				.queryParam("amount", this.amount)
-				.queryParam("categorymenu", this.categorymenu)
+				.queryParam("category", this.category)
 				.queryParam("keyword", this.keyword);
 		return builder.toUriString();
 	}

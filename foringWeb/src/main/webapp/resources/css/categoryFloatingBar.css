@@ -20,7 +20,7 @@
 .categoryMenuDetail{
 	border-bottom: 1px dotted black;
 	padding: 10px;
-	font-size: 15px;
+	height: 20px;
 }
 .categoryMenuDetail>button{
 	background-color: transparent;
@@ -28,7 +28,6 @@
 	color:black;
 	text-decoration: none;
 	cursor:pointer;
-	font-size: 15px;
 }
 .categoryMenuDetail>a{
 	color:black;
