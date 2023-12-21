@@ -1,7 +1,5 @@
 package kr.co.foring.board.domain;
 
-import java.sql.Date;
-
 import org.springframework.web.util.UriComponentsBuilder;
 
 import lombok.Data;

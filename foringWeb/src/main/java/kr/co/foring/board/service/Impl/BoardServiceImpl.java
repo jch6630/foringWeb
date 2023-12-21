@@ -11,8 +11,10 @@ import kr.co.foring.board.domain.ReReplyDTO;
 import kr.co.foring.board.domain.ReplyDTO;
 import kr.co.foring.board.mapper.BoardMapper;
 import kr.co.foring.board.service.IBoardService;
+import lombok.extern.log4j.Log4j;
 
 @Service
+@Log4j
 public class BoardServiceImpl implements IBoardService {
 
 	@Autowired
@@ -30,12 +32,14 @@ public class BoardServiceImpl implements IBoardService {
 
 	@Override
 	public BoardDTO read(Integer bno) throws Exception {
+		log.info("read 들어옴.............");
 		return mapper.read(bno);
 	}
 
 	@Override
-	public void viewCnt(Integer bno) throws Exception {
-		mapper.viewCnt(bno);
+	public int viewCnt(Integer bno) throws Exception {
+		log.info("viewCnt 들어옴.............");
+		return mapper.viewCnt(bno);
 	}
 
 	@Override
@@ -50,6 +54,7 @@ public class BoardServiceImpl implements IBoardService {
 
 	@Override
 	public int replyRegister(ReplyDTO rDto) {
+		mapper.replyCnt(rDto);
 		return mapper.replyRegister(rDto);
 	}
 

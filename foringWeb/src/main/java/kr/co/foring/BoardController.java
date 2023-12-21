@@ -16,9 +16,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
 import kr.co.foring.board.domain.BoardDTO;
 import kr.co.foring.board.domain.Criteria;
 import kr.co.foring.board.domain.PageDTO;
@@ -85,8 +82,10 @@ public class BoardController {
 	@RequestMapping(value = "/read", method = RequestMethod.GET)
 	public void read(@RequestParam("bno") int bno, @ModelAttribute("cri") Criteria cri, Model model) throws Exception{
 		log.info("read 페이지 들어옴..............");
-		service.viewCnt(bno);
+		int viewCntResult = service.viewCnt(bno);
+		log.info("viewCntResult : "+viewCntResult);
 		model.addAttribute("read", service.read(bno));
+		log.info("model : "+model);
 	}
 	
 	@RequestMapping(value = "/reply", method = RequestMethod.POST)

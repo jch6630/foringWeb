@@ -63,81 +63,82 @@
 
 /* 각 행의 높이 설정 */
 #hotboardtable tr:nth-child(1) {
-  height: 70px;
-  background-color: white;
+	height: 70px;
+	background-color: white;
+	display:flex;
+	flex-direction:row;
+	justify-content:flex-start;
+	align-items:center;
+	border-bottom: 1px solid black;
 }
-#hotboardtable tr:nth-child(2) {
-  height: 42px;
-  background-color: white;
-}
-#hotboardtable tr:nth-child(3) {
-  height: 42px;
-  background-color: white;
-}
-#hotboardtable tr:nth-child(4) {
-  height: 42px;
-  background-color: white;
-}
-#hotboardtable tr:nth-child(5) {
-  height: 42px;
-  background-color: white;
-}
-#hotboardtable tr:nth-child(6) {
-  height: 42px;
-  background-color: white;
-}
-#hotboardtable tr:nth-child(7) {
-  height: 42px;
-  background-color: white;
-}
-#hotboardtable tr:nth-child(8) {
-  height: 42px;
-  background-color: white;
-}
-#hotboardtable tr:nth-child(9) {
-  height: 42px;
-  background-color: white;
-}
-#hotboardtable tr:nth-child(10) {
-  height: 42px;
-  background-color: white;
-}
-#hotboardtable tr:nth-child(11) {
-  height: 42px;
-  background-color: white;
+#hotboardtable tr {
+	display:flex;
+	flex-direction:row;
+	justify-content:flex-start;
+	align-items:center;
+	height: 42px;
+	background-color: white;
 }
 
-#hotboardtable tr:first-child td:nth-child(1) {
-  width: 100%;
+#hotboardtable tr:nth-child(1) td:nth-child(1) {
+  	width: 100%;
+  	flex-direction:row;
+	justify-content:flex-start;
+	align-items:center;
 }
 #hotboardtable td:nth-child(1) {
-  width: 10%; /* 셀 5의 너비 */
+	display:flex;
+	flex-direction:row;
+	justify-content: center;
+	align-items: center;
+  	width: 10%; /* 셀 5의 너비 */
 }
 #hotboardtable td:nth-child(2) {
-  width: 70%; /* 셀 6의 너비 */
+	display:flex;
+	flex-direction:row;
+	justify-content: flex-start;
+	align-items: center;
+  	width: 65%; /* 셀 6의 너비 */
 }
 #hotboardtable td:nth-child(3) {
-	display: flex;
+	display:flex;
+	flex-direction:row;
+	justify-content: space-between;
+	align-items: center;
+  	width: 10%; /* 셀 7의 너비 */
+	margin-right: 5%;
+}
+#hotboardtable td:nth-child(3) span{
+	display:flex;
 	justify-content: center;
 	align-items: center;
-	flex-direction: row;
-  	width: 10%; /* 셀 7의 너비 */
 }
 #hotboardtable td:nth-child(4) {
-	display: flex;
-	justify-content: center;
+	display:flex;
+	flex-direction:row;
+	justify-content: space-between;
 	align-items: center;
-	flex-direction: row;
   	width: 10%; /* 셀 8의 너비 */
 }
+#hotboardtable td:nth-child(4) span{
+	display:flex;
+	justify-content: center;
+	align-items: center;
+}
 
+#hotBoardLikeImg{
+	width: 35%;
+}
 .likeimg{
-	width: 50%;
+	width: 100%;
 	aspect-ratio: 1/1;
 }
 
+#hotBoardReplyImg{
+	width: 30%;
+}
 .commentimg{
-	width: 40%;
+	width: 100%;
 	aspect-ratio: 1/1;
 }
 .hoticon {

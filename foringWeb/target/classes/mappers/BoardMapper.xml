@@ -109,6 +109,13 @@
 		INSERT INTO tbl_reply(replyid, boardid, usernick, disclosure, replycontent) 
 		VALUES (reply_seq.nextval, #{boardid}, #{usernick, jdbcType=VARCHAR}, #{disclosure, jdbcType=VARCHAR}, #{replycontent, jdbcType=VARCHAR})
 	</insert>
+	<update id="replyCnt" >
+		UPDATE	tbl_board tb
+		SET		replycnt=(
+				SELECT COUNT(*) FROM tbl_reply tr WHERE tr.boardid=#{boardid}
+				)
+		WHERE	tb.boardid=#{boardid}
+	</update>
 	
 	<select id="rereply" resultType="kr.co.foring.board.domain.ReReplyDTO">
 	<![CDATA[

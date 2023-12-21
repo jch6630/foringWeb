@@ -65,7 +65,6 @@
 	        				showingTime = (nowTime.getHours() - replyregdate.getHours()) + "시간 전";
 	        			}
 	        		}
-	        		// 댓글 날짜 데이터 포맷 끝
 	        		
 	        		// 비공개된 댓글 데이터를 DOM으로 초기화
 	        		if(replyList[i].disclosure == "n"){
@@ -362,7 +361,7 @@
 			  			usernick : usernick,
 			  			disclosure : disclosure
 		  			};
-		  			
+		  			// 댓글 등록
 		  			$.ajax({
 		  		        type:"POST",
 		  		        url:"replyRegister",
@@ -382,6 +381,7 @@
 		  		        }
 		  		    });
 		  			
+		  			// 비공개 설정 체크박스 해제
 		  			$("#replyRegDis").prop("checked", false);
 		  		}
 	  		}
@@ -406,7 +406,13 @@
 	  	});
 	  	
 	  	$("#memLikeBtn").on("click", function(){
-	  		
+	  		alert("좋아요");
+	  	});
+	  	$("#memUnLikeBtn").on("click", function(){
+	  		alert("싫어요");
+	  	});
+	  	$("#memReportBtn").on("click", function(){
+	  		alert("신고하기");
 	  	});
 	  	
 	});

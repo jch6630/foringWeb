@@ -18,8 +18,9 @@ public interface BoardMapper {
 	public BoardDTO read(@Param("bno")Integer bno);
 	public List<ReplyDTO> reply(@Param("bno")Integer bno, @Param("cri")Criteria cri);
 	public void insert(@Param("bDto")BoardDTO bDto);
-	public void viewCnt(@Param("bno")Integer bno);
+	public int viewCnt(@Param("bno")Integer bno);
 	public int replyRegister(ReplyDTO rDto);
+	public void replyCnt(ReplyDTO rDto);
 	public List<ReReplyDTO> rereply(@Param("replyid")Integer replyid);
 	public int reReplyRegister(ReReplyDTO rrDto);
 }

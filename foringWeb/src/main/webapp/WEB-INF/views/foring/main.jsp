@@ -33,7 +33,7 @@
 	            
 	            if (list.length!=10) {
 	            	for (var i = 0; i < 10-list.length; i++) {
-	            		var html = "<tr><td><span class='category'>-</span></td><td><a class='hotboardname'>-</a></td><td><span><img class='likeimg' src='../resources/images/like.png' /></span></td><td><span><img class='commentimg' src='../resources/images/comment.png' /></span><span></span></td></tr>";
+	            		var html = "<tr><td><span class='category'>-</span></td><td><a class='hotboardname'>-</a></td><td><span id='hotBoardLikeImg'><img class='likeimg' src='../resources/images/like.png' /></span></td><td><span id='hotBoardReplyImg'><img class='commentimg' src='../resources/images/comment.png' /></span><span></span></td></tr>";
 	                    $("#hotboardtable").append(html);
 					}
 				}
@@ -110,7 +110,6 @@
 					<td colspan="4"><img src="../resources/images/hoticon.png" class="hoticon"
 						style="vertical-align: middle;" /> <span class="hotboardtitle"
 						style="vertical-align: middle;"><strong>핫 게시판</strong></span>
-						<hr>
 					</td>
 				</tr>
 			</table>
